@@ -1,0 +1,24 @@
+﻿@model RegisterDoctorAndUserViewModelForm
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/loginForm.css" />
+<link rel="stylesheet" href="~/css/general.css" />
+
+<div class="login-form-container">
+    <h1>Welcome!</h1>
+    <form asp-controller="Doctor" asp-action="Create" class="authentication-form">
+
+        <input type="text" placeholder="Username" asp-for="UserDataForm.UserName">
+        <input type="email" placeholder="Email" asp-for="UserDataForm.Email" />
+        <input type="password" placeholder="Password" asp-for="UserDataForm.Password">
+
+        <button type="submit">Register</button>
+        <input type="button" class="register-button" value="Login" onclick="@("window.location.href='" + @Url.Action("Login", "AppUser") + "'");" />
+
+    </form>
+</div>
+
+

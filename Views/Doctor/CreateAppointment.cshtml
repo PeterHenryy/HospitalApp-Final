@@ -1,0 +1,32 @@
+﻿@model Appointment
+
+<form asp-controller="Doctor" asp-action="CreateAppointment">
+    <div class="form-group">
+        <label >Appointment Start Time</label>
+        <select asp-for="AppointmentStartTime">
+            @foreach(var time in ViewBag.AppointmentTimes)
+            {
+                <option value="@time">@time</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Appointment End Time</label>
+        <select asp-for="AppointmentEndTime">
+            @foreach (var time in ViewBag.AppointmentTimes)
+            {
+                <option value="@time">@time</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label >Select the Date</label>
+        <input type="date" class="form-control" asp-for="AppointmentDate">
+    </div>
+    <div class="form-group">
+        <label>Appointment Price</label>
+        <input type="text" class="form-control" asp-for="InitialTotal">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Appointment</button>
+</form>

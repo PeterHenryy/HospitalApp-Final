@@ -1,0 +1,22 @@
+﻿@model List<Doctor>
+
+<a class="btn btn-success" href="@Url.Action("RegisterDoctor", "Admin")">Add Doctor</a>
+<table class="table table-striped table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Doctor Role</th>
+        <th>UserID</th>
+        <th>Doctor Name</th>
+    </tr>
+
+    @foreach(var doctor in Model)
+    {
+        <tr>
+            <td>@doctor.ID</td>
+            <td>@doctor.DoctorRole</td>
+            <td>@doctor.UserID</td>
+            <td>@doctor.User.UserName</td>
+            <td> <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {doctorID = doctor.ID, userID = doctor.UserID})">Delete</a></td>
+        </tr>
+    }
+</table>

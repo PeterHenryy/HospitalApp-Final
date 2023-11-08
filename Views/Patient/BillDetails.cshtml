@@ -1,0 +1,39 @@
+﻿@model HospitalApp.Models.Patients.ViewModels.BillDetailsViewModelForm
+
+<table class="table table-striped table-dark">
+    <tr>
+        <th>ID</th>
+        <th>UserID</th>
+        <th>Doctor Name</th>
+        <th>Bill Total</th>
+        <th>Doctor Notes</th>
+
+        <th>Insurance</th>
+    </tr>
+
+    <tr>
+        <td>@Model.BillData.Id
+        <td>@Model.BillData.Appointment.DoctorID</td>
+        <td>@Model.BillData.Appointment.User.UserName </td>
+        <td>@Model.BillData.Total </td>
+        <td>@Model.BillData.DoctorsNotes </td>
+        <td>@Model.BillData.InsuranceId </td>
+    </tr>         
+</table>
+
+<h1>ITEMS AND MEDICATION</h1>
+<table class="table table-striped table-dark">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var item in Model.BillItems)
+    {
+        <tr>
+            <td>@item.Name
+            <td>@item.Price </td>
+            <td>@item.Description </td>
+        </tr>
+    }
+</table>

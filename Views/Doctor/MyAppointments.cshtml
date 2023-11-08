@@ -1,0 +1,28 @@
+﻿@model List<Appointment>
+
+<table class="table table-striped table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Doctor ID</th>
+        <th>UserID</th>
+        <th>Doctor Name</th>
+        <th>Action</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var appointment in Model)
+    {
+        <tr>
+            <td>@appointment.ID</td>
+            <td>@appointment.DoctorID</td>
+            <td>@appointment.User.UserName</td>
+            <td>@(appointment.User != null ? appointment.User.UserName : "N/A")</td>
+            <td>
+                <a class="btn btn-success" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
+            </td>
+        </tr>
+    }
+</table>

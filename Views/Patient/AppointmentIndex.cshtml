@@ -1,0 +1,29 @@
+﻿@model List<Appointment>
+
+ 
+<table class="table table-striped table-dark">
+    <tr>
+        <th>ID</th>
+        <th>AppointmentStartTime</th>
+        <th>AppointmentEndTime</th>
+        <th>AppointmentDate</th>
+        <th>InitialTotal</th>
+        <th>IsBooked</th>
+        <th>Notes</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach(var appointment in Model)
+    {
+        <tr>
+            <td>@appointment.ID</td>
+            <td>@appointment.AppointmentStartTime</td>
+            <td>@appointment.AppointmentEndTime</td>
+            <td>@appointment.AppointmentDate</td>
+            <td>@appointment.InitialTotal</td>
+            <td>@appointment.IsBooked</td>
+            <td>@appointment.Notes</td>
+            <td> <a class="btn btn-danger" href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">Book Appointment</a></td>
+        </tr>
+    }
+</table>

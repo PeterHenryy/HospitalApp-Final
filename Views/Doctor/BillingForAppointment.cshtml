@@ -1,0 +1,73 @@
+﻿@model BillViewModel
+
+<table class="table table-striped table-dark">
+    <tr>
+        <th>ID</th>
+        <th>UserID</th>
+        <th>Doctor Name</th>
+        <th>Bill Total</th>
+        <th>Insurance</th>
+    </tr>
+
+    <tr>
+        <td>@Model.BillInfo.Id<td>
+        <td>@Model.BillInfo.Appointment.DoctorID</td>
+        <td>@Model.BillInfo.Appointment.User.UserName </td>
+        <td>@Model.BillInfo.Total </td>
+        <td>@Model.BillInfo.InsuranceId </td>
+    </tr>
+</table>
+
+
+<form asp-controller="Doctor" asp-action="CreateBillItems">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
+
+    <div class="form-group">
+        <label> Name</label>
+        <input type="text" class="form-control" asp-for="@Model.BillItemForm.Name">
+    </div>
+
+    <div class="form-group">
+        <label> Price</label>
+        <input type="text" class="form-control" asp-for="@Model.BillItemForm.Price">
+    </div>
+
+    <div class="form-group">
+        <label> Description</label>
+        <input type="text" class="form-control" asp-for="@Model.BillItemForm.Description">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Item</button>
+</form>
+
+<h1>ITEMS AND MEDICATION</h1>
+<table class="table table-striped table-dark">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var item in Model.BillItemsAdded)
+    {
+        <tr>
+            <td>@item.Name
+            <td>@item.Price </td>
+            <td>@item.Description </td>
+        </tr>
+    }
+</table>
+
+<form asp-controller="Doctor" asp-action="SendBillToPatient">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillForm.Id" value="@Model.BillInfo.Id">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillForm.Total" value="@Model.BillInfo.Total">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillForm.AppointmentId" value="@Model.BillInfo.AppointmentId">
+
+
+    <div class="form-group">
+        <label> Doctor Notes</label>
+        <input type="text" class="form-control" asp-for="@Model.BillForm.DoctorsNotes">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Bill</button>
+</form>

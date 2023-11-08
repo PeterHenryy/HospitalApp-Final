@@ -1,0 +1,23 @@
+﻿@model AppUser
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/loginForm.css" />
+<link rel="stylesheet" href="~/css/general.css" />
+
+<div class="login-form-container">
+    <h1>Welcome!</h1>
+    <form asp-controller="AppUser" asp-action="Register" class="authentication-form">
+
+        <input type="text" placeholder="Username" asp-for="UserName">
+        <input type="email" placeholder="Email" asp-for="Email" />
+        <input type="password" placeholder="Password" asp-for="Password">
+
+        <button type="submit">Register</button>
+        <input type="button" class="register-button" value="Login" onclick="@("window.location.href='" + @Url.Action("Login", "AppUser") + "'");" />
+
+    </form>
+</div>
+
+
