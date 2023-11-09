@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace EcommerceApp1.Controllers
+namespace HospitalApp.Controllers
 {
     public class AppUserController : Controller
     {
@@ -16,7 +16,7 @@ namespace EcommerceApp1.Controllers
         private readonly UserService _userService;
         private readonly AppUser _currentUser;
 
-        public AppUserController(SignInManager<AppUser> signInManager,UserManager<AppUser> userManger, UserService userService)
+        public AppUserController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManger, UserService userService)
         {
             _userManager = userManger;
             _userService = userService;
@@ -36,7 +36,7 @@ namespace EcommerceApp1.Controllers
         [HttpPost]
         public async Task<RedirectToActionResult> Register(AppUser appUser)
         {
-            appUser.ProfilePicture = "user-solid.svg";
+            appUser.ProfilePicture = "user-profilepic.png";
             var role = UserRolesEnum.Patient.ToString();
             var userRegister = await _userManager.CreateAsync(appUser);
             var assignRole = await _userManager.AddToRoleAsync(appUser, role);
@@ -62,7 +62,7 @@ namespace EcommerceApp1.Controllers
                 {
                     return Redirect(returnUrl);
                 }
-                return RedirectToAction("appointmentindex", "Patient");
+                return RedirectToAction("AppointmentIndex", "Patient");
             }
             return View();
         }
@@ -89,10 +89,11 @@ namespace EcommerceApp1.Controllers
                 _userService.HandleUserProfilePicture(files);
             }
             updatedUser.SecurityStamp = Guid.NewGuid().ToString();
-            AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser, _userManager);
+            AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser);
             var user = await _userManager.UpdateAsync(mappedUser);
             return RedirectToAction("Index", "Home");
         }
+
 
 
     }

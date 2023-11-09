@@ -20,6 +20,42 @@ namespace HospitalApp.Controllers
             _userService = userService;
             _currentUser = userService.GetCurrentUser();
         }
+        public IActionResult DisplayUserCreditCards()
+        {
+            List<CreditCard> creditCards = _patientService.GetSpecificUserCards(_currentUser.Id);
+            return View(creditCards);
+        }
+
+        [HttpGet]
+        public IActionResult CreateCreditCard()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCreditCard(CreditCard creditCard)
+        {
+            creditCard.UserID = _currentUser.Id;
+            bool createdCard = _patientService.CreateCreditCard(creditCard);
+            if (createdCard)
+            {
+                return RedirectToAction("DisplayUserCreditCards", "Patient");
+            }
+            return View();
+        }
+        //[HttpPost]
+        public IActionResult SelectInsuranceAndDiscount(BillDetailsViewModelForm billDetailsAndForm)
+        {
+
+            return View();
+        }
+
+
+        public IActionResult DeleteCreditCard(int creditCardID)
+        {
+            bool deletedCard = _patientService.DeleteCreditCard(creditCardID);
+            return RedirectToAction("DisplayUserCreditCards", "Patient");
+        }
         public IActionResult BillDetails(int appointmentId)
         {
             var bill = _patientService.GetBillByAppointmentId(appointmentId);

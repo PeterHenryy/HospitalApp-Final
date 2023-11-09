@@ -1,0 +1,27 @@
+﻿@model List<CreditCard>
+
+<a class="btn btn-outline-primary" href="@Url.Action("CreateCreditCard", "Patient")">Add a Credit Card</a>
+<table class="table table-striped table-dark">
+    <tr>
+        <th>Card Number</th>
+        <th>Name On Card</th>
+        <th>CVV</th>
+        <th>Expiry</th>
+        <th>Balance</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var card in @Model)
+    {
+        <tr>
+
+            <td>@card.CardNumber</td>
+            <td>@card.NameOnCard</td>
+            <td>@card.CVV</td>
+            <td>@card.Expiry</td>
+            <td>@card.Balance</td>
+            <td> <a class="btn btn-danger" href="@Url.Action("DeleteCreditCard", "Patient", new {creditCardID = card.ID})">Delete</a></td>
+        </tr>
+
+    }
+</table>
