@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HospitalApp.Helpers.Enums
 {
@@ -36,6 +37,15 @@ namespace HospitalApp.Helpers.Enums
         {
             var amountOff = (total * percentage) / 100;
             return total - amountOff;
+        }
+        public static string GetInsuranceNameById(int Insuranceid)
+        {
+            if (Insuranceid == 0)
+            {
+                return null;
+            }
+            var name = InsuranceCoverage.ElementAt(Insuranceid - 1).Key.ToString();
+            return name;
         }
     }
 }

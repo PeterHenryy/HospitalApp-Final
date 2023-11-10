@@ -1,10 +1,13 @@
-﻿using HospitalApp.Models;
+﻿using HospitalApp.Helpers.Enums;
+using HospitalApp.Models;
 using HospitalApp.Models.Identity;
 using HospitalApp.Models.Patients;
 using HospitalApp.Models.Patients.ViewModels;
 using HospitalApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HospitalApp.Controllers
 {
@@ -20,41 +23,16 @@ namespace HospitalApp.Controllers
             _userService = userService;
             _currentUser = userService.GetCurrentUser();
         }
-        public IActionResult DisplayUserCreditCards()
-        {
-            List<CreditCard> creditCards = _patientService.GetSpecificUserCards(_currentUser.Id);
-            return View(creditCards);
-        }
 
-        [HttpGet]
-        public IActionResult CreateCreditCard()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult CreateCreditCard(CreditCard creditCard)
-        {
-            creditCard.UserID = _currentUser.Id;
-            bool createdCard = _patientService.CreateCreditCard(creditCard);
-            if (createdCard)
-            {
-                return RedirectToAction("DisplayUserCreditCards", "Patient");
-            }
-            return View();
-        }
-        //[HttpPost]
         public IActionResult SelectInsuranceAndDiscount(BillDetailsViewModelForm billDetailsAndForm)
         {
-
-            return View();
-        }
-
-
-        public IActionResult DeleteCreditCard(int creditCardID)
-        {
-            bool deletedCard = _patientService.DeleteCreditCard(creditCardID);
-            return RedirectToAction("DisplayUserCreditCards", "Patient");
+            var bill = billDetailsAndForm.BillData;
+            var percentageOff = Convert.ToDecimal(InsuranceTypesEnum.InsuranceCoverage.ElementAt(bill.InsuranceId - 1).Value);
+            var discountedTotal = InsuranceTypesEnum.CalculatePercentage(bill.Total, percentageOff);
+            bill.OriginalTotal = bill.Total;
+            bill.Total = discountedTotal;
+            var updatedBill = _patientService.UpdateBill(bill);
+            return RedirectToAction("BillDetails", "Patient", new {appointmentId = bill.AppointmentId});
         }
         public IActionResult BillDetails(int appointmentId)
         {
@@ -65,6 +43,13 @@ namespace HospitalApp.Controllers
 
             return View(billDetails);
         }
+        public IActionResult CreateTranscation()
+        {
+            IndexViewModel ivm = new IndexViewModel();
+            ivm.ActiveAppointments = _patientService.GetActiveAppointmentsByUserId(_currentUser.Id);
+            return View(ivm);
+        }
+
         public IActionResult MyAppointments()
         {
             IndexViewModel ivm = new IndexViewModel();

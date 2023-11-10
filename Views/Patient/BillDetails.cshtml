@@ -1,5 +1,8 @@
 ﻿@model HospitalApp.Models.Patients.ViewModels.BillDetailsViewModelForm
 @using HospitalApp.Helpers.Enums;
+@{
+    var nameOfInsurance = InsuranceTypesEnum.GetInsuranceNameById(Model.BillData.InsuranceId);
+}
 
 <table class="table table-striped table-dark">
     <tr>
@@ -7,6 +10,7 @@
         <th>UserID</th>
         <th>Doctor Name</th>
         <th>Bill Total</th>
+        <th>Original Bill Total</th>
         <th>Doctor Notes</th>
 
         <th>Insurance</th>
@@ -17,8 +21,9 @@
         <td>@Model.BillData.Appointment.DoctorID</td>
         <td>@Model.BillData.Appointment.User.UserName </td>
         <td>@Model.BillData.Total </td>
+        <td>@Model.BillData.OriginalTotal </td>
         <td>@Model.BillData.DoctorsNotes </td>
-        <td>@Model.BillData.InsuranceId </td>
+        <td>@nameOfInsurance</td>
     </tr>         
 </table>
 
@@ -38,25 +43,29 @@
         </tr>
     }
 </table>
-
-<div class="login-form-container">
-    <h1>Welcome!</h1>
-    <form asp-controller="Patient" asp-action="SelectInsuranceAndDiscount" class="authentication-form">
+@if (Model.BillData.InsuranceId == 0)
+{
+ 
+    <div class="login-form-container">
+        <h1>Welcome!</h1>
+        <form asp-controller="Patient" asp-action="SelectInsuranceAndDiscount" class="authentication-form">
         
-        <input asp-for="BillData.Id" value="@Model.BillData.Id" />
-        <input asp-for="BillData.Total" value="@Model.BillData.Total" />
-        <input asp-for="BillData.DoctorsNotes" value="@Model.BillData.DoctorsNotes" />
-        <input asp-for="BillData.IsDoctorApproved" value="@Model.BillData.IsDoctorApproved" />
-        <input asp-for="BillData.AppointmentId" value="@Model.BillData.AppointmentId" />
+            <input hidden asp-for="BillData.Id" value="@Model.BillData.Id" />
+            <input hidden asp-for="BillData.Total" value="@Model.BillData.Total" />
+            <input hidden asp-for="BillData.DoctorsNotes" value="@Model.BillData.DoctorsNotes" />
+            <input hidden asp-for="BillData.IsDoctorApproved" value="@Model.BillData.IsDoctorApproved" />
+            <input hidden asp-for="BillData.AppointmentId" value="@Model.BillData.AppointmentId" />
 
-        <select asp-for="@Model.BillData.InsuranceId">
-            <option disabled> Select Insurance </option>
-            @for(var i = 0; i < InsuranceTypesEnum.InsuranceCoverage.Count(); i++)
-            {
-                <option value="@(i+1)">@InsuranceTypesEnum.InsuranceCoverage.ElementAt(i).Key</option>
-            }
-        </select>
-        <button type="submit">Add Insurance</button>
+            <select asp-for="@Model.BillData.InsuranceId">
+                <option disabled> Select Insurance </option>
+                @for(var i = 0; i < InsuranceTypesEnum.InsuranceCoverage.Count(); i++)
+                {
+                    <option value="@(i+1)">@InsuranceTypesEnum.InsuranceCoverage.ElementAt(i).Key</option>
+                }
+            </select>
+            <button type="submit">Add Insurance</button>
 
-    </form>
+
+        </form>
 </div>
+}

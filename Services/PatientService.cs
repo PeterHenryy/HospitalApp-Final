@@ -72,28 +72,12 @@ namespace HospitalApp.Services
             };
             return newPROMIS10;
         }
-        public bool CreateCreditCard(CreditCard creditCard)
+        public bool UpdateBill(Bill bill)
         {
-            bool createdCard = _patientRepository.CreateCreditCard(creditCard);
-            return createdCard;
+            return _patientRepository.UpdateBill(bill);
         }
+      
 
-        public bool DeleteCreditCard(int creditCardID)
-        {
-            bool updatedCard = _patientRepository.DeleteCreditCard(creditCardID);
-            return updatedCard;
-        }
-
-        public CreditCard GetCreditCardByID(int creditCardID)
-        {
-            CreditCard card = _patientRepository.GetCreditCardByID(creditCardID);
-            return card;
-        }
-
-        public List<CreditCard> GetSpecificUserCards(int userID)
-        {
-            List<CreditCard> userCards = _patientRepository.GetSpecificUserCards(userID);
-            return userCards;
-        }
+ 
     }
 }

@@ -12,6 +12,7 @@ namespace HospitalApp.Models
         public int Id { get; set; }
 
         public decimal Total { get; set; }
+        public decimal OriginalTotal { get; set; }
         public int InsuranceId { get; set; } = 0;
         public string? DoctorsNotes { get; set; }
         public bool IsDoctorApproved { get; set; }
