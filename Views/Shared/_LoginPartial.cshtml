@@ -1,4 +1,5 @@
-﻿@using HospitalApp.Models.Identity;
+﻿@using HospitalApp.Helpers.Enums;
+@using HospitalApp.Models.Identity;
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
@@ -6,8 +7,27 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    bool doctorRole = User.IsInRole(UserRolesEnum.Doctor.ToString());
+    bool adminRole = User.IsInRole(UserRolesEnum.Admin.ToString());
+    string action = doctorRole ? "Doctor" : "Patient";
+    string greeting = doctorRole ? "Doctor" : "";
+    @if (adminRole)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="@Url.Action("RegisterDoctor", "Admin")">RegisterDoctor</a>
+        </li>
+    }
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+        <a class="nav-link text-dark" href="@Url.Action("AppointmentIndex", "Patient")">Available Appointments</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="@Url.Action("DisplayUserCreditCards", "Patient")">Credit Cards</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="@Url.Action("MyAppointments", @action)" title="Manage">My Appointments</a>
+    </li>
+    <li class="nav-item">
+        <a  class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage">Hello @greeting @User.Identity.Name!</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-controller="AppUser" asp-action="Logout">
