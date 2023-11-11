@@ -84,7 +84,7 @@ namespace HospitalApp.Controllers
                 bill.Appointment = appointment;
                 bill.AppointmentId = appointment.ID;
                 bill.Total = appointment.InitialTotal;
-
+                bill.OriginalTotal = appointment.InitialTotal;
                 // Creating Bill to have id as reference for BillItems
                 billObject = _doctorService.CreateBill(bill);
             }

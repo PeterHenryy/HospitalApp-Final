@@ -134,6 +134,9 @@ namespace HospitalApp.Migrations
                     b.Property<string>("DoctorRole")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HierarchyStatus")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 

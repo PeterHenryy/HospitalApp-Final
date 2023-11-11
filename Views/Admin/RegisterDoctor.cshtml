@@ -1,5 +1,5 @@
 ﻿@model RegisterDoctorAndUserViewModelForm
-
+@using HospitalApp.Helpers.Enums
 @{
     Layout = null;
 }
@@ -18,8 +18,18 @@
         <select asp-for="DoctorDataForm.DoctorRole" asp-items="new SelectList(Model.DoctorRoles)">
             <option>Select a Role</option>
         </select>
+
+        <select asp-for="DoctorDataForm.HierarchyStatus">
+            <option disabled> Select Hierarchy Status </option>
+            @for (var i = 0; i < DoctorHierarchy.DoctorsHierarchy.Count(); i++)
+            {
+                <option value="@(i+1)">@DoctorHierarchy.DoctorsHierarchy.ElementAt(i).Key</option>
+            }
+        </select>
+
         <button type="submit">Add Doctor</button>
 
+        
     </form>
 </div>
 

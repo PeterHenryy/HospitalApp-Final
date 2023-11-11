@@ -20,12 +20,17 @@ namespace HospitalApp.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly DoctorService _doctorService;
         private readonly PatientService _patientService;
-
-        public AdminController(UserManager<AppUser> userManager, DoctorService doctorService, PatientService patientService)
+        private readonly AdminService _adminService;
+        private readonly UserService _userService;
+        private readonly AppUser _currentUser;
+        public AdminController(UserManager<AppUser> userManager, UserService userService, DoctorService doctorService, PatientService patientService, AdminService adminService)
         {
-            _userManager = userManager;
+            _userManager = userManager; 
+            _userService = userService;
+            _currentUser = userService.GetCurrentUser();
             _doctorService = doctorService;
             _patientService = patientService;
+            _adminService = adminService;
         }
 
         [HttpGet]
@@ -61,6 +66,14 @@ namespace HospitalApp.Controllers
         public IActionResult DoctorsIndex()
         {
             List<Doctor> doctors = _doctorService.GetAllDoctors();
+            List<decimal> revenues = new List<decimal>();
+            foreach (var doctor in doctors)
+            {
+                decimal doctorRevenue = _adminService.CalculateDoctorRevenue(doctor.ID);
+                revenues.Add(doctorRevenue);
+            }
+            ViewBag.DoctorRevenues = revenues;
+            ViewBag.Revenue = _adminService.CalculateHospitalRevenue();
             return View(doctors);
         }
 
@@ -86,11 +99,15 @@ namespace HospitalApp.Controllers
 
         public async Task<IActionResult> AppointmentDetails(int appointmentID)
         {
+            List<BillItem> billItems = new List<BillItem>();
             Appointment appointment = _doctorService.GetAppointmentById(appointmentID);
             Bill bill = _doctorService.GetBillByAppointmentId(appointmentID);
-            bill.Appointment.User = await _userManager.FindByIdAsync(appointment.UserID.ToString());
+            if(bill != null)
+            {
+                billItems = _doctorService.GetBillItemsByBillId(bill.Id);
+                bill.Appointment.User = await _userManager.FindByIdAsync(appointment.UserID.ToString());
+            }
             PROMIS10 promis10 = _patientService.GetPROMIS10ByAppointmentID(appointmentID);
-            List<BillItem> billItems = _doctorService.GetBillItemsByBillId(bill.Id);
             List<Doctor> doctors = _doctorService.GetAllDoctors();
             var appointmentDetailsViewModel = new AppointmentDetailsViewModel();
             appointmentDetailsViewModel.Appointment = appointment;
@@ -107,6 +124,48 @@ namespace HospitalApp.Controllers
             appointment.DoctorID = appointmentDetailsViewModel.DoctorID;
             bool updatedAppointment = _patientService.UpdateAppointment(appointment);
             return RedirectToAction("AppointmentDetails", "Admin", new { appointmentID = appointmentDetailsViewModel.AppointmentID });
+        }
+
+        [HttpGet]
+        public IActionResult CreateAppointment(int doctorId)
+        {
+            List<string> appointmentTimes = new List<string>();
+
+            for (int hour = 1; hour <= 12; hour++)
+            {
+                appointmentTimes.Add($"{hour}:00 AM");
+            }
+
+            for (int hour = 1; hour <= 12; hour++)
+            {
+                appointmentTimes.Add($"{hour}:00 PM");
+            }
+
+            ViewBag.AppointmentTimes = appointmentTimes;
+            Appointment appointment = new Appointment()
+            {
+                DoctorID = doctorId
+            };
+            return View(appointment);
+        }
+
+        [HttpPost]
+        public IActionResult CreateAppointment(Appointment appointment)
+        {
+            appointment.IsBooked = false;
+            bool createdAppointment = _doctorService.CreateAppointment(appointment);
+            if (createdAppointment)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+        public IActionResult CancelAppointment(int appointmentId)
+        {
+            var appointment = _patientService.GetAppointmentByID(appointmentId);
+            appointment.IsRejected = true;
+            var isUpdated = _patientService.UpdateAppointment(appointment);
+            return RedirectToAction("DoctorAppointments", "Admin", new { doctorID = appointment.DoctorID });
         }
     }
 }

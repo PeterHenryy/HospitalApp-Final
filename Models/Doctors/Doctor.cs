@@ -7,11 +7,10 @@ namespace HospitalApp.Models.Doctors
     public class Doctor
     {
         // Properties
-
         [Key]
         public int ID { get; set; }
         public string DoctorRole { get; set; }
-
+        public int HierarchyStatus { get; set; }
         // References
         [ForeignKey("AspNetUsers")]
         public int UserID { get; set; }

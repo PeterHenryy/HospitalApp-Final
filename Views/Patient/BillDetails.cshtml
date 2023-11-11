@@ -1,4 +1,4 @@
-﻿@model HospitalApp.Models.Patients.ViewModels.BillDetailsViewModelForm
+﻿@model HospitalApp.Models.Patients.ViewModels.BillAndTransactionDetailsViewModelForm
 @using HospitalApp.Helpers.Enums;
 @{
     var nameOfInsurance = InsuranceTypesEnum.GetInsuranceNameById(Model.BillData.InsuranceId);
@@ -67,5 +67,40 @@
 
 
         </form>
-</div>
+    </div>
 }
+
+<div class="login-form-container">
+    <h1>Welcome!</h1>
+    <form asp-controller="Patient" asp-action="CreateTransaction" class="authentication-form">
+        <input hidden asp-for="TransactionForm.BillId" value="@Model.BillData.Id" />
+        <input hidden asp-for="AppointmentId" value="@Model.BillData.AppointmentId" />
+        <input hidden asp-for="TransactionForm.PaymentAmount" value="@Model.BillData.Total" />
+
+            <!-- Add credit card fields -->
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" class="form-control" asp-for="@Model.TransactionForm.CardNumber">
+            </div>
+            <div class="form-group">
+                <label>Card Holder Name</label>
+                <input type="text" class="form-control" asp-for="@Model.TransactionForm.CardHolderName">
+            </div>
+            <div class="form-group">
+                <label>Expiry Month</label>
+                <input type="text" class="form-control" asp-for="@Model.TransactionForm.ExpiryMonth">
+            </div>
+            <div class="form-group">
+                <label>Expiry Year</label>
+                <input type="text" class="form-control" asp-for="@Model.TransactionForm.ExpiryYear">
+            </div>
+            <div class="form-group">
+                <label>CVV</label>
+                <input type="text" class="form-control" asp-for="@Model.TransactionForm.CVV">
+            </div>
+          
+
+            <button type="submit">PayBill</button>
+
+    </form>
+</div>

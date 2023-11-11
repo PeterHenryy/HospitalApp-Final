@@ -14,6 +14,8 @@
         <th>Is Rejected</th>
         <th>Notes</th>
         <th>Action</th>
+        <th>Action</th>
+
     </tr>
 
     @foreach (var appointment in Model)
@@ -31,6 +33,8 @@
             <td>@appointment.IsRejected</td>
             <td>@appointment.Notes</td>
             <td><a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentID = appointment.ID})">Details</a></td>
+            <td><a class="btn btn-primary" href="@Url.Action("CancelAppointment", "Admin", new {appointmentID = appointment.ID})">Cancel Appointment</a></td>
+
         </tr>
     }
 </table>

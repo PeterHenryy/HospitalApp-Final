@@ -44,6 +44,8 @@ namespace HospitalApp
             services.AddTransient<DoctorService>();
             services.AddTransient<PatientRepository>();
             services.AddTransient<PatientService>();
+            services.AddTransient<AdminService>();
+            services.AddTransient<AdminRepository>();
 
         }
 

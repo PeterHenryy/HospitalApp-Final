@@ -16,6 +16,19 @@ namespace HospitalApp.Models.Repositories
         {
             _context = context;
         }
+        public bool CreateTransaction(Transaction transaction)
+        {
+            try
+            {
+                _context.Transactions.Add(transaction);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
         public bool UpdateBill(Bill bill)
         {
             try

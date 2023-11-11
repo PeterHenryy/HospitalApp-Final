@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231110224334_Tabool")]
-    partial class Tabool
+    [Migration("20231111212524_newStatus")]
+    partial class newStatus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,6 +135,9 @@ namespace HospitalApp.Migrations
 
                     b.Property<string>("DoctorRole")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HierarchyStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");

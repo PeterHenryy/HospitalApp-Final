@@ -1,4 +1,5 @@
 ﻿@model AppointmentDetailsViewModel
+@using HospitalApp.Helpers.Enums
 
 <table class="table table-striped table-dark">
     <tr>
@@ -115,7 +116,7 @@
         <select asp-for="DoctorID" class="form-control">
             @foreach(var doctor in Model.Doctors)
             {
-                <option value="@doctor.ID">@doctor.User.UserName - @doctor.DoctorRole</option>
+                <option value="@doctor.ID">@doctor.User.UserName - @doctor.DoctorRole - @DoctorHierarchy.DislpayDictionary[@doctor.HierarchyStatus]</option>
             }
         </select>
 

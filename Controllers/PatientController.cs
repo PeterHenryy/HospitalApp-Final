@@ -24,7 +24,7 @@ namespace HospitalApp.Controllers
             _currentUser = userService.GetCurrentUser();
         }
 
-        public IActionResult SelectInsuranceAndDiscount(BillDetailsViewModelForm billDetailsAndForm)
+        public IActionResult SelectInsuranceAndDiscount(BillAndTransactionDetailsViewModelForm billDetailsAndForm)
         {
             var bill = billDetailsAndForm.BillData;
             var percentageOff = Convert.ToDecimal(InsuranceTypesEnum.InsuranceCoverage.ElementAt(bill.InsuranceId - 1).Value);
@@ -37,17 +37,22 @@ namespace HospitalApp.Controllers
         public IActionResult BillDetails(int appointmentId)
         {
             var bill = _patientService.GetBillByAppointmentId(appointmentId);
-            BillDetailsViewModelForm billDetails = new BillDetailsViewModelForm();
+            BillAndTransactionDetailsViewModelForm billDetails = new BillAndTransactionDetailsViewModelForm();
             billDetails.BillData = bill;
             billDetails.BillItems = _patientService.GetBillItemsByBillId(bill.Id);
 
             return View(billDetails);
         }
-        public IActionResult CreateTranscation()
+        public IActionResult CreateTransaction(BillAndTransactionDetailsViewModelForm transactionFormInfo)
         {
-            IndexViewModel ivm = new IndexViewModel();
-            ivm.ActiveAppointments = _patientService.GetActiveAppointmentsByUserId(_currentUser.Id);
-            return View(ivm);
+            Transaction transacation = transactionFormInfo.TransactionForm;
+            var isCreated = _patientService.CreateTransaction(transacation, transactionFormInfo.AppointmentId);
+            if (!isCreated)
+            {
+                return RedirectToAction("BillDetails", new { appointmentId = transactionFormInfo.AppointmentId });
+            }
+            return RedirectToAction("MyAppointments");
+
         }
 
         public IActionResult MyAppointments()
