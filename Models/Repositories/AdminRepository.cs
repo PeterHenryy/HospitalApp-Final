@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HospitalApp.Models.Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class AdminRepository
     {
         private readonly ApplicationDbContext _context;
 
