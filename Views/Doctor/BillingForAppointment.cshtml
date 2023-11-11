@@ -4,18 +4,19 @@
     <tr>
         <th>ID</th>
         <th>UserID</th>
-        <th>Doctor Name</th>
+        <th>User Name</th>
         <th>Bill Total</th>
         <th>Insurance</th>
     </tr>
 
     <tr>
         <td>@Model.BillInfo.Id<td>
-        <td>@Model.BillInfo.Appointment.DoctorID</td>
+        <td>@Model.BillInfo.Appointment.UserID</td>
         <td>@Model.BillInfo.Appointment.User.UserName </td>
         <td>@Model.BillInfo.Total </td>
         <td>@Model.BillInfo.InsuranceId </td>
     </tr>
+
 </table>
 
 

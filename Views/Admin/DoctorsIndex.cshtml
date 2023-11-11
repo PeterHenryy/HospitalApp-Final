@@ -5,8 +5,10 @@
     <tr>
         <th>ID</th>
         <th>Doctor Role</th>
-        <th>UserID</th>
+        <th>Doctor Email</th>
         <th>Doctor Name</th>
+        <th>Action</th>
+        <th>Action</th>
     </tr>
 
     @foreach(var doctor in Model)
@@ -14,9 +16,10 @@
         <tr>
             <td>@doctor.ID</td>
             <td>@doctor.DoctorRole</td>
-            <td>@doctor.UserID</td>
+            <td>@doctor.User.Email</td>
             <td>@doctor.User.UserName</td>
             <td> <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {doctorID = doctor.ID, userID = doctor.UserID})">Delete</a></td>
+            <td> <a class="btn btn-primary" href="@Url.Action("DoctorAppointments", "Admin", new {doctorID = doctor.ID})">Details</a></td>
         </tr>
     }
 </table>

@@ -24,7 +24,7 @@ namespace HospitalApp.Services
         }
         public List<Appointment> GetAvaliablesAppointments()
         {
-            List<Appointment> appointment = _patientRepository.GetAvaliablesAppointments();
+            List<Appointment> appointment = _patientRepository.GetAvailableAppointments();
             return appointment;
         }
         public List<BillItem> GetBillItemsByBillId(int billId)
@@ -76,8 +76,17 @@ namespace HospitalApp.Services
         {
             return _patientRepository.UpdateBill(bill);
         }
-      
 
- 
+        public PROMIS10 GetPROMIS10ByAppointmentID(int appointmentID)
+        {
+            PROMIS10 promis10 = _patientRepository.GetPROMIS10ByAppointmentID(appointmentID);
+            return promis10;
+        }
+
+        public bool UpdateAppointment(Appointment appointment)
+        {
+            bool updatedAppointment = _patientRepository.UpdateAppointment(appointment);
+            return updatedAppointment;
+        }
     }
 }

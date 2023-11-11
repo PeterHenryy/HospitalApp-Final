@@ -3,9 +3,11 @@ using HospitalApp.Models.Doctors;
 using HospitalApp.Models.Doctors.ViewModelForm;
 using HospitalApp.Models.Identity;
 using HospitalApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HospitalApp.Controllers
 {
@@ -14,12 +16,14 @@ namespace HospitalApp.Controllers
         private readonly DoctorService _doctorService;
         private readonly UserService _userService;
         private readonly AppUser _currentUser;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DoctorController(DoctorService doctorService, UserService userService)
+        public DoctorController(DoctorService doctorService, UserService userService, UserManager<AppUser> userManager)
         {
             _doctorService = doctorService;
             _userService = userService;
             _currentUser = userService.GetCurrentUser();
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -61,7 +65,7 @@ namespace HospitalApp.Controllers
             var appointments = _doctorService.GetAppointmentsByDoctor(doctorId);
             return View(appointments);
         }
-        public IActionResult BillingForAppointment(int appointmentId)
+        public async Task<IActionResult> BillingForAppointment(int appointmentId)
         {
             // Grabbing appointment Object which we are billing
             var appointment = _doctorService.GetAppointmentById(appointmentId);
@@ -100,6 +104,7 @@ namespace HospitalApp.Controllers
 
             // Creating ViewModel & passing info in
             BillViewModel billViewModel = new BillViewModel();
+            billObject.Appointment.User = await _userManager.FindByIdAsync(appointment.UserID.ToString());
             billViewModel.BillInfo = billObject;
             billViewModel.BillItemsAdded = billItems;
             billViewModel.BillInfo.Total = billObject.Total + billItems.Sum(x => x.Price);

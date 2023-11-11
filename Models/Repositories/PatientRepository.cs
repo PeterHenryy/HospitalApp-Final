@@ -40,7 +40,7 @@ namespace HospitalApp.Models.Repositories
             List<BillItem> billItems = _context.BillItems.Where(x => x.BillId == billId).ToList();
             return billItems;
         }
-        public List<Appointment> GetAvaliablesAppointments()
+        public List<Appointment> GetAvailableAppointments()
         {
             List<Appointment> appointment = _context.Appointments.Where(x => x.IsBooked == false).ToList();
             return appointment;
@@ -70,6 +70,26 @@ namespace HospitalApp.Models.Repositories
             {
                 _context.Appointments.Update(appointment);
                 _context.PROMIS10s.Add(promis10);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
+
+        public PROMIS10 GetPROMIS10ByAppointmentID(int appointmentID)
+        {
+            PROMIS10 promis10 = _context.PROMIS10s.SingleOrDefault(x => x.AppointmentId == appointmentID);
+            return promis10;
+        }
+
+        public bool UpdateAppointment(Appointment appointment)
+        {
+            try
+            {
+                _context.Appointments.Update(appointment);
                 _context.SaveChanges();
                 return true;
             }
