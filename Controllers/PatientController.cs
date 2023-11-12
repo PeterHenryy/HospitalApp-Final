@@ -51,7 +51,7 @@ namespace HospitalApp.Controllers
             {
                 return RedirectToAction("BillDetails", new { appointmentId = transactionFormInfo.AppointmentId });
             }
-            return RedirectToAction("MyAppointments");
+            return RedirectToAction("AddReview", new { appointmentId = transactionFormInfo.AppointmentId });
 
         }
 
@@ -61,6 +61,11 @@ namespace HospitalApp.Controllers
             ivm.ActiveAppointments = _patientService.GetActiveAppointmentsByUserId(_currentUser.Id);
             return View(ivm);
         }
+        public IActionResult DoctorAndAppointmentsDetails(int doctorId)
+        {
+            return View();
+        }
+         
         public IActionResult AppointmentIndex()
         {
             var appointments = _patientService.GetAvaliablesAppointments();
@@ -88,6 +93,18 @@ namespace HospitalApp.Controllers
             {
                 return View(appointment);
             }
+            return RedirectToAction("AppointmentIndex");
+        }
+        [HttpGet]
+        public IActionResult AddReview(int appointmentId)
+        {
+            Review review = new Review();
+            review.AppointmentId = appointmentId;
+            return View(review);
+        }
+        public IActionResult AddReview(Review review)
+        {
+            var isCreated = _patientService.CreateReview(review);
             return RedirectToAction("AppointmentIndex");
         }
 

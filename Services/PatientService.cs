@@ -88,6 +88,10 @@ namespace HospitalApp.Services
             bool updatedAppointment = _patientRepository.UpdateAppointment(appointment);
             return updatedAppointment;
         }
+        public bool CreateReview(Review review)
+        {
+            return _patientRepository.CreateReview(review);
+        }
         public bool CreateTransaction(Transaction transaction, int appointmentId)
         {
             var isCreated =  _patientRepository.CreateTransaction(transaction);
