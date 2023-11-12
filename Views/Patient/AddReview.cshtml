@@ -1,0 +1,10 @@
+﻿@model Review
+
+<form asp-controller="Patient" asp-action="AddReview" class="authentication-form">
+    <input hidden asp-for="AppointmentId" value="@Model.AppointmentId"/>
+    <label>Comment </label>
+    <input type="text" asp-for="Comment" />    
+    <label>Rating </label>
+    <input type="number" asp-for="Rating" />
+    <button type="submit">Add review</button>
+</form>

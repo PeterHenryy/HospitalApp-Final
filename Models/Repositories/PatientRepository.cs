@@ -16,6 +16,19 @@ namespace HospitalApp.Models.Repositories
         {
             _context = context;
         }
+        public bool CreateReview(Review review)
+        {
+            try
+            {
+                _context.Reviews.Add(review);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
         public bool CreateTransaction(Transaction transaction)
         {
             try
@@ -55,7 +68,11 @@ namespace HospitalApp.Models.Repositories
         }
         public List<Appointment> GetAvailableAppointments()
         {
-            List<Appointment> appointment = _context.Appointments.Where(x => x.IsBooked == false).ToList();
+            List<Appointment> appointment = _context.Appointments
+                                                        .Include(x => x.Doctor)
+                                                            .Include(x => x.Doctor.User)
+                                                                .Include(x => x.User)
+                                                                    .Where(x => x.IsBooked == false).ToList();
             return appointment;
         }
         public List<Appointment> GetActiveAppointmentsByUserId(int userId)

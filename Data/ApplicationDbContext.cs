@@ -22,6 +22,6 @@ namespace HospitalApp.Data
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillItem> BillItems { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
     }
 }
