@@ -100,5 +100,11 @@ namespace HospitalApp.Services
             }
             return isCreated;
         }
+
+        public List<Bill> GetPatientBills(int patientID)
+        {
+            List<Bill> patientBills = _patientRepository.GetPatientBills(patientID);
+            return patientBills;
+        }
     }
 }

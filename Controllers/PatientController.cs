@@ -1,9 +1,12 @@
 ﻿using HospitalApp.Helpers.Enums;
 using HospitalApp.Models;
+using HospitalApp.Models.Admins.ViewModels;
+using HospitalApp.Models.Doctors;
 using HospitalApp.Models.Identity;
 using HospitalApp.Models.Patients;
 using HospitalApp.Models.Patients.ViewModels;
 using HospitalApp.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -91,5 +94,29 @@ namespace HospitalApp.Controllers
             return RedirectToAction("AppointmentIndex");
         }
 
+        public IActionResult PatientBills()
+        {
+            List<Bill> patientBills = _patientService.GetPatientBills(_currentUser.Id);
+            return View(patientBills);
+        }
+
+        public IActionResult AppointmentDetails(int appointmentID)
+        {
+            List<BillItem> billItems = new List<BillItem>();
+            Appointment appointment = _patientService.GetAppointmentByID(appointmentID);
+            Bill bill = _patientService.GetBillByAppointmentId(appointmentID);
+            if (bill != null)
+            {
+                billItems = _patientService.GetBillItemsByBillId(bill.Id);
+            }
+            PROMIS10 promis10 = _patientService.GetPROMIS10ByAppointmentID(appointmentID);
+            var appointmentDetailsViewModel = new AppointmentDetailsViewModel();
+            appointmentDetailsViewModel.Appointment = appointment;
+            appointmentDetailsViewModel.Bill = bill;
+            appointmentDetailsViewModel.PROMIS10 = promis10;
+            appointmentDetailsViewModel.BillItemsAdded = billItems;
+            return View(appointmentDetailsViewModel);
+
+        }
     }
 }

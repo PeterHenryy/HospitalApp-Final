@@ -8,5 +8,6 @@ namespace HospitalApp.Models.Interfaces
     {
         List<Doctor> GetDoctorsDropdown();
         PROMIS10 GetPROMIS10ByAppointmentID(int appointmentID);
+        List<Bill> GetPatientBills(int patientID);
     }
 }

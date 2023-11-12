@@ -111,5 +111,11 @@ namespace HospitalApp.Models.Repositories
                 return false;
             }
         }
+
+        public List<Bill> GetPatientBills(int patientID)
+        {
+            List<Bill> patientBills = _context.Bills.Include(x => x.Appointment).Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid).ToList();
+            return patientBills;
+        }
     }
 }

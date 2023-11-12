@@ -1,5 +1,4 @@
 ﻿@model AppointmentDetailsViewModel
-@using HospitalApp.Helpers.Enums
 
 <table class="table table-striped table-dark">
     <tr>
@@ -30,10 +29,10 @@
         <td>@Model.Appointment.IsRejected</td>
         <td>@Model.Appointment.Notes</td>
     </tr>
-    
+
 </table>
 
-@if(Model.Bill != null)
+@if (Model.Bill != null)
 {
     <table class="table table-striped table-dark">
         <tr>
@@ -56,7 +55,8 @@
     </table>
 }
 
-@if(Model.BillItemsAdded != null){
+@if (Model.BillItemsAdded != null)
+{
 
     <h1>ITEMS AND MEDICATION</h1>
     <table class="table table-striped table-dark">
@@ -76,7 +76,7 @@
     </table>
 }
 
-@if(Model.PROMIS10 != null)
+@if (Model.PROMIS10 != null)
 {
     PROMIS10 promis10 = Model.PROMIS10;
     var questions = PROMIS10_Questions.QuestionsList;
@@ -107,21 +107,3 @@
     </table>
 }
 
-@if (!AdminService.HasOccurred(Model.Appointment.AppointmentDate))
-{
-    <form asp-controller="Admin" asp-action="ReassignDoctorToAppointment" class="authentication-form" method="post">
-        <label>Reassign this appointment to another doctor</label>
-
-        <select asp-for="DoctorID" class="form-control">
-            @foreach(var doctor in Model.Doctors)
-            {
-                <option value="@doctor.ID">@doctor.User.UserName - @doctor.DoctorRole - @DoctorHierarchy.DislpayDictionary[@doctor.HierarchyStatus]</option>
-            }
-        </select>
-
-        <input type="hidden" asp-for="AppointmentID" />
-
-        <button type="submit" class="btn btn-primary">Reassign</button>
-    </form>
-    
-}
