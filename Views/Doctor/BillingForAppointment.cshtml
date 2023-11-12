@@ -61,6 +61,7 @@
 
 <form asp-controller="Doctor" asp-action="SendBillToPatient">
     <input type="text" class="form-control" hidden asp-for="@Model.BillForm.Id" value="@Model.BillInfo.Id">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillForm.OriginalTotal" value="@Model.BillInfo.OriginalTotal">
     <input type="text" class="form-control" hidden asp-for="@Model.BillForm.Total" value="@Model.BillInfo.Total">
     <input type="text" class="form-control" hidden asp-for="@Model.BillForm.AppointmentId" value="@Model.BillInfo.AppointmentId">
 
