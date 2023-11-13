@@ -66,6 +66,13 @@ namespace HospitalApp.Models.Repositories
             Doctor doctor = _context.Doctors.SingleOrDefault(x => x.ID == doctorID);
             return doctor;
         }
+        public Bill GetBillById(int billId)
+        {
+            Bill bill = _context.Bills
+                                    .Include(x => x.Appointment)
+                                            .SingleOrDefault(x => x.Id == billId);
+            return bill;
+        }
         public Appointment GetAppointmentById(int appointmentId)
         {
             Appointment appointment = _context.Appointments

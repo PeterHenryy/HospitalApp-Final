@@ -23,6 +23,12 @@ namespace HospitalApp.Services
                                                                         .ToList();
             return appointment;
         }
+        public Bill GetBillById(int billId)
+        {
+            Bill bill = _doctorRepository.GetBillById(billId);
+
+            return bill;
+        }
         public void RejectAppointmentById(int appointmentId)
         {
             Appointment appointment = _doctorRepository.GetAppointmentById(appointmentId);

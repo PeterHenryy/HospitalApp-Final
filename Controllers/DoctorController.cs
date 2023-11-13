@@ -96,24 +96,27 @@ namespace HospitalApp.Controllers
             // We are grabbing all related items/medication to this bill & updating the price on Bill
             var billItems = _doctorService.GetBillItemsByBillId(billObject.Id);
 
-            // Updating Total
-            billObject.Total = billObject.Total + billItems.Sum(x => x.Price);
-            
-            // Updating Record in Database
-            _doctorService.UpdateBill(billObject);
-
             // Creating ViewModel & passing info in
             BillViewModel billViewModel = new BillViewModel();
             billObject.Appointment.User = await _userManager.FindByIdAsync(appointment.UserID.ToString());
             billViewModel.BillInfo = billObject;
             billViewModel.BillItemsAdded = billItems;
-            billViewModel.BillInfo.Total = billObject.Total + billItems.Sum(x => x.Price);
+            billViewModel.BillInfo.Total = billObject.Total;
             return View(billViewModel);
         }
         public IActionResult CreateBillItems(BillViewModel billViewModel)
         {
-            BillItem newbill = billViewModel.BillItemForm;
-            bool createdBill = _doctorService.CreateBillItems(newbill);
+            // Creating Bill Item
+            BillItem newbillItem = billViewModel.BillItemForm;
+            bool createdBill = _doctorService.CreateBillItems(newbillItem);
+
+            // Getting Bill
+            var bill = _doctorService.GetBillById(newbillItem.BillId);
+            // Updating Total
+            bill.Total = bill.Total + newbillItem.Price;
+            // Updating Record in Database
+            _doctorService.UpdateBill(bill);
+            // Redirect
             return RedirectToAction("BillingForAppointment", new { appointmentId = billViewModel.BillInfo.AppointmentId });
         }
         public IActionResult SendBillToPatient(BillViewModel bill)
