@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model DoctorDetailsViewModel
+
+<h1>Doctor:</h1>
+<table class="table table-striped table-dark">
+    <tr>
+        <th>Picture</th>
+        <th>Doctor</th>
+        <th>Role</th>
+        <th>Average Rating</th>
+        <th>Doctor bio</th>
+    </tr>
+
+    <tr>
+        <td> <img src="~/profilepics/@Model.Doctor.User.ProfilePicture" /></td>
+        <td>@Model.Doctor.User.UserName</td>
+        <td>@Model.Doctor.DoctorRole</td>
+        <td>@Model.CalculateDoctorAverageRating()</td>
+        <td>@Model.Doctor.Bio</td>
+    </tr>
+    
+</table>
+<h1>Doctor Available Appointments</h1>
+
+<table class="table table-striped table-danger">
+    <tr>
+        <th>Appointment Start Time</th>
+        <th>Appointment End Time</th>
+        <th>Appointment Date</th>
+        <th>Initial Total</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var appointment  in Model.DoctorAppointments)
+    {
+        <tr>
+            <td>@appointment.AppointmentStartTime</td>
+            <td>@appointment.AppointmentEndTime</td>
+            <td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
+            <td>@appointment.InitialTotal</td>
+            <td> <a class="btn btn-danger" href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">Book Appointment</a></td>
+        </tr>
+    }
+</table>
+<h1>Reviews:</h1>
+<table class="table table-striped table-primary">
+    <tr>
+        <th>Patient</th>
+        <th>Comment</th>
+        <th>Rating</th>
+    </tr>
+
+    @foreach (var review in Model.Reviews)
+    {
+        <tr>
+            <td>@review.Appointment.User.UserName</td>
+            <td>@review.Comment</td>
+            <td>@review.Rating</td>
+        </tr>
+    }
+</table>

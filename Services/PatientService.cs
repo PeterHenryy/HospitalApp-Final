@@ -5,6 +5,7 @@ using HospitalApp.Models.Patients;
 using HospitalApp.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HospitalApp.Services
 {
@@ -109,6 +110,18 @@ namespace HospitalApp.Services
         {
             List<Bill> patientBills = _patientRepository.GetPatientBills(patientID);
             return patientBills;
+        }
+
+        public List<Appointment> GetAppointmentsByDoctorID(int doctorID)
+        {
+            List<Appointment> doctorAppointments = _patientRepository.GetAvailableAppointments().Where(x => x.DoctorID == doctorID).ToList();
+            return doctorAppointments;
+        }
+
+        public List<Review> GetReviewsByDoctorID(int doctorID)
+        {
+            List<Review> doctorReviews = _patientRepository.GetReviewsByDoctorID(doctorID);
+            return doctorReviews;
         }
     }
 }

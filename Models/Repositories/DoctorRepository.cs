@@ -63,7 +63,7 @@ namespace HospitalApp.Models.Repositories
 
         public Doctor GetDoctorByID(int doctorID)
         {
-            Doctor doctor = _context.Doctors.SingleOrDefault(x => x.ID == doctorID);
+            Doctor doctor = _context.Doctors.Include(x => x.User).SingleOrDefault(x => x.ID == doctorID);
             return doctor;
         }
         public Bill GetBillById(int billId)

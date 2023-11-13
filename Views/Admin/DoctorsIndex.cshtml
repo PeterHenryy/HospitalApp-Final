@@ -23,8 +23,9 @@
             <td>@doctor.User.UserName</td>
             <td>@ViewBag.DoctorRevenues[i]</td>
             <td> <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {doctorID = doctor.ID, userID = doctor.UserID})">Delete</a></td>
-            <td> <a class="btn btn-primary" href="@Url.Action("DoctorAppointments", "Admin", new {doctorID = doctor.ID})">Details</a></td>
+            <td> <a class="btn btn-primary" href="@Url.Action("DoctorAppointments", "Admin", new {doctorID = doctor.ID})">Appointments</a></td>
             <td> <a class="btn btn-primary" href="@Url.Action("CreateAppointment", "Admin", new {doctorID = doctor.ID})">Create Appointment</a></td>
+            <td> <a class="btn btn-primary" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = doctor.ID})">Details</a></td>
 
         </tr>
     }

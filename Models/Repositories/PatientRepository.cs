@@ -72,7 +72,7 @@ namespace HospitalApp.Models.Repositories
                                                         .Include(x => x.Doctor)
                                                             .Include(x => x.Doctor.User)
                                                                 .Include(x => x.User)
-                                                                    .Where(x => x.IsBooked == false).ToList();
+                                                                    .Where(x => !x.IsBooked).ToList();
             return appointment;
         }
         public List<Appointment> GetActiveAppointmentsByUserId(int userId)
@@ -133,6 +133,14 @@ namespace HospitalApp.Models.Repositories
         {
             List<Bill> patientBills = _context.Bills.Include(x => x.Appointment).Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid).ToList();
             return patientBills;
+        }
+
+        public List<Review> GetReviewsByDoctorID(int doctorID)
+        {
+            List<Review> doctorReviews = _context.Reviews.Include(x => x.Appointment)
+                                                                                             .Include(x => x.Appointment.User)
+                                                                                             .Where(x => x.Appointment.DoctorID == doctorID).ToList();
+            return doctorReviews;
         }
     }
 }

@@ -28,6 +28,8 @@
             <td>@appointment.IsBooked</td>
             <td>@appointment.Notes</td>
             <td> <a class="btn btn-danger" href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">Book Appointment</a></td>
+            <td> <a class="btn btn-primary" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @appointment.DoctorID})">Doctor Details</a></td>
+
         </tr>
     }
 </table>

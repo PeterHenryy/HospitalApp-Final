@@ -18,12 +18,14 @@ namespace HospitalApp.Controllers
     {
         private readonly PatientService _patientService;
         private readonly UserService _userService;
+        private readonly DoctorService _doctorService;
         private readonly AppUser _currentUser;
 
-        public PatientController(PatientService patientService, UserService userService)
+        public PatientController(PatientService patientService, UserService userService, DoctorService doctorService)
         {
             _patientService = patientService;
             _userService = userService;
+            _doctorService = doctorService;
             _currentUser = userService.GetCurrentUser();
         }
 
@@ -63,10 +65,6 @@ namespace HospitalApp.Controllers
             IndexViewModel ivm = new IndexViewModel();
             ivm.ActiveAppointments = _patientService.GetActiveAppointmentsByUserId(_currentUser.Id);
             return View(ivm);
-        }
-        public IActionResult DoctorAndAppointmentsDetails(int doctorId)
-        {
-            return View();
         }
          
         public IActionResult AppointmentIndex()
@@ -134,6 +132,15 @@ namespace HospitalApp.Controllers
             appointmentDetailsViewModel.BillItemsAdded = billItems;
             return View(appointmentDetailsViewModel);
 
+        }
+
+        public IActionResult DoctorAndAppointmentsDetails(int doctorID)
+        {
+            var doctorDetailsViewModel = new DoctorDetailsViewModel();
+            doctorDetailsViewModel.Doctor = _doctorService.GetDoctorByID(doctorID);
+            doctorDetailsViewModel.DoctorAppointments = _patientService.GetAppointmentsByDoctorID(doctorID);
+            doctorDetailsViewModel.Reviews = _patientService.GetReviewsByDoctorID(doctorID);
+            return View(doctorDetailsViewModel);
         }
     }
 }
