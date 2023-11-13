@@ -58,7 +58,17 @@
         </tr>
     }
 </table>
+<p>Patient was late or did not show up?</p>
+<form asp-controller="Doctor" asp-action="CreateBillItems">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Name" value="Late appearance/No show">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Price" value="50">
+    <input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Description" value="Patient was late for appointment or did not show up">
 
+
+    <button type="submit" class="btn btn-primary">Charge $50</button>
+</form>
 <form asp-controller="Doctor" asp-action="SendBillToPatient">
     <input type="text" class="form-control" hidden asp-for="@Model.BillForm.Id" value="@Model.BillInfo.Id">
     <input type="text" class="form-control" hidden asp-for="@Model.BillForm.OriginalTotal" value="@Model.BillInfo.OriginalTotal">
