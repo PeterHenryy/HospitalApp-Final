@@ -26,7 +26,6 @@ namespace HospitalApp.Services
         public Bill GetBillById(int billId)
         {
             Bill bill = _doctorRepository.GetBillById(billId);
-
             return bill;
         }
         public void RejectAppointmentById(int appointmentId)

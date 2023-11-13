@@ -108,6 +108,7 @@ namespace HospitalApp.Controllers
         {
             // Creating Bill Item
             BillItem newbillItem = billViewModel.BillItemForm;
+
             bool createdBill = _doctorService.CreateBillItems(newbillItem);
 
             // Getting Bill
