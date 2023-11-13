@@ -11,6 +11,8 @@ namespace HospitalApp.Models.Doctors
         public int ID { get; set; }
         public string DoctorRole { get; set; }
         public int HierarchyStatus { get; set; }
+        public string Bio { get; set; }
+
         // References
         [ForeignKey("AspNetUsers")]
         public int UserID { get; set; }

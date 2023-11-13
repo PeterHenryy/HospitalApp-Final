@@ -1,10 +1,12 @@
 ﻿using HospitalApp.Models;
 using HospitalApp.Models.Doctors;
 using HospitalApp.Models.Doctors.ViewModelForm;
+using HospitalApp.Models.Doctors.ViewModels;
 using HospitalApp.Models.Identity;
 using HospitalApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +60,42 @@ namespace HospitalApp.Controllers
             }
             return View();
         }
-         
+
+         public IActionResult EditDoctorProfile()
+        {
+            DoctorUpdateViewModelForm doctorViewModel = new DoctorUpdateViewModelForm(); 
+            var doctor = _doctorService.GetDoctorByUserID(_currentUser.Id) ;
+            doctorViewModel.Doctor = doctor;
+            doctorViewModel.AppUser = _currentUser;
+            return View(doctorViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditDoctorProfile(DoctorUpdateViewModelForm doctorViewModelForm)
+        {
+            //
+            var updatedUser = doctorViewModelForm.AppUser;
+            var files = HttpContext.Request.Form.Files;
+            if (files.Count > 0)
+            {
+                updatedUser.ProfilePicture = files[0].FileName;
+                _userService.HandleUserProfilePicture(files);
+            }
+            updatedUser.SecurityStamp = Guid.NewGuid().ToString();
+            AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser);
+            var user = await _userManager.UpdateAsync(mappedUser);
+
+            // Update Doctor
+            var doctorObject = _doctorService.GetDoctorByID(doctorViewModelForm.Doctor.ID);
+            // checking if they really submitted any new bios, otherwise we skip this 
+            if(doctorViewModelForm.Doctor.Bio.Length > 1)
+            {
+                doctorObject.Bio = doctorViewModelForm.Doctor.Bio;
+            }
+            _doctorService.UpdateDoctor(doctorObject);
+
+            return RedirectToAction("AppointmentIndex", "Patient");
+        }
+       
         public IActionResult MyAppointments()
         {
             var doctorId = _doctorService.GetDoctorByUserID(_currentUser.Id).ID;

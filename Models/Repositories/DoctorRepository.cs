@@ -128,6 +128,20 @@ namespace HospitalApp.Models.Repositories
                 return false;
             }
         }
+        public bool UpdateDoctor(Doctor doctor)
+        {
+            try
+            {
+                _context.Doctors.Update(doctor);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (System.Exception)
+            {
+
+                return false;
+            }
+        }
         public Bill GetUpdatedBillByAppointmentId(int appointmentId)
         {
             Bill bill = _context.Bills.Include(x => x.Appointment).FirstOrDefault(x => x.AppointmentId == appointmentId);

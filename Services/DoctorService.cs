@@ -64,6 +64,10 @@ namespace HospitalApp.Services
             return isCreated;
 
         }
+        public bool UpdateDoctor(Doctor doctor)
+        {
+            return _doctorRepository.UpdateDoctor(doctor);
+        }
         public List<Doctor> GetAllDoctors()
         {
             List<Doctor> doctors = _doctorRepository.GetAllDoctors();
