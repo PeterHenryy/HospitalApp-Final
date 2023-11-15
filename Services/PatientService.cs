@@ -123,5 +123,13 @@ namespace HospitalApp.Services
             List<Review> doctorReviews = _patientRepository.GetReviewsByDoctorID(doctorID);
             return doctorReviews;
         }
+
+        public List<Review> GetPatientLatestReviewsOnDoctor(int doctorID)
+        {
+            List<Review> patientLatestReviews = GetReviewsByDoctorID(doctorID).GroupBy(x => x.Appointment.UserID)
+                                                                    .Select(group => group.OrderByDescending(x => x.Appointment.AppointmentDate).FirstOrDefault())
+                                                             .ToList();
+            return patientLatestReviews;
+        }
     }
 }

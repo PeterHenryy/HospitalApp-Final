@@ -131,7 +131,6 @@ namespace HospitalApp.Controllers
             appointmentDetailsViewModel.PROMIS10 = promis10;
             appointmentDetailsViewModel.BillItemsAdded = billItems;
             return View(appointmentDetailsViewModel);
-
         }
 
         public IActionResult DoctorAndAppointmentsDetails(int doctorID)
@@ -139,7 +138,7 @@ namespace HospitalApp.Controllers
             var doctorDetailsViewModel = new DoctorDetailsViewModel();
             doctorDetailsViewModel.Doctor = _doctorService.GetDoctorByID(doctorID);
             doctorDetailsViewModel.DoctorAppointments = _patientService.GetAppointmentsByDoctorID(doctorID);
-            doctorDetailsViewModel.Reviews = _patientService.GetReviewsByDoctorID(doctorID);
+            doctorDetailsViewModel.Reviews = _patientService.GetPatientLatestReviewsOnDoctor(doctorID);
             return View(doctorDetailsViewModel);
         }
     }

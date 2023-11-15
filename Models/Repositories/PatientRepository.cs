@@ -131,16 +131,19 @@ namespace HospitalApp.Models.Repositories
 
         public List<Bill> GetPatientBills(int patientID)
         {
-            List<Bill> patientBills = _context.Bills.Include(x => x.Appointment).Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid).ToList();
+            List<Bill> patientBills = _context.Bills.Include(x => x.Appointment)
+                                                                                .Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid).ToList();
             return patientBills;
         }
 
         public List<Review> GetReviewsByDoctorID(int doctorID)
         {
-            List<Review> doctorReviews = _context.Reviews.Include(x => x.Appointment)
-                                                                                             .Include(x => x.Appointment.User)
-                                                                                             .Where(x => x.Appointment.DoctorID == doctorID).ToList();
+            List<Review> doctorReviews = _context.Reviews
+                                                                                .Include(x => x.Appointment)
+                                                                                    .ThenInclude(x => x.User)
+                                                                                        .Where(x => x.Appointment.DoctorID == doctorID).ToList();
             return doctorReviews;
         }
+
     }
 }
