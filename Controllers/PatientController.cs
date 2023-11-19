@@ -138,7 +138,8 @@ namespace HospitalApp.Controllers
             var doctorDetailsViewModel = new DoctorDetailsViewModel();
             doctorDetailsViewModel.Doctor = _doctorService.GetDoctorByID(doctorID);
             doctorDetailsViewModel.DoctorAppointments = _patientService.GetAppointmentsByDoctorID(doctorID);
-            doctorDetailsViewModel.Reviews = _patientService.GetPatientLatestReviewsOnDoctor(doctorID);
+			doctorDetailsViewModel.OrganizeAppointmentsByMonths();
+			doctorDetailsViewModel.Reviews = _patientService.GetPatientLatestReviewsOnDoctor(doctorID);
             return View(doctorDetailsViewModel);
         }
     }
