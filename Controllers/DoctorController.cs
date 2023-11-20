@@ -139,6 +139,7 @@ namespace HospitalApp.Controllers
             billViewModel.BillInfo = billObject;
             billViewModel.BillItemsAdded = billItems;
             billViewModel.BillInfo.Total = billObject.Total;
+            billViewModel.Promis = _doctorService.GetPROMIS10ByAppointmentID(appointmentId);
             return View(billViewModel);
         }
         public IActionResult CreateBillItems(BillViewModel billViewModel)

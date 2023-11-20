@@ -16,7 +16,7 @@
 	<meta name="description" content="">
 	<meta name='copyright' content=''>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link href="~/css/site.css" rel="stylesheet" />
 	<!-- Title -->
 	<title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
 
@@ -25,7 +25,7 @@
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
+    <link href="~/css/promis-form.css" rel="stylesheet" />
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
 	<!-- Nice Select CSS -->
@@ -285,20 +285,7 @@
 	<!-- End Header Area -->
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs overlay">
-		<div class="container">
-			<div class="bread-inner">
-				<div class="row">
-					<div class="col-12">
-						<h2>Blog Single</h2>
-						<ul class="bread-list">
-							<li><a href="index.html">Home</a></li>
-							<li><i class="icofont-simple-right"></i></li>
-							<li class="active">Blog Single</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
@@ -316,10 +303,11 @@
 								<!-- News Title -->
 								@*<h1 class="news-title"><a>@Model.Appointment.Doctor.DoctorRole, Dr.@Model.Appointment.Doctor.User.UserName</a></h1>*@
 								<!-- Meta -->
-								<div class="meta">
-									<div class="meta-left">
+								<div class="meta promis-form-container">
+									<div class="meta-left promis-questions-container">
 
-
+										<p class="question-announcement">The following questions are meant to be answered considering the past 7 days</p>
+										<p style="text-align: center;color:white">1-5 (1 being Bad, 5 being Great)</p>
 										<form asp-controller="Patient" asp-action="BookAppointment">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.ID" value="@Model.Appointment.ID">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.AppointmentStartTime" value="@Model.Appointment.AppointmentStartTime">
@@ -330,43 +318,29 @@
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.DoctorID" value="@Model.Appointment.DoctorID">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.UserID" value="@Model.Appointment.UserID">
 
-											<div class="form-group">
-												<label>Notes</label>
-												<input type="text" class="form-control" asp-for="@Model.Appointment.Notes">
+											@for (var i = 0; i < PROMIS10_Questions.QuestionsList.Count; i++)
+											{
+												<div class="question-and-answers">
+													<label class="promis-question">@(i+1). @PROMIS10_Questions.QuestionsList[i]</label>
+													<div class="answers">
+														@for (var j = 1; j <= 5; j++)
+														{
+															<label>
+																<input class="answer-radio form-check-input" type="radio" name="Answers[@i]" value="@j" required /> @j
+															</label>
+														}
+													</div>
+													<input type="hidden" name="QuestionIds[@i]" value="@i" style="float:right" />
+												</div>
+											}
+
+											<div>
+												<label class="additional-info">You can provide additional info here if you wish</label>
+												<textarea type="" placeholder="Add notes..." class="notes-input" asp-for="@Model.Appointment.Notes"></textarea>
 											</div>
-
-											@*<button type="submit" class="btn btn-primary">Create Appointment</button>*@
-											@*</form>*@
-
-											<table class="table table-striped table-primary">
-
-												<tr>
-													<th>
-														Question1
-													</th>
-												</tr>
-
-												@*<form method="post" action="@Url.Action("AddPROMIS10", "Patient")">*@
-												@for (var i = 0; i < PROMIS10_Questions.QuestionsList.Count; i++)
-												{
-													<tr>
-														<td>
-															<div>
-																<label>@PROMIS10_Questions.QuestionsList[i]</label>
-																@for (var j = 1; j <= 5; j++)
-																{
-																	<label>
-																		<input type="radio" name="Answers[@i]" value="@j" required /> @j
-																	</label>
-																}
-																<input type="hidden" name="QuestionIds[@i]" value="@i" style="float:right" />
-															</div>
-														</td>
-													</tr>
-												}
-
-												<button type="submit">Submit</button>
-											</table>
+											<div class="promis-form-button-container">
+												<button class="promis-form-submit-button" type="submit">Submit</button>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -380,18 +354,18 @@
 						<div class="single-widget category">
 							<h3 class="title">Doctor Bio</h3>
 							<p>
-								 odel.Doctor.Bio
+								 @Model.Appointment.Doctor.Bio
 							</p>
 						</div>
 						<!--/ End Single Widget -->
 						<!-- Single Widget -->
 						<div class="single-widget category">
-							<h3 class="title">Doctor Details</h3>
+							<h3 class="title">Appointment Details</h3>
 							<ul class="categor-list">
-								<li><a href="#"> <a style="color:black;font-weight:500">@Model.Appointment.AppointmentDate.ToString(""):</a>  Reavis High School</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Internship:</a> Oak Forest Hospital Of Cook County</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Medical:</a>  Dr. William M. Scholl College of Podiatric Medicine</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Experince:</a>  50 Years</a></li>
+								<li><a href="#"> <a style="color:black;font-weight:500">Appointment Date:</a> @Model.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</a></li>
+								<li><a href="#"> <a style="color:black;font-weight:500">Start Time:</a> @Model.Appointment.AppointmentStartTime</a></li>
+								<li><a href="#"> <a style="color:black;font-weight:500">End Time:</a> @Model.Appointment.AppointmentEndTime</a></li>
+								<li><a href="#"> <a style="color:black;font-weight:500">Initial Total:</a> R₣ @Model.Appointment.InitialTotal</a></li>
 							</ul>
 						</div>
 						<!--/ End Single Widget -->

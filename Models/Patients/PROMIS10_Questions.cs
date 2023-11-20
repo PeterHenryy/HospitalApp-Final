@@ -14,13 +14,13 @@ namespace HospitalApp.Models.Patients
         
         public static List<string> QuestionsList = new List<string>
         {
-            "In the past 7 days, how often did you feel physically or emotionally exhausted?",
-            "In the past 7 days, how often did you experience difficulty in concentrating or paying attention?",
-            "In the past 7 days, how often did you feel worried or anxious?",
-            "In the past 7 days, how often did you experience pain?",
-            "In the past 7 days, how often did you feel down, depressed, or hopeless?",
-            "In the past 7 days, how often did you experience feelings of anger or irritability?",
-            "In the past 7 days, how often did you experience difficulty falling asleep or staying asleep?"
+            "How often did you feel physically or emotionally exhausted?",
+            "How often did you experience difficulty in concentrating or paying attention?",
+            "How often did you feel worried or anxious?",
+            "How often did you experience pain?",
+            "How often did you feel down, depressed, or hopeless?",
+            "How often did you experience feelings of anger or irritability?",
+            "How often did you experience difficulty falling asleep or staying asleep?"
         };
     }
 }

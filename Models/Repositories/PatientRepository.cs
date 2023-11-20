@@ -91,7 +91,7 @@ namespace HospitalApp.Models.Repositories
         }
         public Appointment GetAppointmentByID(int appointmentId)
         {
-            Appointment appointment = _context.Appointments.FirstOrDefault(x => x.ID == appointmentId);
+            Appointment appointment = _context.Appointments.Include(x => x.Doctor).FirstOrDefault(x => x.ID == appointmentId);
             return appointment;
         }
         public bool BookAppointment(Appointment appointment, PROMIS10 promis10)

@@ -67,10 +67,10 @@ namespace HospitalApp.Controllers
             return View(ivm);
         }
          
-        public IActionResult AppointmentIndex()
+        public IActionResult DoctorIndex()
         {
-            var appointments = _patientService.GetAvaliablesAppointments();
-            return View(appointments);
+            var doctors = _patientService.GetAvaliablesAppointments().Select(x => x.Doctor).Distinct().ToList();
+            return View(doctors);
         }
         [HttpGet]
         public IActionResult BookAppointment(int appointmentId, PROMIS10 promis)
@@ -94,7 +94,7 @@ namespace HospitalApp.Controllers
             {
                 return View(appointment);
             }
-            return RedirectToAction("AppointmentIndex");
+            return RedirectToAction("doctorIndex");
         }
         [HttpGet]
         public IActionResult AddReview(int appointmentId)
@@ -106,7 +106,7 @@ namespace HospitalApp.Controllers
         public IActionResult AddReview(Review review)
         {
             var isCreated = _patientService.CreateReview(review);
-            return RedirectToAction("AppointmentIndex");
+            return RedirectToAction("doctorIndex");
         }
 
         public IActionResult PatientBills()

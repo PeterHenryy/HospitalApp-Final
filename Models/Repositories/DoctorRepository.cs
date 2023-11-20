@@ -1,6 +1,7 @@
 ﻿using HospitalApp.Data;
 using HospitalApp.Models.Doctors;
 using HospitalApp.Models.Interfaces;
+using HospitalApp.Models.Patients;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,12 @@ namespace HospitalApp.Models.Repositories
         {
             _context = context;
         }
-
-        public bool Create(Doctor doctor)
+		public PROMIS10 GetPROMIS10ByAppointmentID(int appointmentID)
+		{
+			PROMIS10 promis10 = _context.PROMIS10s.SingleOrDefault(x => x.AppointmentId == appointmentID);
+			return promis10;
+		}
+		public bool Create(Doctor doctor)
         {
             try
             {

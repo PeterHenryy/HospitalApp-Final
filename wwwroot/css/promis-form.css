@@ -1,0 +1,89 @@
+﻿.promis-form-container {
+    background: #292942;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.promis-question {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.promis-questions-container,
+.question-and-answers {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.question-and-answers {
+    margin-bottom: 20px;
+}
+
+.promis-questions-container {
+    padding: 20px;
+}
+
+.answers {
+    display: flex;
+    column-gap: 55px;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(48, 48, 72);
+    padding-top: 10px;
+}
+
+.answer-radio {
+    transform: scale(1.5);
+}
+
+.question-announcement {
+    font-size: 24px;
+    color: rgb(80, 80, 101);
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+
+.notes-input,
+.notes-input:focus {
+    background: #292942;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: white;
+    outline: none;
+    height: 35px;
+}
+
+.promis-form-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.promis-form-submit-button {
+    background-color: rgb(26, 118, 209);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+    border: none;
+}
+
+    .promis-form-submit-button:hover {
+        box-shadow: 0px 0px 5px 7px rgba(26, 118, 209, 0.5);
+        background-color: lightsteelblue;
+    }
+
+.additional-info {
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -1,5 +1,6 @@
 ﻿using HospitalApp.Models;
 using HospitalApp.Models.Doctors;
+using HospitalApp.Models.Patients;
 using HospitalApp.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -22,8 +23,12 @@ namespace HospitalApp.Services
                                                                     .Where(x => x.IsBooked)
                                                                         .ToList();
             return appointment;
-        }
-        public Bill GetBillById(int billId)
+		}
+		public PROMIS10 GetPROMIS10ByAppointmentID(int appointmentID)
+		{
+            return _doctorRepository.GetPROMIS10ByAppointmentID(appointmentID);
+		}
+		public Bill GetBillById(int billId)
         {
             Bill bill = _doctorRepository.GetBillById(billId);
             return bill;

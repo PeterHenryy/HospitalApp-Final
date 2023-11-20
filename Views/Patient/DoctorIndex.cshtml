@@ -1,4 +1,4 @@
-﻿@model List<Appointment>
+﻿@model List<Doctor>
 @{
     Layout = null;
 }
@@ -146,19 +146,18 @@
     <section class="blog spad">
         <div class="container">
             <div class="row">
-                @foreach (var appointment in Model)
+                @foreach (var doctor in Model)
                 {
                     <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                                <img src="~/profilepics/@appointment.Doctor.User.ProfilePicture" alt="">
+                                <img src="~/profilepics/@doctor.User.ProfilePicture" alt="">
                         </div>
                         <div class="blog__item__text">
-                            <h5><a href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @appointment.DoctorID})">@appointment.Doctor.DoctorRole</a></h5>
+                            <h5><a href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @doctor.ID})">@doctor.DoctorRole</a></h5>
 
                             <ul>
-                                <li><img src="/ProjectTheme/img/blog/blog-author.jpg" alt=""> @appointment.Doctor.User.FirstName , @appointment.Doctor.User.LastName</li>
-                                @*<li>Dec 06, 2019</li>*@
+                                    <li> @(doctor.User.FirstName == null ? doctor.User.UserName : doctor.User.FirstName + " , " + doctor.User.LastName)</li>
                             </ul>
                         </div>
                     </div>

@@ -62,7 +62,7 @@ namespace HospitalApp.Controllers
                 {
                     return Redirect(returnUrl);
                 }
-                return RedirectToAction("AppointmentIndex", "Patient");
+                return RedirectToAction("DoctorIndex", "Patient");
             }
             return View();
         }
