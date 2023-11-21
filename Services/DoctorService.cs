@@ -21,7 +21,7 @@ namespace HospitalApp.Services
         public List<Appointment> GetAppointmentsByDoctor(int doctorId)
         {
             List<Appointment> appointment = _doctorRepository.GetAppointmentsByDoctor(doctorId)
-                                                                    .Where(x => x.IsBooked)
+                                                                    //.Where(x => x.IsBooked)
                                                                         .ToList();
             return appointment;
 		}

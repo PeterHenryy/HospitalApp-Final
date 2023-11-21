@@ -55,19 +55,32 @@ namespace HospitalApp.Controllers
         public async Task<IActionResult> Login(AppLogin appLogin, string returnUrl)
         {
             AppUser user = await _userManager.FindByNameAsync(appLogin.Username);
-            if (user.Password == appLogin.Password)
+            if (user == null)
             {
-                await _signInManager.SignInAsync(user, false);
-                if (!String.IsNullOrEmpty(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                return RedirectToAction("DoctorIndex", "Patient");
-            }
-            return View();
-        }
+				return View();
+			}
+			try
+            {
+				if (user.Password == appLogin.Password)
+				{
+					await _signInManager.SignInAsync(user, false);
+					if (!String.IsNullOrEmpty(returnUrl))
+					{
+						return Redirect(returnUrl);
+					}
+					return RedirectToAction("DoctorIndex", "Patient");
+				}
+			}
+            catch (Exception)
+            {
+				return View();
 
-        public async Task<RedirectToActionResult> Logout()
+			}
+			return View();
+
+		}
+
+		public async Task<RedirectToActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "AppUser");
@@ -91,7 +104,7 @@ namespace HospitalApp.Controllers
             updatedUser.SecurityStamp = Guid.NewGuid().ToString();
             AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser);
             var user = await _userManager.UpdateAsync(mappedUser);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DoctorIndex", "Patient");
         }
 
 

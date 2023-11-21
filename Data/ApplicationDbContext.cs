@@ -23,5 +23,17 @@ namespace HospitalApp.Data
         public DbSet<BillItem> BillItems { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Seed roles
+            builder.Entity<AppRole>().HasData(
+                new AppRole { Id = 1, Name = "Patient", NormalizedName = "PATIENT" },
+                new AppRole { Id = 2, Name = "Doctor", NormalizedName = "DOCTOR" },
+                new AppRole { Id = 3, Name = "Admin", NormalizedName = "ADMIN" }
+            );
+        }
     }
 }
+

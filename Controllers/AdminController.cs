@@ -45,9 +45,10 @@ namespace HospitalApp.Controllers
         {
             // Creating AppUser and registering to database with "Doctor" role
             AppUser appUser = doctor.UserDataForm;
+            appUser.ProfilePicture = "deafult.jpg";
 
-            // Creating role 
-            var role = UserRolesEnum.Doctor.ToString();
+			// Creating role 
+			var role = UserRolesEnum.Doctor.ToString();
 
             // Creating user
             var userRegister = await _userManager.CreateAsync(appUser);
@@ -58,6 +59,7 @@ namespace HospitalApp.Controllers
             // Creating doctor instance and registering it to database
             Doctor newDoctor = doctor.DoctorDataForm;
             newDoctor.User = appUser;
+
             bool addedDoctor = _doctorService.Create(newDoctor);
             return RedirectToAction("DoctorsIndex", "Admin");
 
