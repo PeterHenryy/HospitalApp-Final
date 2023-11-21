@@ -210,7 +210,7 @@
 												<td>@appointment.Notes</td>
 												@if(appointment.User == null)
 												{
-													<td><a class="btn btn-primary" >Not Booked</a></td>
+													<td><a class="btn btn-primary" style="color:white" >Not Booked</a></td>
 												}else
 												{
 													<td><a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentID = appointment.ID})">Details</a></td>
