@@ -215,8 +215,15 @@
 												{
 													<td><a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentID = appointment.ID})">Details</a></td>
 												}
-												<td><a class="btn btn-primary" style="background:#EC2929" href="@Url.Action("CancelAppointment", "Admin", new {appointmentID = appointment.ID})">Cancel </a></td>
-
+												@if (appointment.IsRejected)
+												{
+													<td><a class="btn btn-primary" style="color:white; background: #ffc107">Canceled</a></td>
+												}
+												else
+												{
+													<td><a class="btn btn-primary" style="background:#EC2929" href="@Url.Action("CancelAppointment", "Admin", new {appointmentID = appointment.ID})">Cancel </a></td>
+												}
+ 
 											</tr>
 										}
 									</table>
