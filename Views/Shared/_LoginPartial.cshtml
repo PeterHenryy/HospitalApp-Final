@@ -34,6 +34,7 @@
 <!-- Nice Select CSS -->
 <link rel="stylesheet" href="~/ProjectTheme2/css/nice-select.css">
 <!-- Font Awesome CSS -->
+<link href="~/css/login-partial.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/ProjectTheme2/css/font-awesome.min.css">
 <!-- icofont CSS -->
 <link rel="stylesheet" href="~/ProjectTheme2/css/icofont.css">
@@ -139,19 +140,13 @@
 						</div>
 						<!--/ End Main Menu -->
 					</div>
-					
-					@if (doctorRole)
-					{
-						<p class="nav-item">
-							<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> Dr.@currentUser.FirstName</a>
-						</p>
+					@{	
+						string userFirstName = (doctorRole) ? $"Dr. {currentUser.FirstName}" : currentUser.FirstName;
 					}
-					else
-					{
-						<p class="nav-item">
-							<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius: 50%; margin-right:10px" width="50px"    src="~/profilepics/@currentUser.ProfilePicture"> @currentUser.FirstName</a>
-						</p>
-					}
+
+					<div class="user-pic-and-name-container">
+						<a class="user-pic-and-name" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> @userFirstName</a>
+					</div>
 
 				</div>
 			</div>

@@ -213,17 +213,17 @@
 
 										<div class="form-group">
 											<label>Item Name</label>
-											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Name">
+											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Name" required>
 										</div>
 
 										<div class="form-group">
 											<label> Price</label>
-											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Price">
+											<input  class="form-control" asp-for="@Model.BillItemForm.Price" required>
 										</div>
 
 										<div class="form-group">
 											<label> Description</label>
-											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Description">
+											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Description" required>
 										</div>
 
 										<button type="submit" class="btn btn-primary" id="create-item-button">Add Item</button>
@@ -301,7 +301,7 @@
 
 						<div class="meta promis-form-container">
 							<p class="question-announcement">Patient considered their previous 7 days when answering</p>
-							<p style="text-align: center;color:white">1-5 (1 being Bad, 5 being Great)</p>
+							<p style="text-align: center;color:white; font-size: 18px;">(1 = Very Often, 5 = Not at All)</p>
 							<div class="meta-left promis-questions-container">
 
 								 
@@ -474,10 +474,6 @@
 
 			$("#add-bill-item-button").click(() => {
 				$("#bill-item-form").toggle("slow");
-			});
-
-			$("#create-item-button").click(() =>{
-				$("#bill-item-form").hide("slow");
 			});
 		});
 	</script>

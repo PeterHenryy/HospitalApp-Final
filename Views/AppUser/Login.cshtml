@@ -10,9 +10,9 @@
     <h1>Welcome!</h1>
     <form asp-controller="AppUser" asp-action="Login">
         <input type="hidden" name="returnUrl" value="@ViewData["returnUrl"]" />
-        <input type="text" placeholder="Username" asp-for="Username">
+        <input type="text" placeholder="Username" asp-for="Username" required>
 
-        <input type="password" placeholder="Password" asp-for="Password">
+        <input type="password" placeholder="Password" asp-for="Password" required>
         <button type="submit">Login</button>
         <input type="button"  class="register-button" value="Register" onclick="@("window.location.href='" + @Url.Action("Register", "AppUser") + "'");" />
     </form>

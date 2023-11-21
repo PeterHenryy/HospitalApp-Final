@@ -26,6 +26,7 @@
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <link href="~/css/promis-form.css" rel="stylesheet" />
+    <link href="~/css/general.css" rel="stylesheet" />
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
 	<!-- Nice Select CSS -->
@@ -196,7 +197,9 @@
 									<div class="meta-left promis-questions-container">
 
 										<p class="question-announcement">The following questions are meant to be answered considering the past 7 days</p>
-										<p style="text-align: center;color:white">1-5 (1 being Bad, 5 being Great)</p>
+										<div class="questions-explanation">
+											<p style="color: white; font-size: 18px;">(1 = Very Often, 5 = Not at All)</p>
+										</div>
 										<form asp-controller="Patient" asp-action="BookAppointment">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.ID" value="@Model.Appointment.ID">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.AppointmentStartTime" value="@Model.Appointment.AppointmentStartTime">

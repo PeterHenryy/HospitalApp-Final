@@ -240,48 +240,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12">
-							<div class="blog-comments">
-								<div class="meta">
-									<div class="meta-left">
-										<span class="views"><i class="fa  fa-pencil-square"></i>@Model.Reviews.Count() Reviews</span>
-									</div>
-								</div>
-								<h2>All Reviews</h2>
-								<div class="comments-body">
-									 @foreach (var review in Model.Reviews)
-									 {
-										<div class="single-comments">
-											<div class="main">
-												<div class="head">
-													<img src="~/profilepics/@review.Appointment.User.ProfilePicture" alt="#" />
-												</div>
-												<div class="body">
-													<h4>@review.Appointment.User.FirstName, @review.Appointment.User.LastName</h4>
-													<div class="comment-meta">
-														<span class="meta">
-															@for (int i = 1; i <= 5; i++)
-															{
-																if (i <= review.Rating)
-																{
-																	<i class="fa fa-star"></i>
-																}
-																else
-																{
-																	<i class="fa fa-star-o"></i>
-																}
-															}
-														</span>
-													</div>
-
-													<p> @review.Comment</p>
-												</div>
-											</div>
-										</div>
-									 }
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 				<div class="col-lg-4 col-12">
