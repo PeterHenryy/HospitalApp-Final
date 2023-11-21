@@ -1,36 +1,376 @@
 ﻿@model RegisterDoctorAndUserViewModelForm
-@using HospitalApp.Helpers.Enums
+@using HospitalApp.Helpers.Enums;
+@using System.Text.RegularExpressions;
 @{
     Layout = null;
 }
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="Site keywords here">
+	<meta name="description" content="">
+	<meta name='copyright' content=''>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="~/css/site.css" rel="stylesheet" />
+	<link href="~/css/billing-for-appointment.css" rel="stylesheet" />
+	<link href="~/css/admin-doctors-index.css" rel="stylesheet" />
+	<!-- Title -->
+	<title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
+	<link href="~/css/general.css" rel="stylesheet" />
+	<!-- Favicon -->
+	<link rel="icon" href="~/ProjectTheme2/img/favicon.png">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	<link href="~/css/promis-form.css" rel="stylesheet" />
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
+	<!-- Nice Select CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/nice-select.css">
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/font-awesome.min.css">
+	<!-- icofont CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/icofont.css">
+	<!-- Slicknav -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/slicknav.min.css">
+	<!-- Owl Carousel CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/owl-carousel.css">
+	<!-- Datepicker CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/datepicker.css">
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/animate.min.css">
+	<!-- Magnific Popup CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/magnific-popup.css">
 
-<link rel="stylesheet" href="~/css/loginForm.css" />
-<link rel="stylesheet" href="~/css/general.css" />
+	<!-- Medipro CSS -->
+	<link rel="stylesheet" href="~/ProjectTheme2/css/normalize.css">
+	<link rel="stylesheet" href="~/ProjectTheme2/style.css">
+	<link rel="stylesheet" href="~/ProjectTheme2/css/responsive.css">
+	<style>
+		.app-time {
+			border: 1px solid #fff;
+			padding: 20px 30px;
+			box-shadow: 2px 4px 10px 0px #c7cacce3;
+		}
 
-<div class="login-form-container">
-    <h1>Welcome!</h1>
-    <form asp-controller="Admin" asp-action="RegisterDoctor" class="authentication-form">
+		.option-input {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			-ms-appearance: none;
+			-o-appearance: none;
+			appearance: none;
+			position: relative;
+			top: 5px;
+			right: 0;
+			bottom: 0;
+			left: 40px;
+			height: 20px;
+			width: 20px;
+			transition: all 0.15s ease-out 0s;
+			background: #fff;
+			border: 1px solid #999;
+			color: #fff;
+			cursor: pointer;
+			display: inline-block;
+			margin-right: 0.5rem;
+			outline: none;
+			position: relative;
+			z-index: 1000;
+		}
 
-        <input type="text" placeholder="Username" asp-for="UserDataForm.UserName">
-        <input type="email" placeholder="Email" asp-for="UserDataForm.Email" />
-        <input type="password" placeholder="Password" asp-for="UserDataForm.Password">
+			.option-input:hover {
+				background: #e5e7eb;
+			}
 
-        <select asp-for="DoctorDataForm.DoctorRole" asp-items="new SelectList(Model.DoctorRoles)">
-            <option>Select a Role</option>
-        </select>
+			.option-input:checked {
+				border: 1px solid #fff;
+			}
 
-        <select asp-for="DoctorDataForm.HierarchyStatus">
-            <option disabled> Select Hierarchy Status </option>
-            @for (var i = 0; i < DoctorHierarchy.DoctorsHierarchy.Count(); i++)
-            {
-                <option value="@(i+1)">@DoctorHierarchy.DoctorsHierarchy.ElementAt(i).Key</option>
-            }
-        </select>
+				.option-input:checked::before {
+					color: #d9486d;
+					height: 40px;
+					width: 40px;
+					position: absolute;
+					content: "✔";
+					display: inline-block;
+					font-size: 12px;
+					left: 4px;
+					line-height: 20px;
+				}
 
-        <button type="submit">Add Doctor</button>
+				.option-input:checked::after {
+					-webkit-animation: click-wave 0.65s;
+					-moz-animation: click-wave 0.65s;
+					animation: click-wave 0.65s;
+					background: #40e0d0;
+					content: "";
+					display: block;
+					position: relative;
+					z-index: 100;
+				}
 
-        
-    </form>
-</div>
+			.option-input.radio {
+				border-radius: 50%;
+				calc(40.666% )
+			}
+
+				.option-input.radio::after {
+					border-radius: 50%;
+				}
+
+		.app-check {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px; /* Adjust the gap as needed */
+		}
+
+		.app-border {
+			border: 1px solid #ccc;
+			padding: 5px;
+			text-align: center;
+			width: 139px;
+			box-sizing: border-box;
+			margin-bottom: 11px;
+			margin-left: 16px;
+			transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Adding smooth transitions for both box-shadow and size changes */
+			border-radius: 8px; /* Adjust the value for the desired roundness */
+		}
+
+			.app-border:hover {
+				box-shadow: 0px 0px 5px rgba(26, 118, 209, 0.8); /* Blue color with 0.8 opacity for a shadow effect, with a smaller blur radius */
+				transform: scale(1.03); /* Slightly larger size on hover, adjust the scale factor as needed */
+			}
 
 
+
+		.option-input.radio:checked + .app-border {
+			background: #d9486d;
+		}
+
+		.option-input.radio:disabled,
+		.option-input.radio:disabled + .app-border {
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+
+		.app-label {
+			position: relative;
+			top: 5px;
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	 
+	<header class="header">
+		<partial name="_LoginPartial" />
+
+	</header>
+	<!-- End Header Area -->
+	<!-- Breadcrumbs -->
+	<div class="breadcrumbs overlay">
+	</div>
+	<!-- End Breadcrumbs -->
+	<!-- Single News -->
+	<section class="news-single section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-12">
+					<div class="row">
+						<div class="col-12">
+							<div class="single-main">
+ 								<div class="news-head">
+
+									<div class="login-form-container container">
+										<h2 style="text-align: center;margin-bottom: 25px;">Register Doctor form</h2>
+										<form asp-controller="Admin" asp-action="RegisterDoctor" class="authentication-form">
+											<div class="row">
+												<div class="col-md-6">
+													<label for="inputEmail4" class="form-label">UserName</label>
+													<input asp-for="UserDataForm.UserName" class="form-control" id="inputEmail4">
+												</div>
+												<div class="col-md-6">
+													<label for="inputEmail4" class="form-label">Email</label>
+													<input type="email" asp-for="UserDataForm.Email" class="form-control" id="inputEmail4">
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<label for="inputEmail4" class="form-label">First Name</label>
+													<input  asp-for="UserDataForm.FirstName" class="form-control" id="inputEmail4">
+												</div>
+												<div class="col-md-6">
+													<label for="inputEmail4" class="form-label">Last Name</label>
+													<input asp-for="UserDataForm.LastName" class="form-control" id="inputEmail4">
+												</div>
+											</div>		
+											<div class="row">
+												<div class="col-md-12">
+													<label for="inputEmail4" class="form-label">Password</label>
+													<input type="password" asp-for="UserDataForm.Password" class="form-control" id="inputEmail4">
+												</div>
+											</div>
+											<div class="row">
+												<div style="margin-top:14px; margin-left: 14px">
+
+													@{
+														List<string> rolesFormatted= new List<string>();
+														foreach (var role in Model.DoctorRoles)
+														{
+															string formattedRole = Regex.Replace(role, "[-_]", " ");
+
+															rolesFormatted.Add(formattedRole);
+														}
+													}
+													<select asp-for="DoctorDataForm.DoctorRole" asp-items="new SelectList(rolesFormatted)">
+														<option>Select a Role</option>
+													</select>
+												</div>
+												
+
+											</div>
+											 
+
+											<button class="btn btn-primary" type="submit">Add Doctor</button>
+
+
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/ End Single News -->
+	<!-- Footer Area -->
+	<footer id="footer" class="footer ">
+		<!-- Footer Top -->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="single-footer">
+							<h2>About Us</h2>
+							<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+							<!-- Social -->
+							<ul class="social">
+								<li><a href="#"><i class="icofont-facebook"></i></a></li>
+								<li><a href="#"><i class="icofont-google-plus"></i></a></li>
+								<li><a href="#"><i class="icofont-twitter"></i></a></li>
+								<li><a href="#"><i class="icofont-vimeo"></i></a></li>
+								<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+							</ul>
+							<!-- End Social -->
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="single-footer f-link">
+							<h2>Quick Links</h2>
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<ul>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Our Cases</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>
+									</ul>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<ul>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Consuling</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
+										<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="single-footer">
+							<h2>Open Hours</h2>
+							<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+							<ul class="time-sidual">
+								<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
+								<li class="day">Saturday <span>9.00-18.30</span></li>
+								<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<div class="single-footer">
+							<h2>Newsletter</h2>
+							<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+							<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+								<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
+									   onblur="this.placeholder = 'Your email address'" required="" type="email">
+								<button class="button"><i class="icofont icofont-paper-plane"></i></button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/ End Footer Top -->
+		<!-- Copyright -->
+		<div class="copyright">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-12">
+						<div class="copyright-content">
+							<p>© Copyright 2018  |  All Rights Reserved by <a href="https://www.wpthemesgrid.com" target="_blank">wpthemesgrid.com</a> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/ End Copyright -->
+	</footer>
+	<!--/ End Footer Area -->
+	<script src="~/ProjectTheme2/js/jquery.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery-migrate-3.0.0.js"></script>
+	<script src="~/ProjectTheme2/js/jquery-ui.min.js"></script>
+	<script src="~/ProjectTheme2/js/easing.js"></script>
+	<script src="~/ProjectTheme2/js/colors.js"></script>
+	<script src="~/ProjectTheme2/js/popper.min.js"></script>
+	<script src="~/ProjectTheme2/js/bootstrap-datepicker.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.nav.js"></script>
+	<script src="~/ProjectTheme2/js/slicknav.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.scrollUp.min.js"></script>
+	<script src="~/ProjectTheme2/js/niceselect.js"></script>
+	<script src="~/ProjectTheme2/js/tilt.jquery.min.js"></script>
+	<script src="~/ProjectTheme2/js/owl-carousel.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.counterup.min.js"></script>
+	<script src="~/ProjectTheme2/js/steller.js"></script>
+	<script src="~/ProjectTheme2/js/wow.min.js"></script>
+	<script src="~/ProjectTheme2/js/jquery.magnific-popup.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+	<script src="~/ProjectTheme2/js/bootstrap.min.js"></script>
+	<script src="~/ProjectTheme2/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<!-- Your other head elements -->
+
+	<script>
+		$(document).ready(() => {
+			$("#bill-item-form").hide();
+
+			$("#add-bill-item-button").click(() => {
+				$("#bill-item-form").toggle("slow");
+			});
+
+			$("#create-item-button").click(() => {
+				$("#bill-item-form").hide("slow");
+			});
+		});
+	</script>
+</body>
+</html>  
+ 

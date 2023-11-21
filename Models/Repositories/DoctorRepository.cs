@@ -1,5 +1,6 @@
 ﻿using HospitalApp.Data;
 using HospitalApp.Models.Doctors;
+using HospitalApp.Models.Identity;
 using HospitalApp.Models.Interfaces;
 using HospitalApp.Models.Patients;
 using Microsoft.EntityFrameworkCore;
@@ -59,8 +60,12 @@ namespace HospitalApp.Models.Repositories
                                                             .ToList();
             return appointment;
         }
-
-        public List<Doctor> GetAllDoctors()
+		public List<AppUser> GetAllPatients()
+		{
+			List<AppUser> patients = _context.Appointments.Select(x => x.User).Distinct().Where(x => x != null).ToList();
+			return patients;
+		}
+		public List<Doctor> GetAllDoctors()
         {
             List<Doctor> doctors = _context.Doctors.Include(x => x.User).ToList();
             return doctors;
@@ -175,6 +180,28 @@ namespace HospitalApp.Models.Repositories
         {
             _context.Appointments.Update(appointment);
             _context.SaveChanges();
+        }
+        
+        public BillItem GetBillItemByID(int billItemID)
+        {
+            BillItem billItem = _context.BillItems.SingleOrDefault(x => x.Id == billItemID);
+            return billItem;
+        }
+
+        public bool RemoveBillItem(int billItemID)
+        {
+            try
+            {
+                BillItem billItem = GetBillItemByID(billItemID);
+                _context.BillItems.Remove(billItem);
+                _context.SaveChanges();
+                return true;
+            }
+			catch (System.Exception)
+			{
+
+				return false;
+            }
         }
     }
 }

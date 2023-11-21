@@ -78,10 +78,10 @@
     border: none;
 }
 
-    .promis-form-submit-button:hover {
-        box-shadow: 0px 0px 5px 7px rgba(26, 118, 209, 0.5);
-        background-color: lightsteelblue;
-    }
+.promis-form-submit-button:hover {
+    box-shadow: 0px 0px 5px 7px rgba(26, 118, 209, 0.5);
+    background-color: lightsteelblue;
+}
 
 .additional-info {
     font-size: 18px;

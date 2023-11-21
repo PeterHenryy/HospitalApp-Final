@@ -3,61 +3,159 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@{
+	bool doctorRole = User.IsInRole(UserRolesEnum.Doctor.ToString());
+	bool adminRole = User.IsInRole(UserRolesEnum.Admin.ToString());
+	string action = doctorRole ? "Doctor" : "Patient";
+	string greeting = doctorRole ? "Doctor" : "";
+	string userID = UserManager.GetUserId(@User);
+	AppUser currentUser = UserManager.FindByIdAsync(userID).Result;
+}
+ 
+<!-- Meta Tags -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="keywords" content="Site keywords here">
+<meta name="description" content="">
+<meta name='copyright' content=''>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="~/css/site.css" rel="stylesheet" />
+<!-- Title -->
+<title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    bool doctorRole = User.IsInRole(UserRolesEnum.Doctor.ToString());
-    bool adminRole = User.IsInRole(UserRolesEnum.Admin.ToString());
-    string action = doctorRole ? "Doctor" : "Patient";
-    string greeting = doctorRole ? "Doctor" : "";
-    @if (adminRole)
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="@Url.Action("RegisterDoctor", "Admin")">Register Doctor</a>
-        </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="@Url.Action("DoctorsIndex", "Admin")">See Doctors</a>
-            </li>
-    }
-    <li class="nav-item">
-        <a class="nav-link text-dark" href="@Url.Action("AppointmentIndex", "Patient")">Available Appointments</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" href="@Url.Action("DisplayUserCreditCards", "Patient")">Credit Cards</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" href="@Url.Action("MyAppointments", @action)" title="Manage">My Appointments</a>
-    </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="@Url.Action("PatientBills", "Patient")" title="Manage">My Bills</a>
-        </li>
-        @if (doctorRole)
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="@Url.Action("EditDoctorProfile", "Doctor")" title="Manage">Hello @greeting @User.Identity.Name!</a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage">Hello @greeting @User.Identity.Name!</a>
-            </li>
-        }
-           
-    <li class="nav-item">
-        <form  class="form-inline" asp-controller="AppUser" asp-action="Logout">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+<!-- Favicon -->
+<link rel="icon" href="~/ProjectTheme2/img/favicon.png">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+<link href="~/css/promis-form.css" rel="stylesheet" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
+<!-- Nice Select CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/nice-select.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/font-awesome.min.css">
+<!-- icofont CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/icofont.css">
+<!-- Slicknav -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/slicknav.min.css">
+<!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/owl-carousel.css">
+<!-- Datepicker CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/datepicker.css">
+<!-- Animate CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/animate.min.css">
+<!-- Magnific Popup CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/magnific-popup.css">
+
+<!-- Medipro CSS -->
+<link rel="stylesheet" href="~/ProjectTheme2/css/normalize.css">
+<link rel="stylesheet" href="~/ProjectTheme2/style.css">
+<link rel="stylesheet" href="~/ProjectTheme2/css/responsive.css">
+
+<header class="header">
+ 
+	<!-- End Topbar -->
+	<!-- Header Inner -->
+	<div class="header-inner">
+		<div class="container">
+			<div class="inner">
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-12">
+						<!-- Start Logo -->
+						<div class="logo">
+							<a href="index.html"><img src="~/ProjectTheme2/img/logo.png" alt="#"></a>
+						</div>
+						<!-- End Logo -->
+						<!-- Mobile Nav -->
+						<div class="mobile-nav"></div>
+						<!-- End Mobile Nav -->
+					</div>
+					<div class="col-lg-7 col-md-9 col-12">
+						<!-- Main Menu -->
+						<div class="main-menu">
+							<nav class="navigation">
+								 
+								<ul class="nav menu">
+									@if (doctorRole)
+									{
+										 
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("MyAppointments", "Doctor")" title="Manage"> My Appointments </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("Logout", "AppUser")" title="Manage"> Logout </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("EditDoctorProfile", "Doctor")" title="Manage"> Edit Profile </a>
+										</li>
+									}
+									else if (adminRole)
+									{
+									 
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("DoctorsIndex", "Admin")" title="Manage"> Doctors Index</a>
+										</li>	
+								 
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("PatientsIndex", "Admin")" title="Manage">Patients Index</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("RegisterDoctor", "Admin")" title="Manage"> Register Doctor </a>
+										</li>
+										
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> Edit Profile </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("Logout", "AppUser")" title="Manage"> Logout </a>
+										</li>
+										 
+									}
+									else
+									{
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("DoctorIndex", "Patient")" title="Manage">Doctor Index </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("MyAppointments", "Patient")" title="Manage"> My Appointments </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("PatientBills", "Patient")" title="Manage"> My Bills </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> Edit Profile </a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link text-dark" href="@Url.Action("Logout", "AppUser")" title="Manage"> Logout </a>
+										</li>
+									}
+
+
+								</ul>
+								 
+							</nav>
+
+						</div>
+						<!--/ End Main Menu -->
+					</div>
+					
+					@if (doctorRole)
+					{
+						<p class="nav-item">
+							<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> Dr.@currentUser.FirstName</a>
+						</p>
+					}
+					else
+					{
+						<p class="nav-item">
+							<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius: 50%; margin-right:10px" width="50px"    src="~/profilepics/@currentUser.ProfilePicture"> @currentUser.FirstName</a>
+						</p>
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--/ End Header Inner -->
+</header>

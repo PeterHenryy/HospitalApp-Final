@@ -180,5 +180,11 @@ namespace HospitalApp.Controllers
             return View();
         }
 
+        public IActionResult RemoveBillItem(int billItemID, int appointmentID, int billID)
+        {
+            bool removedItem = _doctorService.RemoveBillItem(billItemID, billID);
+            return RedirectToAction("BillingForAppointment", "Doctor", new { appointmentID = appointmentID });
+        }
+
     }
 }

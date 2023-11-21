@@ -1,0 +1,6 @@
+﻿.insurance-form-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    column-gap: 10px;
+}

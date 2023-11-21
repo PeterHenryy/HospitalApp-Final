@@ -1,5 +1,6 @@
 ﻿using HospitalApp.Models;
 using HospitalApp.Models.Doctors;
+using HospitalApp.Models.Identity;
 using HospitalApp.Models.Patients;
 using HospitalApp.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -77,9 +78,13 @@ namespace HospitalApp.Services
         {
             List<Doctor> doctors = _doctorRepository.GetAllDoctors();
             return doctors;
-        }
+		}
+		public List<AppUser> GetAllPatients()
+		{
+            return _doctorRepository.GetAllPatients();
+		}
 
-        public bool Delete(int doctorID)
+		public bool Delete(int doctorID)
         {
             bool deletedDoctor = _doctorRepository.Delete(doctorID);
             return deletedDoctor;
@@ -119,5 +124,21 @@ namespace HospitalApp.Services
             Doctor doctor = _doctorRepository.GetDoctorByUserID(userID);
             return doctor;
         }
-    }
+
+		public bool RemoveBillItem(int billItemID, int billID)
+		{
+			// Getting Bill
+			Bill bill = GetBillById(billID);
+            BillItem billItem = _doctorRepository.GetBillItemByID(billItemID);
+
+			// Updating Total
+			bool removedItem = _doctorRepository.RemoveBillItem(billItemID);
+            if (removedItem)
+            {
+			    bill.Total -= billItem.Price;
+                bool updatedBill = _doctorRepository.UpdateBill(bill);
+            }
+            return removedItem;
+		}
+	}
 }

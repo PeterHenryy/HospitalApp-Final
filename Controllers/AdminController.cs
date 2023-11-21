@@ -76,8 +76,13 @@ namespace HospitalApp.Controllers
             ViewBag.Revenue = _adminService.CalculateHospitalRevenue();
             return View(doctors);
         }
+		public IActionResult PatientsIndex()
+		{
+			List<AppUser> patients = _doctorService.GetAllPatients();
+			return View(patients);
+		}
 
-        public async Task<IActionResult> Delete(int doctorID, int userID)
+		public async Task<IActionResult> Delete(int doctorID, int userID)
         {
             AppUser user = _userManager.FindByIdAsync(userID.ToString()).Result;
             bool deletedDoctor = _doctorService.Delete(doctorID);

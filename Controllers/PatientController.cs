@@ -37,9 +37,10 @@ namespace HospitalApp.Controllers
             bill.OriginalTotal = bill.Total;
             bill.Total = discountedTotal;
             var updatedBill = _patientService.UpdateBill(bill);
-            return RedirectToAction("BillDetails", "Patient", new {appointmentId = bill.AppointmentId});
+            return RedirectToAction("BillPayment", "Patient", new {appointmentId = bill.AppointmentId});
         }
-        public IActionResult BillDetails(int appointmentId)
+
+        public IActionResult BillPayment(int appointmentId)
         {
             var bill = _patientService.GetBillByAppointmentId(appointmentId);
             BillAndTransactionDetailsViewModelForm billDetails = new BillAndTransactionDetailsViewModelForm();
@@ -56,11 +57,11 @@ namespace HospitalApp.Controllers
             {
                 return RedirectToAction("BillDetails", new { appointmentId = transactionFormInfo.AppointmentId });
             }
-            return RedirectToAction("AddReview", new { appointmentId = transactionFormInfo.AppointmentId });
+			return RedirectToAction("MyAppointments");
 
-        }
+		}
 
-        public IActionResult MyAppointments()
+		public IActionResult MyAppointments()
         {
             IndexViewModel ivm = new IndexViewModel();
             ivm.ActiveAppointments = _patientService.GetActiveAppointmentsByUserId(_currentUser.Id);

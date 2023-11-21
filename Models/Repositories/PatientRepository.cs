@@ -78,8 +78,10 @@ namespace HospitalApp.Models.Repositories
         public List<Appointment> GetActiveAppointmentsByUserId(int userId)
         {
             List<Appointment> appointment = _context.Appointments
-                                                 .Include(x => x.User)
-                                                    .Where(x => x.IsBooked == true && x.IsPaid == false && x.UserID == userId).ToList();
+                                                .Include(x => x.Doctor).ThenInclude(x => x.User)
+                                                    .Include(x => x.User)
+                                                        .Include(x => x.AttachedBill)
+                                                            .Where(x => x.IsBooked == true && x.IsPaid == false && x.UserID == userId).ToList();
             return appointment;
         }
         public Bill GetBillByAppointmentId(int appointmentId)
