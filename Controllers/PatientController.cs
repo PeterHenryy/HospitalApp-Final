@@ -138,7 +138,7 @@ namespace HospitalApp.Controllers
         {
             var doctorDetailsViewModel = new DoctorDetailsViewModel();
             doctorDetailsViewModel.Doctor = _doctorService.GetDoctorByID(doctorID);
-            doctorDetailsViewModel.DoctorAppointments = _patientService.GetAppointmentsByDoctorID(doctorID);
+            doctorDetailsViewModel.DoctorAppointments = _patientService.GetAppointmentsByDoctorID(doctorID).Where(x => !x.IsBooked && !x.IsRejected).ToList();
 			doctorDetailsViewModel.OrganizeAppointmentsByMonths();
 			doctorDetailsViewModel.Reviews = _patientService.GetPatientLatestReviewsOnDoctor(doctorID);
             return View(doctorDetailsViewModel);

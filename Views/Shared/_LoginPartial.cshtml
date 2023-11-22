@@ -31,6 +31,7 @@
 <link href="~/css/promis-form.css" rel="stylesheet" />
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="~/ProjectTheme2/css/bootstrap.min.css">
+<link href="~/css/general.css" rel="stylesheet" />
 <!-- Nice Select CSS -->
 <link rel="stylesheet" href="~/ProjectTheme2/css/nice-select.css">
 <!-- Font Awesome CSS -->
@@ -54,18 +55,18 @@
 <link rel="stylesheet" href="~/ProjectTheme2/style.css">
 <link rel="stylesheet" href="~/ProjectTheme2/css/responsive.css">
 
-<header class="header">
+<header class="header" style="margin-bottom: 20px; margin-top: 20px;">
  
 	<!-- End Topbar -->
 	<!-- Header Inner -->
 	<div class="header-inner">
 		<div class="container">
 			<div class="inner">
-				<div class="row" style="align-items: center;margin-bottom:13px">
+				<div class="row" style="align-items: center;">
 					<div class="col-lg-3 col-md-3 col-12">
 						<!-- Start Logo -->
 						<div class="logo">
-							<a><img width="87%" src="~/ProjectTheme/img/logo.png" alt="#"></a>
+							<a><img width="87%" src="~/ProjectTheme/img/cliniclogo.png" alt="#"></a>
 						</div>
 						<!-- End Logo -->
 						<!-- Mobile Nav -->
@@ -93,8 +94,8 @@
 									}
 									else if (adminRole)
 									{
-									 
-										<li class="nav-item">
+										
+										<li class="nav-item header-links">
 											<a class="nav-link text-dark" href="@Url.Action("DoctorsIndex", "Admin")" title="Manage"> Doctors Index</a>
 										</li>	
 								 
@@ -119,10 +120,10 @@
 											<a class="nav-link text-dark" href="@Url.Action("DoctorIndex", "Patient")" title="Manage">Doctor Index </a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link text-dark" href="@Url.Action("MyAppointments", "Patient")" title="Manage"> My Appointments </a>
+											<a class="nav-link text-dark" href="@Url.Action("MyAppointments", "Patient")" title="Manage"> Appointments & Bills</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link text-dark" href="@Url.Action("PatientBills", "Patient")" title="Manage"> My Bills </a>
+											<a class="nav-link text-dark" href="@Url.Action("PatientBills", "Patient")" title="Manage"> Paid Bills </a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link text-dark" href="@Url.Action("Update", "AppUser")" title="Manage"> Edit Profile </a>
@@ -140,13 +141,21 @@
 						</div>
 						<!--/ End Main Menu -->
 					</div>
-					@{	
+					@{
 						string userFirstName = (doctorRole) ? $"Dr. {currentUser.FirstName}" : currentUser.FirstName;
 					}
-
-					<div class="user-pic-and-name-container">
-						<a class="user-pic-and-name" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> @userFirstName</a>
-					</div>
+					@if (doctorRole)
+					{
+						<div class="user-pic-and-name-container">
+							<a class="user-pic-and-name" href="@Url.Action("EditDoctorProfile", "Doctor")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> @userFirstName</a>
+						</div>
+					}else
+					{
+						<div class="user-pic-and-name-container">
+							<a class="user-pic-and-name" href="@Url.Action("Update", "AppUser")" title="Manage"> <img style="  border-radius:50%; margin-right:10px" width="50px " src="~/profilepics/@currentUser.ProfilePicture"> @userFirstName</a>
+						</div>
+					}
+					 
 
 				</div>
 			</div>

@@ -93,7 +93,7 @@ namespace HospitalApp.Controllers
             }
             _doctorService.UpdateDoctor(doctorObject);
 
-            return RedirectToAction("AppointmentIndex", "Patient");
+            return RedirectToAction("MyAppointments", "Doctor");
         }
        
         public IActionResult MyAppointments()
@@ -172,10 +172,10 @@ namespace HospitalApp.Controllers
         public IActionResult RejectAppointment(int appointmentId)
         {
             _doctorService.RejectAppointmentById(appointmentId);
-            return RedirectToAction("Index");
-        }
+			return RedirectToAction("DoctorsIndex", "admin");
+		}
 
-        public IActionResult Index()
+		public IActionResult Index()
         {
             return View();
         }

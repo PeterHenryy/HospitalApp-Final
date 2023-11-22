@@ -114,7 +114,7 @@ namespace HospitalApp.Services
 
         public List<Appointment> GetAppointmentsByDoctorID(int doctorID)
         {
-            List<Appointment> doctorAppointments = _patientRepository.GetAvailableAppointments().Where(x => x.DoctorID == doctorID).ToList();
+            List<Appointment> doctorAppointments = _patientRepository.GetAvailableAppointments().Where(x => x.DoctorID == doctorID ).ToList();
             return doctorAppointments;
         }
 

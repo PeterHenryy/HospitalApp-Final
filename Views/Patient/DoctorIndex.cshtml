@@ -19,6 +19,7 @@
           rel="stylesheet">
 
     <!-- Css Styles -->
+    <link href="~/css/patient-doctor-index.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/ProjectTheme/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="~/ProjectTheme/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="~/ProjectTheme/css/flaticon.css" type="text/css">
@@ -39,13 +40,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>News</h2>
-                        <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <span>News</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -58,19 +52,20 @@
                 @foreach (var doctor in Model)
                 {
                     <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                                <img src="~/profilepics/@doctor.User.ProfilePicture" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <h5><a href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @doctor.ID})">@doctor.DoctorRole</a></h5>
-
-                            <ul>
-                                    <li> @(doctor.User.FirstName == null ? doctor.User.UserName : doctor.User.FirstName + " , " + doctor.User.LastName)</li>
-                            </ul>
-                        </div>
+                        <a href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = @doctor.ID})">
+                            <div class="blog__item">
+                                <div class="blog__item__pic">
+                                        <img src="~/profilepics/@doctor.User.ProfilePicture" alt="">
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li class="doctor-name" style="font-weight: bold"> @(doctor.User.FirstName == null ? doctor.User.UserName : doctor.User.FirstName + " , " + doctor.User.LastName)</li>
+                                    </ul>
+                                    <p class="doctor-role" >@doctor.DoctorRole</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
                 }
             </div>
         </div>

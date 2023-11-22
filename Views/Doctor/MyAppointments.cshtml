@@ -192,27 +192,93 @@
 											<th>Appointment Date</th>
 											<th>Start Time</th>
 											<th>End Time</th>
+											<th>IsPaid</th>
+											<th>IsRejected</th>
 											<th>Cost</th>
 											<th>Patient Name</th>
-											<th>Action</th>
-											<th>Action</th>
+											<th>Invoice</th>
+											<th>Status</th>
 										</tr>
 
-										@foreach (var appointment in Model)
+										@foreach (var appointment in Model )
 										{
 											<tr>
 												<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
 												<td>@appointment.AppointmentStartTime</td>
 												<td>@appointment.AppointmentEndTime</td>
+												<td>@appointment.IsPaid</td>
+												<td>@appointment.IsRejected</td>
 												<td> <a style="color:black; font-weight: 400; font-size:13px">R₣</a>  @appointment.InitialTotal</td>
-												<td>@appointment.User.FirstName, @appointment.User.LastName</td>
+												@if (@appointment.User != null)
+												{
+													<td>@appointment.User.FirstName, @appointment.User.LastName</td>
+													if (appointment.AttachedBill != null)
+													{
 
-												<td>
-													<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
-												</td>
-												<td>
-													<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
-												</td>
+
+														if (appointment.AttachedBill.IsDoctorApproved)
+														{
+															if (appointment.IsPaid)
+															{
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Paid</a>
+																</td>
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Finished</a>
+																</td>
+															}
+															else
+															{
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Sent</a>
+																</td>
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Waiting</a>
+																</td>
+															}
+
+														}
+													}
+													else
+													{
+														<td>
+															<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+														</td>
+
+														if (appointment.IsRejected)
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+															</td>
+														}
+														else
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
+															</td>
+														}
+													}
+
+												 
+												}
+												else
+												{
+													<td>N/A</td>
+													<td>N/A</td>
+													if (appointment.IsRejected)
+													{
+														<td>
+															<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+														</td>
+													}
+													else
+													{
+														<td>
+															<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
+														</td>
+													}
+												}
+										 
 											</tr>
 										}
 									</table>

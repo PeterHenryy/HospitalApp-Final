@@ -163,7 +163,7 @@ namespace HospitalApp.Controllers
             bool createdAppointment = _doctorService.CreateAppointment(appointment);
             if (createdAppointment)
             {
-                return RedirectToAction("DoctorIndex", "Admin");
+                return RedirectToAction("DoctorsIndex", "Admin");
             }
             return View();
         }

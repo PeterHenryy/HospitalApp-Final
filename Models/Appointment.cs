@@ -18,7 +18,7 @@ namespace HospitalApp.Models
         public bool IsBooked { get; set; }  
         public bool IsPaid { get; set; }  
         public bool IsRejected { get; set; }  
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
         //References
         [ForeignKey("AspNetUsers")]
         [Display(Name = "PatientID")]

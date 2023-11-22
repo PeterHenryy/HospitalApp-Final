@@ -181,48 +181,56 @@
 						<div class="col-12">
 							<div class="single-main">
 								<div class="news-head">
-									<table class="table table-striped">
-										<tr>
-											<th>Appointment Date</th>
-											<th>Start Time</th>
-											<th>End Time</th>
-											<th>Cost</th>
-											<th>Doctor Name</th>
-											<th>Action</th>
-										</tr>
-
-										@foreach (var appointment in Model.ActiveAppointments)
-										{
+									@if (Model.ActiveAppointments.Count == 0)
+									{
+										<h3 style="text-align: center; font-weight:600">No Appointments Booked yet </h3>
+									}
+									else
+									{
+										<table class="table table-striped">
 											<tr>
-												<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
-												<td>@appointment.AppointmentStartTime</td>
-												<td>@appointment.AppointmentEndTime</td>
-												@if (appointment.AttachedBill != null)
-												{
-													<td> <a style="color:black; font-weight: 400; font-size:13px">R₣</a>  @appointment.AttachedBill.Total</td>
-												}
-												else
-												{
-													<td>
-														<a>N/A</a>
-													</td>
-												}
- 												<td>@appointment.Doctor.User.FirstName, @appointment.Doctor.User.LastName</td>
-												@if (appointment.AttachedBill != null)
-												{
-													<td>
-														<a class="btn btn-danger" style="background:green" href="@Url.Action("BillDetails", "Patient", new {appointmentId = @appointment.ID})">View Bill</a>
-													</td>
-												}
-												else
-												{
-													<td>
-														<a style="color:white; " class="btn ">Pending</a>
-													</td>
-												}
+												<th>Appointment Date</th>
+												<th>Start Time</th>
+												<th>End Time</th>
+												<th>Cost</th>
+												<th>Doctor Name</th>
+												<th>Action</th>
 											</tr>
-										}
-									</table>
+									 
+									 
+											@foreach (var appointment in Model.ActiveAppointments)
+											{
+												<tr>
+													<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
+													<td>@appointment.AppointmentStartTime</td>
+													<td>@appointment.AppointmentEndTime</td>
+													@if (appointment.AttachedBill != null)
+													{
+														<td> <a style="color:black; font-weight: 400; font-size:13px">R₣</a>  @appointment.AttachedBill.Total</td>
+													}
+													else
+													{
+														<td>
+															<a>N/A</a>
+														</td>
+													}
+ 													<td>@appointment.Doctor.User.FirstName, @appointment.Doctor.User.LastName</td>
+													@if (appointment.AttachedBill != null)
+													{
+														<td>
+															<a class="btn btn-danger" style="background:green" href="@Url.Action("BillPayment", "Patient", new {appointmentId = @appointment.ID})">View Bill</a>
+														</td>
+													}
+													else
+													{
+														<td>
+															<a style="color:white; " class="btn ">Pending</a>
+														</td>
+													}
+												</tr>
+												}
+										</table>
+									}
 								</div>
 							</div>
 						</div>

@@ -52,35 +52,45 @@ namespace HospitalApp.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(AppLogin appLogin, string returnUrl)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(AppLogin appLogin)
         {
-            AppUser user = await _userManager.FindByNameAsync(appLogin.Username);
-            if (user == null)
+            if (ModelState.IsValid)
             {
-				return View();
-			}
-			try
-            {
-				if (user.Password == appLogin.Password)
-				{
-					await _signInManager.SignInAsync(user, false);
-					if (!String.IsNullOrEmpty(returnUrl))
-					{
-						return Redirect(returnUrl);
-					}
-					return RedirectToAction("DoctorIndex", "Patient");
-				}
-			}
-            catch (Exception)
-            {
-				return View();
+                AppUser user = await _userManager.FindByNameAsync(appLogin.Username);
 
-			}
-			return View();
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Username not found.");
+                    return View(appLogin);
+                }
 
-		}
+                try
+                {
+                    bool correctPassword = user.Password.Equals(appLogin.Password);
+                    if (correctPassword)
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("DoctorIndex", "Patient");
+                    }
 
-		public async Task<RedirectToActionResult> Logout()
+                    ModelState.AddModelError(string.Empty, "Invalid password.");
+                    return View(appLogin);
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred during login.");
+                    return View(appLogin);
+                }
+            }
+
+            return View(appLogin);
+        }
+
+
+
+
+        public async Task<RedirectToActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "AppUser");

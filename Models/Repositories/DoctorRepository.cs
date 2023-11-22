@@ -57,7 +57,8 @@ namespace HospitalApp.Models.Repositories
             List<Appointment> appointment = _context.Appointments.
                                                 Where(x => x.Doctor.ID == doctorId)
                                                     .Include(x => x.User)
-                                                            .ToList();
+                                                        .Include(x => x.AttachedBill)
+															.ToList();
             return appointment;
         }
 		public List<AppUser> GetAllPatients()

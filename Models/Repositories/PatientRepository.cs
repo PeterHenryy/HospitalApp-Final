@@ -61,18 +61,21 @@ namespace HospitalApp.Models.Repositories
             List<Doctor> doctors = _context.Doctors.Include(x => x.User).ToList();
             return doctors;
         }
+
         public List<BillItem> GetBillItemsByBillId(int billId)
         {
             List<BillItem> billItems = _context.BillItems.Where(x => x.BillId == billId).ToList();
             return billItems;
         }
+
         public List<Appointment> GetAvailableAppointments()
         {
             List<Appointment> appointment = _context.Appointments
                                                         .Include(x => x.Doctor)
                                                             .Include(x => x.Doctor.User)
                                                                 .Include(x => x.User)
-                                                                    .Where(x => !x.IsBooked).ToList();
+                                                                    .Include( x=> x.AttachedBill)
+                                                                        .ToList();
             return appointment;
         }
         public List<Appointment> GetActiveAppointmentsByUserId(int userId)
@@ -134,7 +137,10 @@ namespace HospitalApp.Models.Repositories
         public List<Bill> GetPatientBills(int patientID)
         {
             List<Bill> patientBills = _context.Bills.Include(x => x.Appointment)
-                                                                                .Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid).ToList();
+                                                        .Include(x => x.Appointment.Doctor)
+                                                            .Include(x => x.Appointment.Doctor.User)
+                                                                .Where(x => x.Appointment.UserID == patientID && x.Appointment.IsPaid)
+                                                                    .ToList();
             return patientBills;
         }
 

@@ -175,12 +175,6 @@
 			<div class="bread-inner">
 				<div class="row">
 					<div class="col-12">
-						<h2>Blog Single</h2>
-						<ul class="bread-list">
-							<li><a href="index.html">Home</a></li>
-							<li><i class="icofont-simple-right"></i></li>
-							<li class="active">Blog Single</li>
-						</ul>
 					</div>
 				</div>
 			</div>
@@ -197,14 +191,13 @@
 							<div class="single-main">
 								<!-- News Head -->
 								<div class="news-head">
-									<img src="~/profilepics/@Model.Doctor.User.ProfilePicture" alt="#">
+									<img src="~/profilepics/@Model.Doctor.User.ProfilePicture" style="width:100%" alt="#">
 								</div>
 								<!-- News Title -->
 								<h1 class="news-title"><a  >@Model.Doctor.DoctorRole, Dr.@Model.Doctor.User.UserName</a></h1>
 								<!-- Meta -->
 								<div class="meta">
 									<div class="meta-left">
-										<span class="views"><i class="fa fa-user"></i>@Model.DoctorAppointments.Select(x => x.User).Distinct().Count() Patients</span>
 									</div>
 								</div>
 								<!-- News Text -->
@@ -268,7 +261,7 @@
 							<ul class="categor-list">
 								<li><a href="#"> <a style="color:black;font-weight:500">Role:</a> @Model.Doctor.DoctorRole</a></li>
 								<li><a href="#"> <a style="color:black;font-weight:500">Email:</a> @Model.Doctor.User.Email</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Phone</a> @(Model.Doctor.User.PhoneNumber != null ? Model.Doctor.User.PhoneNumber : "N/A") </a></li>
+								<li><a href="#"> <a style="color:black;font-weight:500">Phone:</a> @(Model.Doctor.User.PhoneNumber != null ? Model.Doctor.User.PhoneNumber : "N/A") </a></li>
 							</ul>
 						</div>
 						<!--/ End Single Widget -->

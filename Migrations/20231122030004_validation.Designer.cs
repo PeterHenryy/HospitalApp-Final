@@ -4,14 +4,16 @@ using HospitalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122030004_validation")]
+    partial class validation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,29 +182,6 @@ namespace HospitalApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "588092d8-069f-4f3d-9c0c-e32ed1cdeb2d",
-                            Name = "Patient",
-                            NormalizedName = "PATIENT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "d6afcae4-07dd-4784-b4a1-a378c2b09b5c",
-                            Name = "Doctor",
-                            NormalizedName = "DOCTOR"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "dfc48e53-998b-44ab-9dfd-26eb5eaf6882",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("HospitalApp.Models.Identity.AppUser", b =>

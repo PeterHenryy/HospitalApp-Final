@@ -1,0 +1,10 @@
+﻿.doctor-name {
+    font-size: 18px;
+}
+
+.doctor-role {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    color: #12A2B8;
+}

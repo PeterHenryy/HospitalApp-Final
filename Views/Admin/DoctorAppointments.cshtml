@@ -179,10 +179,16 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="single-main">
-								<div class="news-head">
+								@if(Model.Count() == 0)
+								{
+									<h1 class="table-announcer">This doctor has no appointments yet</h1>
+								}
+								else
+								{
+									
+									<div class="news-head">
 									<table class="table table-striped  ">
 										<tr>
-											<th>User Name</th>
 											<th>Start Time</th>
 											<th>End Time</th>
 											<th>Date</th>
@@ -191,7 +197,9 @@
 											<th>Is Paid</th>
 											<th>Is Rejected</th>
 											<th>Notes</th>
-											<th>Appointment</th>
+											<th>Patient</th>
+											<th>Payment</th>
+											<th>Status</th>
 											<th>Appointment</th>
 
 										</tr>
@@ -199,7 +207,6 @@
 										@foreach (var appointment in Model)
 										{
 											<tr>
-												<td>@(appointment.User != null ? appointment.User.UserName : "N/A")</td>
 												<td>@appointment.AppointmentStartTime</td>
 												<td>@appointment.AppointmentEndTime</td>
 												<td>@appointment.AppointmentDate</td>
@@ -208,26 +215,101 @@
 												<td>@appointment.IsPaid</td>
 												<td>@appointment.IsRejected</td>
 												<td>@appointment.Notes</td>
-												@if(appointment.User == null)
-												{
-													<td><a class="btn btn-primary" style="color:white" >Not Booked</a></td>
-												}else
-												{
-													<td><a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentID = appointment.ID})">Details</a></td>
-												}
-												@if (appointment.IsRejected)
-												{
-													<td><a class="btn btn-primary" style="color:white; background: #ffc107">Canceled</a></td>
-												}
-												else
-												{
-													<td><a class="btn btn-primary" style="background:#EC2929" href="@Url.Action("CancelAppointment", "Admin", new {appointmentID = appointment.ID})">Cancel </a></td>
-												}
- 
-											</tr>
+													@if (@appointment.User != null)
+													{
+														<td>@appointment.User.FirstName, @appointment.User.LastName</td>
+														if (appointment.AttachedBill.IsDoctorApproved)
+														{
+															if (appointment.IsPaid)
+															{
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Paid</a>
+																</td>
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Finished</a>
+																</td>
+															}
+															else
+															{
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Sent</a>
+																</td>
+																<td>
+																	<a class="btn btn-success" style="color:white; background:green"> Waiting</a>
+																</td>
+															}
+
+														}
+														else
+														{
+															<td>
+																<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+															</td>
+
+															if (appointment.IsRejected)
+															{
+																<td>
+																	<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+																</td>
+															}
+															else
+															{
+																<td>
+																	<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Canceled</a>
+																</td>
+															}
+														}
+
+
+													}
+													else
+													{
+														<td>N A</td>
+														<td>
+															<a class="btn btn-danger" style="color:white; background:red">Not Paid</a>
+														</td>
+														if (appointment.IsRejected)
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+															</td>
+														}
+														else
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
+															</td>
+														}
+													}
+													@if (appointment.IsPaid)
+													{
+														<td>
+															<a class="btn btn-danger" style="color:white;background:green" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentId = @appointment.ID})">Details</a>
+
+														</td>
+													}
+													else
+													{
+														if (appointment.IsRejected)
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+															</td>
+														}
+														else
+														{
+															<td>
+																<a class="btn btn-danger" style="color:white;">Pending</a>
+															</td>
+														}
+														 
+													}
+
+												</tr>
 										}
 									</table>
 								</div>
+								}
 							</div>
 						</div>
 					</div>

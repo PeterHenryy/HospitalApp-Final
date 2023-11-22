@@ -45,8 +45,6 @@ input::placeholder {
 }
 
 h1 {
-    position: absolute;
-    top: 40px;
     font-family: Arial;
     animation-name: appear;
     animation-duration: 4s;
@@ -79,4 +77,12 @@ button:hover, .register-button:hover {
     background-color: rgb(66, 155, 210);
     border: none;
     box-shadow: 0px 0px 5px lightblue;
+}
+
+.error-message {
+    color: white;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 35px;
+    font-family: Arial;
 }
