@@ -55,7 +55,7 @@ namespace HospitalApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AppLogin appLogin)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && appLogin.Username != null)
             {
                 AppUser user = await _userManager.FindByNameAsync(appLogin.Username);
 

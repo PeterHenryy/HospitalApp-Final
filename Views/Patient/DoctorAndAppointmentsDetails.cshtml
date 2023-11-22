@@ -269,7 +269,7 @@
 						<div class="single-widget side-tags">
 							<h3 class="title">Tags</h3>
 							<ul class="tag">
-								@foreach (var item in DoctorRolesEnum.RolesKeywords[@Model.Doctor.DoctorRole])
+								@foreach (var item in DoctorRolesEnum.RolesKeywords[@Model.Doctor.DoctorRole.Replace(" ", "_")])
 								{
 									<li><a  >@item</a></li>
 								}
