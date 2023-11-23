@@ -281,7 +281,7 @@
 															</td>
 														}
 													}
-													@if (appointment.IsPaid)
+													@if (appointment.IsBooked)
 													{
 														<td>
 															<a class="btn btn-danger" style="color:white;background:green" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentId = @appointment.ID})">Details</a>
