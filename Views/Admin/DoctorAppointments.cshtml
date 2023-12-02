@@ -218,15 +218,25 @@
 													@if (@appointment.User != null)
 													{
 														<td>@appointment.User.FirstName, @appointment.User.LastName</td>
-														if (appointment.AttachedBill.IsDoctorApproved)
+														if(appointment.AttachedBill == null)
+														{
+															<td>
+																<a class="btn btn-info" style="color:white;"> No bill</a>
+															</td>
+															<td>
+																<a class="btn btn-info" style="color:white;"> No bill</a>
+															</td>
+														}
+														
+														else if (appointment.AttachedBill.IsDoctorApproved)
 														{
 															if (appointment.IsPaid)
 															{
 																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Paid</a>
+																	<a class="btn btn-info" style="color:white;"> Paid</a>
 																</td>
 																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Finished</a>
+																	<a class="btn btn-info" style="color:white;"> Finished</a>
 																</td>
 															}
 															else
