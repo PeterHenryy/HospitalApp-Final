@@ -77,7 +77,7 @@ namespace HospitalApp.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid password.");
                     return View(appLogin);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred during login.");
                     return View(appLogin);

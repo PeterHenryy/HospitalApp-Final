@@ -86,10 +86,13 @@ namespace HospitalApp.Controllers
 
             // Update Doctor
             var doctorObject = _doctorService.GetDoctorByID(doctorViewModelForm.Doctor.ID);
-            // checking if they really submitted any new bios, otherwise we skip this 
-            if(doctorViewModelForm.Doctor.Bio.Length > 1)
+            if(doctorViewModelForm.Doctor.Bio != null)
             {
-                doctorObject.Bio = doctorViewModelForm.Doctor.Bio;
+                // checking if they really submitted any new bios, otherwise we skip this 
+                if(doctorViewModelForm.Doctor.Bio.Length > 1)
+                {
+                    doctorObject.Bio = doctorViewModelForm.Doctor.Bio;
+                }
             }
             _doctorService.UpdateDoctor(doctorObject);
 
@@ -107,7 +110,7 @@ namespace HospitalApp.Controllers
             // Grabbing appointment Object which we are billing
             var appointment = _doctorService.GetAppointmentById(appointmentId);
    
-            // Bill that will be passed in
+            // Bill that will be passed in 
             var billObject = new Bill(); // Temp holder
 
             // Checking if bill exists by appointment Id
