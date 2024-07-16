@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using HospitalApp.Data;
 using HospitalApp.Models.Identity;
 using HospitalApp.Models.Repositories;
@@ -46,7 +47,10 @@ namespace HospitalApp
             services.AddTransient<PatientService>();
             services.AddTransient<AdminService>();
             services.AddTransient<AdminRepository>();
-
+            services.AddSingleton(u => new BlobServiceClient(
+        Configuration.GetValue<string>("BlobConnection")
+            ));
+            services.AddSingleton<IBlobService, BlobService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

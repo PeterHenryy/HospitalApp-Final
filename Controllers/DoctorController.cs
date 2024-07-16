@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace HospitalApp.Controllers
@@ -19,13 +20,15 @@ namespace HospitalApp.Controllers
         private readonly UserService _userService;
         private readonly AppUser _currentUser;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IBlobService _blobService;
 
-        public DoctorController(DoctorService doctorService, UserService userService, UserManager<AppUser> userManager)
+        public DoctorController(DoctorService doctorService, UserService userService, UserManager<AppUser> userManager, IBlobService blobService)
         {
             _doctorService = doctorService;
             _userService = userService;
             _currentUser = userService.GetCurrentUser();
             _userManager = userManager;
+            _blobService = blobService;
         }
 
         [HttpGet]
@@ -69,23 +72,26 @@ namespace HospitalApp.Controllers
             doctorViewModel.AppUser = _currentUser;
             return View(doctorViewModel);
         }
+
         [HttpPost]
         public async Task<IActionResult> EditDoctorProfile(DoctorUpdateViewModelForm doctorViewModelForm)
         {
             //
+            var doctorObject = _doctorService.GetDoctorByID(doctorViewModelForm.Doctor.ID);
             var updatedUser = doctorViewModelForm.AppUser;
             var files = HttpContext.Request.Form.Files;
             if (files.Count > 0)
             {
                 updatedUser.ProfilePicture = files[0].FileName;
                 _userService.HandleUserProfilePicture(files);
+                bool uploadedBlob = await _blobService.UploadBlob(updatedUser.ProfilePicture, files[0], new Blob());
+                doctorObject.ProfilePictureURI = _blobService.GetBlob(updatedUser.ProfilePicture);
             }
             updatedUser.SecurityStamp = Guid.NewGuid().ToString();
             AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser);
             var user = await _userManager.UpdateAsync(mappedUser);
 
             // Update Doctor
-            var doctorObject = _doctorService.GetDoctorByID(doctorViewModelForm.Doctor.ID);
             if(doctorViewModelForm.Doctor.Bio != null)
             {
                 // checking if they really submitted any new bios, otherwise we skip this 
@@ -94,7 +100,7 @@ namespace HospitalApp.Controllers
                     doctorObject.Bio = doctorViewModelForm.Doctor.Bio;
                 }
             }
-            _doctorService.UpdateDoctor(doctorObject);
+            bool updatedDoctor = _doctorService.UpdateDoctor(doctorObject);
 
             return RedirectToAction("MyAppointments", "Doctor");
         }

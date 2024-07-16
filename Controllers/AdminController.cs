@@ -21,9 +21,11 @@ namespace HospitalApp.Controllers
         private readonly DoctorService _doctorService;
         private readonly PatientService _patientService;
         private readonly AdminService _adminService;
+        private readonly IBlobService _blobService;
         private readonly UserService _userService;
         private readonly AppUser _currentUser;
-        public AdminController(UserManager<AppUser> userManager, UserService userService, DoctorService doctorService, PatientService patientService, AdminService adminService)
+
+        public AdminController(UserManager<AppUser> userManager, UserService userService, DoctorService doctorService, PatientService patientService, AdminService adminService, IBlobService blobService)
         {
             _userManager = userManager; 
             _userService = userService;
@@ -31,6 +33,7 @@ namespace HospitalApp.Controllers
             _doctorService = doctorService;
             _patientService = patientService;
             _adminService = adminService;
+            _blobService = blobService;
         }
 
         [HttpGet]
