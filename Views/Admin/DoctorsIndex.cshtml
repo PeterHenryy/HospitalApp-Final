@@ -183,7 +183,7 @@
 			<div class="row">
 				<div class="col-lg-12 col-12">
 					<div class="row">
-						<div class="col-12">
+						<div>
 							<div class="single-main">
 								<p class="table-announcer">Hospital Revenue: R₣ @ViewBag.Revenue</p>
 								<a style="margin-bottom: 15px;" class="btn btn-success" href="@Url.Action("RegisterDoctor", "Admin")">Add Doctor</a>
@@ -205,15 +205,13 @@
 											Doctor doctor = Model[i];
 											<tr>
 												<td>
-													<div style=" height: 54px">
-														<img class="doctor-profile-pic" style="width:55px" src="@doctor.ProfilePictureURI" />
-													</div>
+													<img class="doctor-profile-pic" style="width:55px; height: 55px;" src="@doctor.ProfilePictureURI" />
 												</td>
 												<td>@doctor.User.UserName</td>
 												<td>@doctor.DoctorRole</td>
 												<td>@doctor.User.Email</td>
 												<td>  R₣@ViewBag.DoctorRevenues[i]</td>
- 												<td> <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {doctorID = doctor.ID, userID = doctor.UserID})">Delete</a></td>
+ 												<td> <a class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {doctorID = doctor.ID, userID = doctor.UserID})">Remove</a></td>
 												<td> <a class="btn btn-primary" href="@Url.Action("DoctorAppointments", "Admin", new {doctorID = doctor.ID})">Schedule</a></td>
 												<td> <a class="btn btn-primary" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new {doctorID = doctor.ID})">Details</a></td>
 												<td> <a class="btn btn-primary" href="@Url.Action("CreateAppointment", "Admin", new {doctorID = doctor.ID})">Create </a></td>
