@@ -316,7 +316,6 @@ body{
 	box-shadow: none;
 	border: none;
 	margin: 0;
-	height: 0px;
 	min-height: 0px;
 }
 .header .nav li{

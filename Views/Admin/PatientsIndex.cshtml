@@ -179,39 +179,32 @@
 	<!-- Single News -->
 	<section class="news-single section">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-12">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-main">
-								<div class="news-head">
-									<table class="table table-striped  ">
-										<tr>
-											<th> First Name</th>
-											<th> Last Name</th>
-											<th> UserName</th>
-											<th> Email</th>
-											<th> Phone</th>
-										</tr>
-										@for (int i = 0; i < Model.Count(); i++)
-										{
-											var patient = Model[i];
-											<tr>
-												<td>@(patient.FirstName != null ? patient.FirstName : "N/A")</td>
-												<td>@(patient.LastName != null ? patient.LastName : "N/A")</td>
-												<td>@(patient.UserName != null ? patient.UserName : "N/A")</td>
-												<td>@(patient.Email != null ? patient.Email : "N/A")</td>
-												<td>@(patient.PhoneNumber != null ? patient.PhoneNumber : "N/A")</td>
+			<div class="row" style="overflow-x: auto">
+				
+				<table class="table table-striped  ">
+					<tr>
+						<th> First Name</th>
+						<th> Last Name</th>
+						<th> UserName</th>
+						<th> Email</th>
+						<th> Phone</th>
+					</tr>
+					@for (int i = 0; i < Model.Count(); i++)
+					{
+						var patient = Model[i];
+						<tr>
+							<td>@(patient.FirstName != null ? patient.FirstName : "N/A")</td>
+							<td>@(patient.LastName != null ? patient.LastName : "N/A")</td>
+							<td>@(patient.UserName != null ? patient.UserName : "N/A")</td>
+							<td>@(patient.Email != null ? patient.Email : "N/A")</td>
+							<td>@(patient.PhoneNumber != null ? patient.PhoneNumber : "N/A")</td>
 
-											</tr>
-										}
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+						</tr>
+					}
+				</table>
+								
 			</div>
+						
 		</div>
 	</section>
 	<!--/ End Single News -->
