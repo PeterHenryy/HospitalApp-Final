@@ -253,11 +253,11 @@
 						<!-- Single Widget -->
 						<div class="single-widget category">
 							<h3 class="title">Appointment Details</h3>
-							<ul class="categor-list">
-								<li><a href="#"> <a style="color:black;font-weight:500">Appointment Date:</a> @Model.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Start Time:</a> @Model.Appointment.AppointmentStartTime</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">End Time:</a> @Model.Appointment.AppointmentEndTime</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Initial Total:</a> R₣ @Model.Appointment.InitialTotal</a></li>
+							<ul class="categor-list" style="display: flex; flex-direction: column; align-items: start;">
+								<li><a> <span style="color:black;font-weight:500">Appointment Date: </span> @Model.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</a></li>
+								<li><a> <span style="color:black;font-weight:500">Start Time: </span> @Model.Appointment.AppointmentStartTime</a></li>
+								<li><a> <span style="color:black;font-weight:500">End Time: </span> @Model.Appointment.AppointmentEndTime</a></li>
+								<li><a> <span style="color:black;font-weight:500">Initial Total: </span> $ @Model.Appointment.InitialTotal</a></li>
 							</ul>
 						</div>
 						<!--/ End Single Widget -->

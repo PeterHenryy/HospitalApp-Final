@@ -217,31 +217,34 @@
 												<div class="form-group" style="margin-left: 15px">
 													<label>Start Time</label>
 													<br />
-													<select asp-for="AppointmentStartTime" class="time-select">
+													<select id="AppointmentStartTime" asp-for="AppointmentStartTime" class="time-select">
 														@foreach (var time in ViewBag.AppointmentTimes)
 														{
 															<option value="@time">@time</option>
 														}
 													</select>
-													<br />
 													<br />
 												</div>
 
 												<div class="form-group" style="margin-left: 15px">
 													<label>End Time</label>
 													<br />
-													<select asp-for="AppointmentEndTime" class="time-select">
+													<select id="AppointmentEndTime" asp-for="AppointmentEndTime" class="time-select">
 														@foreach (var time in ViewBag.AppointmentTimes)
 														{
 															<option value="@time">@time</option>
 														}
 													</select>
+													<br />
 												</div>
-												<br />
+
+
 												<br />
 											</div>
-											 
-											<button type="submit" class="btn btn-primary">Create Appointment</button>
+											<div id="timeError" style="color: red; display: none; margin-bottom: 15px;">Start time must be before end time.</div>
+
+											<!-- Add the form submit button -->
+											<button type="submit" id="submitButton" class="btn btn-primary" style="width: 100%;">Submit</button>
 										</form>
 									</div>
 								</div>
@@ -259,6 +262,8 @@
 
 		// Set the value of the input to the current date
 		document.getElementById('appointmentDate').value = currentDate;
+
+
 	</script>
 	<!--/ End Footer Area -->
 	<script src="~/ProjectTheme2/js/jquery.min.js"></script>
@@ -316,6 +321,43 @@
 			return true; // Allow form submission
 		  }
 		}
+	</script>
+	<script>
+		function convertTo24Hour(time) {
+			// This function converts 12-hour time to 24-hour format
+			let [hour, minuteAndPeriod] = time.split(":");
+			let [minute, period] = minuteAndPeriod.split(" ");
+			hour = parseInt(hour);
+			minute = parseInt(minute);
+
+			// Adjust hour based on AM/PM
+			if (period === "AM" && hour === 12) {
+				hour = 0;  // 12 AM is 00 in 24-hour time
+			} else if (period === "PM" && hour !== 12) {
+				hour += 12; // Convert PM times (except for 12 PM which is already correct)
+			}
+
+			return new Date(1970, 0, 1, hour, minute); // Return a Date object for comparison
+		}
+
+		document.getElementById("submitButton").addEventListener("click", function(event) {
+			var startTime = document.getElementById("AppointmentStartTime").value;
+			var endTime = document.getElementById("AppointmentEndTime").value;
+
+			// Convert the time strings to Date objects using the convertTo24Hour function
+			var startDate = convertTo24Hour(startTime);
+			var endDate = convertTo24Hour(endTime);
+
+			// Reset error message
+			document.getElementById("timeError").style.display = "none";
+
+			// Check if start time is greater than or equal to end time
+			if (startDate >= endDate) {
+				// Show the error message and prevent form submission
+				document.getElementById("timeError").style.display = "block";
+				event.preventDefault(); // Prevent form submission
+			}
+		});
 	</script>
 </body>
 </html>  

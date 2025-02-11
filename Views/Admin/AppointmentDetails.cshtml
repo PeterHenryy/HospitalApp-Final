@@ -201,7 +201,7 @@
 											<td>@Model.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
 											<td>@Model.Appointment.AppointmentStartTime</td>
 											<td>@Model.Appointment.AppointmentEndTime</td>
-											<td> <a style="color:black; font-weight: 400; font-size:13px">R₣</a>  @Model.Appointment.InitialTotal</td>
+											<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @Model.Appointment.InitialTotal</td>
 											<td>@Model.Appointment.User.FirstName, @Model.Appointment.User.LastName</td>
 											<td>@Model.Appointment.Notes</td>
 										</tr>
@@ -236,8 +236,8 @@
 
 										<tr>
 											<td>@Model.Bill.Appointment.User.UserName </td>
-											<td>R₣ @Model.Bill.Total </td>
-											<td>R₣ @Model.Bill.OriginalTotal </td>
+											<td>$ @Model.Bill.Total </td>
+											<td>$ @Model.Bill.OriginalTotal </td>
 												@if (doctorNotes)
 												{
 												<td>@Model.Bill.DoctorsNotes </td>
@@ -283,7 +283,7 @@
 											{
 												<tr>
 													<td>@billItem.Name</td>
-													<td>R₣ @billItem.Price</td>
+													<td>$ @billItem.Price</td>
 													<td>@billItem.Description</td>
 												</tr>
 											}

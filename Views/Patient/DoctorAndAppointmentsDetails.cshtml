@@ -1,7 +1,11 @@
 ﻿@model DoctorDetailsViewModel
-@using HospitalApp.Helpers.Enums
+@using HospitalApp.Helpers.Enums;
+@using HospitalApp.Models.Identity;
+@using Microsoft.AspNetCore.Identity
+
 @{
-    Layout = null;
+	Layout = null;
+	bool patientRole = User.IsInRole(UserRolesEnum.Patient.ToString());
 }
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -99,7 +103,10 @@
 					line-height: 20px;
 				}
 
-				.option-input:checked::after {
+		.book-appointment-button:hover{
+			cursor:pointer;
+		}
+		.option-input:checked::after {
 					-webkit-animation: click-wave 0.65s;
 					-moz-animation: click-wave 0.65s;
 					animation: click-wave 0.65s;
@@ -109,6 +116,7 @@
 					position: relative;
 					z-index: 100;
 				}
+
 
 			.option-input.radio {
 				border-radius: 50%;calc(40.666% )
@@ -152,7 +160,9 @@
 			cursor: not-allowed;
 			opacity: 0.6;
 		}
-
+		#hover-helper:hover{
+			cursor:pointer;
+		}
 		.app-label {
 			position: relative;
 			top: 5px;
@@ -218,20 +228,35 @@
 												<div class="row">
 													@foreach (var appointment in item.Value)
 													{
+														if(patientRole){
 
-														<div class="app-check">
-															<div class="app-border">
+															<a class="book-appointment-button" href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">
+																<div class="app-check" >
+																	<div class="app-border">
 
-																<label class="app-label">
-																	<a href="@Url.Action("BookAppointment", "Patient", new {appointmentId = appointment.ID})">
+																		<label class="app-label" style="cursor: pointer;">
+																				@appointment.AppointmentDate.ToString("MM/dd/yyyy")
+																				<br />
+																				@appointment.AppointmentStartTime
+																		</label>
+																	</div>
+
+																</div>
+															</a>
+														}
+														else{
+															<div class="app-check">
+																<div class="app-border">
+
+																	<label class="app-label">
 																		@appointment.AppointmentDate.ToString("MM/dd/yyyy")
 																		<br />
 																		@appointment.AppointmentStartTime
-																	</a>
-																</label>
-															</div>
+																	</label>
+																</div>
 
-														</div>
+															</div>
+														}
 													}
 												</div>
 											}
@@ -258,17 +283,17 @@
 						<!-- Single Widget -->
 						<div class="single-widget category">
 							<h3 class="title">Doctor Details</h3>
-							<ul class="categor-list">
-								<li><a href="#"> <a style="color:black;font-weight:500">Role:</a> @Model.Doctor.DoctorRole</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Email:</a> @Model.Doctor.User.Email</a></li>
-								<li><a href="#"> <a style="color:black;font-weight:500">Phone:</a> @(Model.Doctor.User.PhoneNumber != null ? Model.Doctor.User.PhoneNumber : "N/A") </a></li>
+							<ul class="categor-list" style="display: flex; flex-direction: column; align-items: start;">
+								<li><a> <span style="color:black;font-weight:500">Role:</span> @Model.Doctor.DoctorRole</a></li>
+								<li><a> <span style="color:black;font-weight:500">Email:</span> @Model.Doctor.User.Email</a></li>
+								<li><a> <span style="color:black;font-weight:500">Phone:</span> @(Model.Doctor.User.PhoneNumber != null ? Model.Doctor.User.PhoneNumber : "N/A") </a></li>
 							</ul>
 						</div>
 						<!--/ End Single Widget -->
 						<!-- Single Widget -->
 						<div class="single-widget side-tags">
 							<h3 class="title">Tags</h3>
-							<ul class="tag">
+							<ul class="tag" style="display: grid;">
 								@foreach (var item in DoctorRolesEnum.RolesKeywords[@Model.Doctor.DoctorRole.Replace(" ", "_")])
 								{
 									<li><a  >@item</a></li>

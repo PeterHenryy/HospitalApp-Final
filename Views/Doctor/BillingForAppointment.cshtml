@@ -198,7 +198,7 @@
 											<td>@Model.BillInfo.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
 											<td>@Model.BillInfo.Appointment.AppointmentStartTime</td>
 											<td>@Model.BillInfo.Appointment.AppointmentEndTime</td>
-											<td> <a style="color:black; font-weight: 400; font-size:13px">R₣</a>  @Model.BillInfo.Appointment.InitialTotal</td>
+											<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @Model.BillInfo.Appointment.InitialTotal</td>
 											<td>@Model.BillInfo.Appointment.User.FirstName, @Model.BillInfo.Appointment.User.LastName</td>
 											<td>@Model.BillInfo.Appointment.Notes</td>
 											<td> <button class="btn btn-success" style="background: green;" id="add-bill-item-button">Add Bill Item</button></td>
@@ -272,13 +272,13 @@
 											{
 												<tr>
 													<td>@billItem.Name</td>
-													<td>R₣ @billItem.Price</td>
+													<td>$ @billItem.Price</td>
 													<td>@billItem.Description</td>
 													<td> <a class="btn btn-danger" style="background: red;" href="@Url.Action("RemoveBillItem", "Doctor", new {billItemID = billItem.Id, appointmentID = Model.BillInfo.AppointmentId, billItem.BillId})">Remove</a></td>
 												</tr>
 											}
 										</table>
-										<p style="font-size: 20px; font-weight: bold">Appointment Bill after added items/medications: R₣ @Model.BillInfo.Total</p>
+										<p style="font-size: 20px; font-weight: bold">Appointment Bill after added items/medications: $ @Model.BillInfo.Total</p>
 									</div>
 								</div>
 							</div>
@@ -350,7 +350,7 @@
 								<input type="text" class="form-control" asp-for="@Model.BillForm.DoctorsNotes">
 							</div>
 
-							<button type="submit" class="btn btn-primary">Bill Patient R₣ @Model.BillInfo.Total</button>
+							<button type="submit" class="btn btn-primary">Bill Patient $ @Model.BillInfo.Total</button>
 						</form>
 					</div>
 				</div>

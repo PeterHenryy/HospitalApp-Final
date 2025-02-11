@@ -202,6 +202,12 @@ Version:	1.1
 	height: 400px;
 	margin-bottom: 30px;
 }
+
+.tag{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
 .service-details-inner {
 	width: 100%;
 	margin: 0;
@@ -403,6 +409,11 @@ Version:	1.1
 	background: transparent;
 	padding: 0;
 }
+
+.tag{
+	grid-template-columns: repeat(1, 1fr);
+}
+
 .slicknav_btn {
 	background: transparent;
 	padding: 0;

@@ -51,6 +51,11 @@ namespace HospitalApp
         Configuration.GetValue<string>("BlobConnection")
             ));
             services.AddSingleton<IBlobService, BlobService>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.AllowedUserNameCharacters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!*";
+                options.User.RequireUniqueEmail = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -184,7 +184,7 @@
 				@* Added justify-content-center to center the column *@
 				<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10);">
 					@* Use col-8 to limit the table width to 8 columns *@
-					<p class="table-announcer text-center">Hospital Revenue: R₣ @ViewBag.Revenue</p>
+					<p class="table-announcer text-center">Hospital Revenue: $ @ViewBag.Revenue</p>
 					<a style="margin-bottom: 15px;" class="btn btn-success" href="@Url.Action("RegisterDoctor", "Admin")">Add Doctor</a>
 
 					<div class="table-responsive">
@@ -215,7 +215,7 @@
 										<td>@doctor.User.UserName</td>
 										<td>@doctor.DoctorRole</td>
 										<td>@doctor.User.Email</td>
-										<td>R₣@ViewBag.DoctorRevenues[i]</td>
+										<td>$@ViewBag.DoctorRevenues[i]</td>
 										<td><a class="btn btn-danger btn-sm" href="@Url.Action("Delete", "Admin", new { doctorID = doctor.ID, userID = doctor.UserID })">Remove</a></td> @* Added btn-sm for smaller buttons *@
 										<td><a class="btn btn-primary btn-sm" href="@Url.Action("DoctorAppointments", "Admin", new { doctorID = doctor.ID })">Schedule</a></td> @* Added btn-sm for smaller buttons *@
 										<td><a class="btn btn-primary btn-sm" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new { doctorID = doctor.ID })">Details</a></td> @* Added btn-sm for smaller buttons *@
