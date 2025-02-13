@@ -70,7 +70,7 @@ namespace HospitalApp.Controllers
          
         public IActionResult DoctorIndex()
         {
-            var doctors = _patientService.GetAvaliablesAppointments().Select(x => x.Doctor).Distinct().ToList();
+            var doctors = _patientService.GetDoctorsDropdown();
             return View(doctors);
         }
         [HttpGet]
@@ -95,7 +95,7 @@ namespace HospitalApp.Controllers
             {
                 return View(appointment);
             }
-            return RedirectToAction("doctorIndex");
+            return RedirectToAction("MyAppointments");
         }
         [HttpGet]
         public IActionResult AddReview(int appointmentId)

@@ -84,9 +84,9 @@ namespace HospitalApp.Services
             return _doctorRepository.GetAllPatients();
 		}
 
-		public bool Delete(int doctorID)
+		public bool Remove(int doctorID)
         {
-            bool deletedDoctor = _doctorRepository.Delete(doctorID);
+            bool deletedDoctor = _doctorRepository.Remove(doctorID);
             return deletedDoctor;
         }
 

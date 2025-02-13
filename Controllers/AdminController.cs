@@ -87,11 +87,9 @@ namespace HospitalApp.Controllers
 			return View(patients);
 		}
 
-		public async Task<IActionResult> Delete(int doctorID, int userID)
+		public IActionResult Remove(int doctorID, int userID)
         {
-            AppUser user = _userManager.FindByIdAsync(userID.ToString()).Result;
-            bool deletedDoctor = _doctorService.Delete(doctorID);
-            await _userManager.DeleteAsync(user);
+            bool removedDoctor = _doctorService.Remove(doctorID);
             return RedirectToAction("DoctorsIndex", "Admin");
         }
 
@@ -141,15 +139,16 @@ namespace HospitalApp.Controllers
         {
             List<string> appointmentTimes = new List<string>();
 
-            for (int hour = 1; hour <= 12; hour++)
+            for (int hour = 1; hour <= 11; hour++)
             {
                 appointmentTimes.Add($"{hour}:00 AM");
             }
-
-            for (int hour = 1; hour <= 12; hour++)
+            appointmentTimes.Add("12:00 PM");
+            for (int hour = 1; hour <= 11; hour++)
             {
                 appointmentTimes.Add($"{hour}:00 PM");
             }
+            appointmentTimes.Add("12:00 AM");
 
             ViewBag.AppointmentTimes = appointmentTimes;
             Appointment appointment = new Appointment()

@@ -36,20 +36,11 @@ namespace HospitalApp.Models.Repositories
             }
         }
 
-        public bool Delete(int doctorID)
+        public bool Remove(int doctorID)
         {
-            try
-            {
-                Doctor doctor = GetDoctorByID(doctorID);
-                _context.Doctors.Remove(doctor);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (System.Exception)
-            {
-
-                return false;
-            }
+            Doctor doctor = GetDoctorByID(doctorID);
+            doctor.Active = false;
+            return UpdateDoctor(doctor);
         }
 
         public List<Appointment> GetAppointmentsByDoctor(int doctorId)
@@ -68,7 +59,7 @@ namespace HospitalApp.Models.Repositories
 		}
 		public List<Doctor> GetAllDoctors()
         {
-            List<Doctor> doctors = _context.Doctors.Include(x => x.User).ToList();
+            List<Doctor> doctors = _context.Doctors.Where(x => x.Active).Include(x => x.User).ToList();
             return doctors;
         }
 

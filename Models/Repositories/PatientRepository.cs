@@ -58,7 +58,7 @@ namespace HospitalApp.Models.Repositories
         }
         public List<Doctor> GetDoctorsDropdown()
         {
-            List<Doctor> doctors = _context.Doctors.Include(x => x.User).ToList();
+            List<Doctor> doctors = _context.Doctors.Where(x => x.Active).Include(x => x.User).ToList();
             return doctors;
         }
 

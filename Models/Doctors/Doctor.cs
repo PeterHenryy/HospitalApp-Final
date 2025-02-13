@@ -13,6 +13,7 @@ namespace HospitalApp.Models.Doctors
         public int HierarchyStatus { get; set; }
         public string? Bio { get; set; }
         public string ProfilePictureURI { get; set; }
+        public bool Active { get; set; } = true;
 
         // References
         [ForeignKey("AspNetUsers")]

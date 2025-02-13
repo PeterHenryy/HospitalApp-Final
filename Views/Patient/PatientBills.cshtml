@@ -175,46 +175,48 @@
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
 	<section class="news-single section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-12">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-main">
-								<div class="news-head">	@if (Model.Count == 0)
-									{
-										<h3 style="text-align: center; font-weight:600">No Bills Paid yet </h3>
-									}
-									else
-									{
-										<table class="table table-striped ">
-											<tr>
-												<th>Doctor</th>
-												<th>Paid Total</th>
-												<th>Bill Total</th>
-												<th>Insurance</th>
-												<th>Action</th>
-											</tr>
+		<div class="container-sm">
+			<div class="row justify-content-center">
+				<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+					@if (Model.Count == 0)
+					{
+						<h3 style="text-align: center; font-weight:600">No Bills Paid yet </h3>
+					}
+					else
+					{
+						<div class="table-responsive">
+							
+							<table id="patient-bills" class="table table-striped ">
+								<thead>
 
-											@foreach (var bill in Model)
-											{
-												<tr>
-													<td>@bill.Appointment.Doctor.User.FirstName, @bill.Appointment.Doctor.User.LastName</td>
-													<td>@bill.Total </td>
-													<td>@bill.OriginalTotal </td>
-													<td>@InsuranceTypesEnum.GetInsuranceNameById(@bill.InsuranceId) </td>
-													<td> <a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Patient", new {appointmentID = bill.AppointmentId})">Details</a></td>
-												</tr>
-											}
+									<tr>
+										<th>Doctor</th>
+										<th>Paid Total</th>
+										<th>Bill Total</th>
+										<th>Insurance</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-										</table>
+									@foreach (var bill in Model)
+									{
+										<tr>
+											<td>@bill.Appointment.Doctor.User.FirstName, @bill.Appointment.Doctor.User.LastName</td>
+											<td>@bill.Total </td>
+											<td>@bill.OriginalTotal </td>
+											<td>@InsuranceTypesEnum.GetInsuranceNameById(@bill.InsuranceId) </td>
+											<td> <a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Patient", new {appointmentID = bill.AppointmentId})">Details</a></td>
+										</tr>
 									}
-								</div>
-							</div>
+								</tbody>
+
+							</table>
 						</div>
-					</div>
-				</div>
-			</div>
+
+					}
+				</div>				
+			</div>				
 		</div>
 	</section>
 	<!--/ End Single News -->
@@ -241,6 +243,16 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 	<script src="~/ProjectTheme2/js/bootstrap.min.js"></script>
 	<script src="~/ProjectTheme2/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+	<script>
+		$.noConflict();
+		jQuery(document).ready(function ($) {
+			$('#patient-bills').DataTable();
+		});
+	</script>
 </body>
 </html>
 

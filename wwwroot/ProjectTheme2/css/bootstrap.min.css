@@ -4151,7 +4151,7 @@ tbody.collapse.show {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, .5)
+    color: black;
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
