@@ -109,6 +109,7 @@ namespace HospitalApp.Controllers
         {
             List<BillItem> billItems = new List<BillItem>();
             Appointment appointment = _doctorService.GetAppointmentById(appointmentID);
+            appointment.User = await _userManager.FindByIdAsync(appointment.UserID.ToString());
             Bill bill = _doctorService.GetBillByAppointmentId(appointmentID);
             if(bill != null)
             {

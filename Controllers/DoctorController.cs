@@ -181,7 +181,7 @@ namespace HospitalApp.Controllers
         public IActionResult RejectAppointment(int appointmentId)
         {
             _doctorService.RejectAppointmentById(appointmentId);
-			return RedirectToAction("DoctorsIndex", "admin");
+			return RedirectToAction("DoctorAppointments", "Admin");
 		}
 
 		public IActionResult Index()

@@ -175,149 +175,141 @@
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
 	<section class="news-single section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-12">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-main">
-								<div class="news-head">
-									<h2 style="text-align: center; margin-bottom:25px">Appointment Details</h2>
+		<div class="container-sm">
+			<div class="row justify-content-center" style="margin-bottom: 60px;">
 
-									<table class="table table-striped  ">
-										<tr>
-											<th>Appointment Date</th>
-											<th>Start Time</th>
-											<th>End Time</th>
-											<th>Cost</th>
-											<th>Patient Name</th>
-											<th>Patient Note</th>
-											<th>Action</th>
-										</tr>
-										<tr>
-											<td>@Model.BillInfo.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
-											<td>@Model.BillInfo.Appointment.AppointmentStartTime</td>
-											<td>@Model.BillInfo.Appointment.AppointmentEndTime</td>
-											<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @Model.BillInfo.Appointment.InitialTotal</td>
-											<td>@Model.BillInfo.Appointment.User.FirstName, @Model.BillInfo.Appointment.User.LastName</td>
-											<td>@Model.BillInfo.Appointment.Notes</td>
-											<td> <button class="btn btn-success" style="background: green;" id="add-bill-item-button">Add Bill Item</button></td>
-										</tr>
+				<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+					<h2 style="text-align: center; margin-bottom:25px">Appointment Details</h2>
 
-									</table>
-								</div>
-								<div  style="display: none;" id="bill-item-form">
-									<form  asp-controller="Doctor" asp-action="CreateBillItems" id="bill-item-form">
-										<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
-										<input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
+					<div class="table-responsive">
 
-										<div class="form-group">
-											<label>Item Name</label>
-											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Name" required>
-										</div>
+						<table class="table table-striped  ">
+							<tr>
+								<th>Appointment Date</th>
+								<th>Start Time</th>
+								<th>End Time</th>
+								<th>Cost</th>
+								<th>Patient Name</th>
+								<th>Patient Note</th>
+								<th>Action</th>
+							</tr>
+							<tr>
+								<td>@Model.BillInfo.Appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
+								<td>@Model.BillInfo.Appointment.AppointmentStartTime</td>
+								<td>@Model.BillInfo.Appointment.AppointmentEndTime</td>
+								<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @Model.BillInfo.Appointment.InitialTotal</td>
+								<td>@Model.BillInfo.Appointment.User.FirstName, @Model.BillInfo.Appointment.User.LastName</td>
+								<td>@Model.BillInfo.Appointment.Notes</td>
+								<td> <button class="btn btn-success" style="background: green;" id="add-bill-item-button">Add Bill Item</button></td>
+							</tr>
 
-										<div class="form-group">
-											<label> Price</label>
-											<input  class="form-control" asp-for="@Model.BillItemForm.Price" required>
-										</div>
-
-										<div class="form-group">
-											<label> Description</label>
-											<input type="text" class="form-control" asp-for="@Model.BillItemForm.Description" required>
-										</div>
-
-										<button type="submit" class="btn btn-primary" id="create-item-button">Add Item</button>
-									</form>
-									@{
-										bool lateOrNoShowBill = Model.BillItemsAdded.Any(x => x.Name.Equals("Late appearance/No show"));
-									}
-									@if (!lateOrNoShowBill)
-									{
-										<p  style="margin-top: 20px;">Patient was late or did not show up?</p>
-										<form asp-controller="Doctor" asp-action="CreateBillItems">
-											<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
-											<input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
-											<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Name" value="Late appearance/No show">
-											<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Price" value="50">
-											<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Description" value="Patient was late for appointment or did not show up">
-
-											<button type="submit" class="btn btn-primary">Charge $50</button>
-										</form>
-									}
-								</div>
-							</div>
-						</div>
+						</table>
 					</div>
-				</div>	
+					<div style="display: none; width: 100%;" id="bill-item-form">
+						<form asp-controller="Doctor" asp-action="CreateBillItems" id="bill-item-form">
+							<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
+							<input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
+
+							<div class="form-group">
+								<label>Item Name</label>
+								<input type="text" class="form-control" asp-for="@Model.BillItemForm.Name" required>
+							</div>
+
+							<div class="form-group">
+								<label> Price</label>
+								<input class="form-control" asp-for="@Model.BillItemForm.Price" required>
+							</div>
+
+							<div class="form-group">
+								<label> Description</label>
+								<input type="text" class="form-control" asp-for="@Model.BillItemForm.Description" required>
+							</div>
+
+							<button type="submit" class="btn btn-primary" style="width: 100%;" id="create-item-button">Add Item</button>
+						</form>
+						@{
+							bool lateOrNoShowBill = Model.BillItemsAdded.Any(x => x.Name.Equals("Late appearance/No show"));
+						}
+						@if (!lateOrNoShowBill)
+						{
+							<p style="margin-top: 20px;">Patient was late or did not show up?</p>
+							<form asp-controller="Doctor" asp-action="CreateBillItems">
+								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.BillId" value="@Model.BillInfo.Id">
+								<input type="text" class="form-control" hidden asp-for="@Model.BillInfo.AppointmentId" value="@Model.BillInfo.AppointmentId">
+								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Name" value="Late appearance/No show">
+								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Price" value="50">
+								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Description" value="Patient was late for appointment or did not show up">
+
+								<button type="submit" style="width: 100%;" class="btn btn-primary">Charge $50</button>
+							</form>
+						}
+					</div>
+				</div>
+			</div>
+			
+							
 				@*-------------------------------------------------------------------------------------------
 				Medication Section
 				-------------------------------------------------------------------------------------------*@
 				@if(Model.BillItemsAdded.Count() != 0)
 				{
-					<div class="col-lg-12 col-12">
-						<div class="row">
-							<div class="col-12">
-								<div class="single-main">
-									<div class="news-head">
-										<h2 style="text-align: center; margin-bottom:25px">Items & Medication</h2>
-										<table class="table table-striped  ">
-											<tr>
-												<th>Name</th>
-												<th>Price</th>
-												<th>Description</th>
-												<th>Action</th>
-											</tr>
+				<div class="row justify-content-center" style="margin-bottom: 60px;">
 
-											@foreach (var billItem in Model.BillItemsAdded)
-											{
-												<tr>
-													<td>@billItem.Name</td>
-													<td>$ @billItem.Price</td>
-													<td>@billItem.Description</td>
-													<td> <a class="btn btn-danger" style="background: red;" href="@Url.Action("RemoveBillItem", "Doctor", new {billItemID = billItem.Id, appointmentID = Model.BillInfo.AppointmentId, billItem.BillId})">Remove</a></td>
-												</tr>
-											}
-										</table>
-										<p style="font-size: 20px; font-weight: bold">Appointment Bill after added items/medications: $ @Model.BillInfo.Total</p>
-									</div>
-								</div>
+						<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+							<h2 style="text-align: center; margin-bottom:25px">Items & Medication</h2>
+							<div class="table-responsive">
+							<table class="table table-striped  ">
+								<tr>
+									<th>Name</th>
+									<th>Price</th>
+									<th>Description</th>
+									<th>Action</th>
+								</tr>
+
+								@foreach (var billItem in Model.BillItemsAdded)
+								{
+									<tr>
+										<td>@billItem.Name</td>
+										<td>$ @billItem.Price</td>
+										<td>@billItem.Description</td>
+										<td> <a class="btn btn-danger" style="background: red;" href="@Url.Action("RemoveBillItem", "Doctor", new {billItemID = billItem.Id, appointmentID = Model.BillInfo.AppointmentId, billItem.BillId})">Remove</a></td>
+									</tr>
+								}
+							</table>
+							<p style="font-size: 20px; font-weight: bold; color: black; text-align: center;">Appointment Bill after added items/medications: $ @Model.BillInfo.Total</p>
 							</div>
+
 						</div>
 					</div>
+
 				}
 				@*-------------------------------------------------------------------------------------------
 				Promis10
 				-------------------------------------------------------------------------------------------*@
-				<div class="col-12">
-					<div class="single-main">
-						<!-- News Head -->
-						<div class="news-head">
-							@*<img src="~/profilepics/@Model.Appointment.Doctor.User.ProfilePicture" alt="#">*@
-						</div>
-						<!-- News Title -->
-						@*<h1 class="news-title"><a>@Model.Appointment.Doctor.DoctorRole, Dr.@Model.Appointment.Doctor.User.UserName</a></h1>*@
-						<!-- Meta -->
-						<h2 style="text-align: center;margin-bottom: 25px;">Patient's PROMIS10 form</h2>
+			<div class="container-sm">
+				<div class="row justify-content-center" style="margin-bottom: 30px;">
 
-						<div class="meta promis-form-container">
-							<p class="question-announcement">Patient considered their previous 7 days when answering</p>
-							<p style="text-align: center;color:white; font-size: 18px;">(1 = Very Often, 5 = Not at All)</p>
+					<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+						<h2 style="text-align: center;margin-bottom: 25px; color: black;">Patient's PROMIS10 form</h2>
+						<div class="meta promis-form-container" style="padding: 20px; background-color: white; color: black;">
+							<p class="question-announcement" style="color: black; text-align:center;">Patient considered their previous 7 days when answering</p>
+							<p style="text-align: center;color:black; margin-bottom: 20px; font-size: 16px;">1-5 (1 being Bad, 5 being Great)</p>
 							<div class="meta-left promis-questions-container">
 
-								 
+
 								@{
 									PROMIS10 promis10 = Model.Promis;
 									var questions = PROMIS10_Questions.QuestionsList;
 									var answers = new List<int>
-									{
-									promis10.Answer1,
-									promis10.Answer2,
-									promis10.Answer3,
-									promis10.Answer4,
-									promis10.Answer5,
-									promis10.Answer6,
-									promis10.Answer7,
-									};
+								{
+								promis10.Answer1,
+								promis10.Answer2,
+								promis10.Answer3,
+								promis10.Answer4,
+								promis10.Answer5,
+								promis10.Answer6,
+								promis10.Answer7,
+								};
 
 									<table class="table table-striped  ">
 										<tr>
@@ -328,16 +320,20 @@
 										{
 											<tr>
 												<td>@questions[i]</td>
-												<td>@answers[i]</td>
+												<td style="vertical-align: middle;">@answers[i]</td>
 											</tr>
 										}
 									</table>
-									}
+								}
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-12">
+
+			</div>
+			<div class="row justify-content-center">
+
+				<div class="col-8" style="padding: 0;">
 					<div class="single-main">
 						<form asp-controller="Doctor" asp-action="SendBillToPatient">
 							<input type="text" class="form-control" hidden asp-for="@Model.BillForm.Id" value="@Model.BillInfo.Id">
@@ -350,11 +346,12 @@
 								<input type="text" class="form-control" asp-for="@Model.BillForm.DoctorsNotes">
 							</div>
 
-							<button type="submit" class="btn btn-primary">Bill Patient $ @Model.BillInfo.Total</button>
+							<button type="submit" style="width: 100%;" class="btn btn-primary">Bill Patient $ @Model.BillInfo.Total</button>
 						</form>
 					</div>
 				</div>
 			</div>
+		
 		</div>
 	</section>
 	<!--/ End Single News -->
@@ -393,3 +390,5 @@
 	</script>
 </body>
 </html>
+
+

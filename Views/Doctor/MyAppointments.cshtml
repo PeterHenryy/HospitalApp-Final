@@ -180,91 +180,76 @@
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
 	<section class="news-single section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-12">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-main">
-								<div class="news-head">
-									<table class="table table-striped  ">
+		<div class="container-sm">
+			<div class="row justify-content-center">
+				<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+					@if(Model.Count() == 0){
+						<h3 style="text-align: center; font-weight:600">No Appointments Booked yet </h3>
+					}
+					else{
+						<div class="table-responsive">
+							<table id="appointments-table" class="table table-striped">
+								<thead>
+
+									<tr>
+										<th>Appointment Date</th>
+										<th>Start Time</th>
+										<th>End Time</th>
+										<th>IsPaid</th>
+										<th>IsRejected</th>
+										<th>Cost</th>
+										<th>Patient Name</th>
+										<th>Invoice</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									@foreach (var appointment in Model)
+									{
 										<tr>
-											<th>Appointment Date</th>
-											<th>Start Time</th>
-											<th>End Time</th>
-											<th>IsPaid</th>
-											<th>IsRejected</th>
-											<th>Cost</th>
-											<th>Patient Name</th>
-											<th>Invoice</th>
-											<th>Status</th>
-										</tr>
-
-										@foreach (var appointment in Model )
-										{
-											<tr>
-												<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
-												<td>@appointment.AppointmentStartTime</td>
-												<td>@appointment.AppointmentEndTime</td>
-												<td>@appointment.IsPaid</td>
-												<td>@appointment.IsRejected</td>
-												<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @appointment.InitialTotal</td>
-												@if (@appointment.User != null)
+											<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
+											<td>@appointment.AppointmentStartTime</td>
+											<td>@appointment.AppointmentEndTime</td>
+											<td>@appointment.IsPaid</td>
+											<td>@appointment.IsRejected</td>
+											<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @appointment.InitialTotal</td>
+											@if (@appointment.User != null)
+											{
+												<td>@appointment.User.FirstName, @appointment.User.LastName</td>
+												if (appointment.AttachedBill != null)
 												{
-													<td>@appointment.User.FirstName, @appointment.User.LastName</td>
-													if (appointment.AttachedBill != null)
+
+
+													if (appointment.AttachedBill.IsDoctorApproved)
 													{
-
-
-														if (appointment.AttachedBill.IsDoctorApproved)
-														{
-															if (appointment.IsPaid)
-															{
-																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Paid</a>
-																</td>
-																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Finished</a>
-																</td>
-															}
-															else
-															{
-																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Sent</a>
-																</td>
-																<td>
-																	<a class="btn btn-success" style="color:white; background:green"> Waiting</a>
-																</td>
-															}
-
-														}
-													}
-													else
-													{
-														<td>
-															<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
-														</td>
-
-														if (appointment.IsRejected)
+														if (appointment.IsPaid)
 														{
 															<td>
-																<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+																<a class="btn btn-success" style="color:white; background:green"> Paid</a>
+															</td>
+															<td>
+																<a class="btn btn-success" style="color:white; background:green"> Finished</a>
 															</td>
 														}
 														else
 														{
 															<td>
-																<a class="btn btn-danger" style="color:white; background:green"  >On-Going</a>
+																<a class="btn btn-success" style="color:white; background:green"> Sent</a>
+															</td>
+															<td>
+																<a class="btn btn-success" style="color:white; background:green"> Waiting</a>
 															</td>
 														}
-													}
 
-												 
+													}
 												}
 												else
 												{
-													<td>N/A</td>
-													<td>N/A</td>
+													<td>
+														<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+													</td>
+
 													if (appointment.IsRejected)
 													{
 														<td>
@@ -278,16 +263,36 @@
 														</td>
 													}
 												}
-										 
-											</tr>
-										}
-									</table>
-								</div>
-							</div>
+
+
+											}
+											else
+											{
+												<td>N/A</td>
+												<td>N/A</td>
+												if (appointment.IsRejected)
+												{
+													<td>
+														<a class="btn btn-danger" style="color:white; background:red">Canceled</a>
+													</td>
+												}
+												else
+												{
+													<td>
+														<a class="btn btn-danger" style="color:white; background:green">On-Going</a>
+													</td>
+												}
+											}
+
+										</tr>
+									}
+								</tbody>
+							</table>
 						</div>
-					</div>
+					}
 				</div>
 			</div>
+			
 		</div>
 	</section>
 	<!--/ End Single News -->
@@ -313,5 +318,16 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 	<script src="~/ProjectTheme2/js/bootstrap.min.js"></script>
 	<script src="~/ProjectTheme2/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+	<script>
+		$.noConflict();
+		jQuery(document).ready(function ($) {
+			$('#appointments-table').DataTable();
+		});
+	</script>
 </body>
 </html>
+

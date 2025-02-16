@@ -406,6 +406,12 @@ ol {
 	display: inline-block;
 }
 
+.header__btn:hover {
+	background-color: rgb(92, 155, 217);
+	color: white;
+	border-radius: 5px;
+}
+
 .offcanvas-menu-wrapper {
 	display: none;
 }

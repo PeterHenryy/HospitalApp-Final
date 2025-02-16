@@ -174,84 +174,95 @@
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
 	<section class="news-single section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-12">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-main">
-								<p class="table-announcer">Bill Details</p>
+		<div class="container-sm">
+					
+				<div class="row justify-content-center" style="margin-bottom: 60px;">
+
+					<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+						@{
+							string nameOfInsurance = InsuranceTypesEnum.GetInsuranceNameById(Model.BillData.InsuranceId);
+							bool doctorNotes = !String.IsNullOrEmpty(Model.BillData.DoctorsNotes);
+						}
+						<p class="table-announcer">Bill Details</p>
+
+						<div class="table-responsive">
+
+							<table class="table table-striped">
+								<tr>
+									<th>Bill ID</th>
+									<th>Doctor Name</th>
+									<th>Bill Total</th>
+									<th>Original Bill Total</th>
+									<th>Doctor Notes</th>
+									<th>Insurance</th>
+
+								</tr>
+
+								<tr>
+									<td>@Model.BillData.Id
+									<td>@Model.BillData.Appointment.User.UserName </td>
+									<td>$ @Model.BillData.Total </td>
+									<td>$ @Model.BillData.OriginalTotal </td>
+										@if (doctorNotes)
+										{
+										<td>@Model.BillData.DoctorsNotes </td>
+										}
+										else
+										{
+										<td>N/A</td>
+										}
+										@if (nameOfInsurance != null)
+										{
+										<td>@nameOfInsurance</td>
+										}
+										else
+										{
+										<td>N/A</td>
+										}
+								</tr>
+							</table>
+						</div>
+
+
+					</div>
+				</div>
+				@if(Model.BillItems.Count() != 0)
+				{
+					<div class="row justify-content-center" style="margin-bottom: 60px;" >
+						<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); padding: 15px;">
+
+							
+								<p class="table-announcer">Bill Items/Medication</p>
 								<div class="news-head">
-									@{
-										string nameOfInsurance = InsuranceTypesEnum.GetInsuranceNameById(Model.BillData.InsuranceId);
-										bool doctorNotes = !String.IsNullOrEmpty(Model.BillData.DoctorsNotes);
-									}
 									<table class="table table-striped">
 										<tr>
-											<th>Bill ID</th>
-											<th>Doctor Name</th>
-											<th>Bill Total</th>
-											<th>Original Bill Total</th>
-											<th>Doctor Notes</th>
-											<th>Insurance</th>
-											
+											<th>Name</th>
+											<th>Price</th>
+											<th>Description</th>
 										</tr>
-
-										<tr>
-											<td>@Model.BillData.Id
-											<td>@Model.BillData.Appointment.User.UserName </td>
-											<td>$ @Model.BillData.Total </td>
-											<td>$ @Model.BillData.OriginalTotal </td>
-											@if (doctorNotes)
-											{
-												<td>@Model.BillData.DoctorsNotes </td>
-											}
-											else{
-												<td>N/A</td>
-											}
-											@if(nameOfInsurance != null)
-											{
-												<td>@nameOfInsurance</td>
-											}
-											else
-											{
-												<td>N/A</td>
-											}
-										</tr>
+										@foreach (var item in Model.BillItems)
+										{
+											<tr>
+												<td>@item.Name</td>
+												<td>$ @item.Price </td>
+												<td>@item.Description </td>
+											</tr>
+										}
 									</table>
 								</div>
-							</div>
+							
 						</div>
-						@if(Model.BillItems.Count() != 0)
-						{
-							<div class="col-12">
-								<div class="single-main">
-									<p class="table-announcer">Bill Items/Medication</p>
-									<div class="news-head">
-										<table class="table table-striped">
-											<tr>
-												<th>Name</th>
-												<th>Price</th>
-												<th>Description</th>
-											</tr>
-											@foreach (var item in Model.BillItems)
-											{
-												<tr>
-													<td>@item.Name</td>
-													<td>$ @item.Price </td>
-													<td>@item.Description </td>
-												</tr>
-											}
-										</table>
-									</div>
-								</div>
-							</div>
-						}
+						
+						
+					</div>
+				}
 						 
-						@if (Model.BillData.InsuranceId == 0)
-						{
-							<div class="col-12">
-								<div class="single-main">
+				@if (Model.BillData.InsuranceId == 0)
+				{
+					<div class="row justify-content-center" style="margin-bottom: 30px;">
+						<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
+
+								
 									<p class="table-announcer">Choose your insurance</p>
 									<div class="news-head">
 										<form asp-controller="Patient" asp-action="SelectInsuranceAndDiscount" class="authentication-form">
@@ -275,48 +286,55 @@
 										</form>
 										
 									</div>
-								</div>
-							</div>
-						}
-						<div class="col-12">
-							<div class="single-main">
-								<p class="table-announcer">Pay for your appointment</p>
-								<div class="news-head">
-									<form asp-controller="Patient" asp-action="CreateTransaction" class="authentication-form">
-										<input hidden asp-for="TransactionForm.BillId" value="@Model.BillData.Id" />
-										<input hidden asp-for="AppointmentId" value="@Model.BillData.AppointmentId" />
-										<input hidden asp-for="TransactionForm.PaymentAmount" value="@Model.BillData.Total" />
+								
+						</div>
+						
+						
+					</div>
+				}
+			<div class="row justify-content-center">
 
-										<!-- Add credit card fields -->
-										<div class="form-group">
-											<label>Card Number</label>
-											<input type="number" class="form-control" required asp-for="@Model.TransactionForm.CardNumber">
-										</div>
-										<div class="form-group">
-											<label>Card Holder Name</label>
-											<input type="text" class="form-control" required asp-for="@Model.TransactionForm.CardHolderName">
-										</div>
-										<div class="form-group">
-											<label>Expiry Month</label>
-											<input type="number" class="form-control" required asp-for="@Model.TransactionForm.ExpiryMonth">
-										</div>
-										<div class="form-group">
-											<label>Expiry Year</label>
-											<input type="number" class="form-control" required asp-for="@Model.TransactionForm.ExpiryYear">
-										</div>
-										<div class="form-group">
-											<label>CVV</label>
-											<input type="number" class="form-control" required asp-for="@Model.TransactionForm.CVV">
-										</div>
-										<button class="btn btn-primary" type="submit">Pay $ @Model.BillData.Total</button>
+				<div class="col-8" style="padding: 0;">
+					<div class="single-main">
+						<p class="table-announcer">Pay for your appointment</p>
+						<div class="news-head">
+							<form asp-controller="Patient" asp-action="CreateTransaction" class="authentication-form">
+								<input hidden asp-for="TransactionForm.BillId" value="@Model.BillData.Id" />
+								<input hidden asp-for="AppointmentId" value="@Model.BillData.AppointmentId" />
+								<input hidden asp-for="TransactionForm.PaymentAmount" value="@Model.BillData.Total" />
 
-									</form>
+								<!-- Add credit card fields -->
+								<div class="form-group">
+									<label>Card Number</label>
+									<input type="number" class="form-control" required asp-for="@Model.TransactionForm.CardNumber">
 								</div>
-							</div>
+								<div class="form-group">
+									<label>Card Holder Name</label>
+									<input type="text" class="form-control" required asp-for="@Model.TransactionForm.CardHolderName">
+								</div>
+								<div class="form-group">
+									<label>Expiry Month</label>
+									<input type="number" class="form-control" required asp-for="@Model.TransactionForm.ExpiryMonth">
+								</div>
+								<div class="form-group">
+									<label>Expiry Year</label>
+									<input type="number" class="form-control" required asp-for="@Model.TransactionForm.ExpiryYear">
+								</div>
+								<div class="form-group">
+									<label>CVV</label>
+									<input type="number" class="form-control" required asp-for="@Model.TransactionForm.CVV">
+								</div>
+								<button class="btn btn-primary" style="width: 100%;" type="submit">Pay $ @Model.BillData.Total</button>
+
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+				
+					
+				
+			
 		</div>
 	</section>
 	<!--/ End Single News -->
@@ -342,6 +360,9 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 	<script src="~/ProjectTheme2/js/bootstrap.min.js"></script>
 	<script src="~/ProjectTheme2/js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 </body>
 </html>
 
