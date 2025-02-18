@@ -14,11 +14,10 @@
         <input type="text" placeholder="First Name" asp-for="FirstName" required>
         <input type="text" placeholder="Last Name" asp-for="LastName" required>
         <input type="password" placeholder="Password" asp-for="Password" required>
+        <div asp-validation-summary="All" class="text-danger error-message"></div>
 
         <button type="submit">Register</button>
         <input type="button" class="register-button" value="Login" onclick="@("window.location.href='" + @Url.Action("Login", "AppUser") + "'");" />
 
     </form>
 </div>
-
-

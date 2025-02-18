@@ -200,7 +200,7 @@
 								<td> <a style="color:black; font-weight: 400; font-size:13px">$</a>  @Model.BillInfo.Appointment.InitialTotal</td>
 								<td>@Model.BillInfo.Appointment.User.FirstName, @Model.BillInfo.Appointment.User.LastName</td>
 								<td>@Model.BillInfo.Appointment.Notes</td>
-								<td> <button class="btn btn-success" style="background: green;" id="add-bill-item-button">Add Bill Item</button></td>
+								<td> <button class="btn btn-success" style="background-color: rgb(92, 155, 217);" id="add-bill-item-button">Add Bill Item</button></td>
 							</tr>
 
 						</table>
@@ -225,7 +225,7 @@
 								<input type="text" class="form-control" asp-for="@Model.BillItemForm.Description" required>
 							</div>
 
-							<button type="submit" class="btn btn-primary" style="width: 100%;" id="create-item-button">Add Item</button>
+							<button type="submit" class="btn btn-primary" style="width: 100%; background-color: rgb(92, 155, 217);" id="create-item-button">Add Item</button>
 						</form>
 						@{
 							bool lateOrNoShowBill = Model.BillItemsAdded.Any(x => x.Name.Equals("Late appearance/No show"));
@@ -240,7 +240,7 @@
 								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Price" value="50">
 								<input type="text" class="form-control" hidden asp-for="@Model.BillItemForm.Description" value="Patient was late for appointment or did not show up">
 
-								<button type="submit" style="width: 100%;" class="btn btn-primary">Charge $50</button>
+								<button type="submit" style="width: 100%; background-color: rgb(92, 155, 217);" class="btn btn-primary">Charge $50</button>
 							</form>
 						}
 					</div>
@@ -346,7 +346,7 @@
 								<input type="text" class="form-control" asp-for="@Model.BillForm.DoctorsNotes">
 							</div>
 
-							<button type="submit" style="width: 100%;" class="btn btn-primary">Bill Patient $ @Model.BillInfo.Total</button>
+							<button type="submit" style="width: 100%; background-color: rgb(92, 155, 217);" class="btn btn-primary">Bill Patient $ @Model.BillInfo.Total</button>
 						</form>
 					</div>
 				</div>

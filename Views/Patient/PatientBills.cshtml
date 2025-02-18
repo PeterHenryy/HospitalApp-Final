@@ -206,7 +206,7 @@
 											<td>@bill.Total </td>
 											<td>@bill.OriginalTotal </td>
 											<td>@InsuranceTypesEnum.GetInsuranceNameById(@bill.InsuranceId) </td>
-											<td> <a class="btn btn-primary" href="@Url.Action("AppointmentDetails", "Patient", new {appointmentID = bill.AppointmentId})">Details</a></td>
+											<td> <a class="btn btn-primary" style="background-color: rgb(92, 155, 217);" href="@Url.Action("AppointmentDetails", "Patient", new {appointmentID = bill.AppointmentId})">Details</a></td>
 										</tr>
 									}
 								</tbody>

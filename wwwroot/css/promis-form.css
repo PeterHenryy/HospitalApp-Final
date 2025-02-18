@@ -30,7 +30,6 @@
     column-gap: 55px;
     justify-content: center;
     width: 100%;
-    background-color: rgb(48, 48, 72);
     padding-top: 10px;
 }
 
@@ -49,12 +48,11 @@
 
 .notes-input,
 .notes-input:focus {
-    background: #292942;
     width: 100%;
     border-left: none;
     border-right: none;
     border-top: none;
-    color: white;
+    color: black;
     outline: none;
     height: 35px;
 }
@@ -67,18 +65,15 @@
 }
 
 .promis-form-submit-button {
-    background-color: rgb(26, 118, 209);
+    background-color: rgb(92, 155, 217);
     color: white;
     padding: 15px;
     border-radius: 10px;
     font-size: 18px;
     border: none;
+    width: 100%;
 }
 
-.promis-form-submit-button:hover {
-    box-shadow: 0px 0px 5px 7px rgba(26, 118, 209, 0.5);
-    background-color: lightsteelblue;
-}
 
 .additional-info {
     font-size: 18px;

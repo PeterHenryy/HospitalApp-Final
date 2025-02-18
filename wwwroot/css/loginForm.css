@@ -3,9 +3,27 @@
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    background-size: cover; /* Ensures the image covers the entire screen */
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh; /* Ensures body takes full viewport height */
+    margin: 0; /* Removes default margin */
+}
+
+
+@media (max-width: 768px) {
+    body {
+        background-size: cover; /* For tablet or smaller devices */
+        background-position: top center; /* Adjusts image to focus on top part */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        background-size: cover; /* Maintains the image cover for mobile screens */
+        background-position: center; /* Keeps the image centered */
+    }
 }
 
 .login-form-container {
@@ -14,7 +32,8 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 400px;
+    padding: 25px;
+    min-height: 400px;
     width: 400px;
     background: linear-gradient(135deg, #8d78c0, #4e3785);
     border-radius: 9px;

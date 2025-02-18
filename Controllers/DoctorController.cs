@@ -100,6 +100,7 @@ namespace HospitalApp.Controllers
                     doctorObject.Bio = doctorViewModelForm.Doctor.Bio;
                 }
             }
+
             bool updatedDoctor = _doctorService.UpdateDoctor(doctorObject);
 
             return RedirectToAction("MyAppointments", "Doctor");
@@ -108,7 +109,7 @@ namespace HospitalApp.Controllers
         public IActionResult MyAppointments()
         {
             var doctorId = _doctorService.GetDoctorByUserID(_currentUser.Id).ID;
-            var appointments = _doctorService.GetAppointmentsByDoctor(doctorId);
+            var appointments = _doctorService.GetAppointmentsByDoctor(doctorId).Where(x => x.AppointmentDate.Date >= DateTime.Today).ToList();
             return View(appointments);
         }
         public async Task<IActionResult> BillingForAppointment(int appointmentId)

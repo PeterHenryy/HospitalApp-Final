@@ -2112,7 +2112,7 @@ body{
 	bottom: -1px;
 	height: 100%;
 	width: 3px;
-	background: #1A76D1;
+	background: rgb(92, 155, 217);
 }
 .main-sidebar .single-widget:last-child{
 	margin:0;

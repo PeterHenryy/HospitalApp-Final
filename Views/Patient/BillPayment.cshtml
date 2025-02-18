@@ -281,7 +281,7 @@
 														<option value="@(i+1)">@InsuranceTypesEnum.InsuranceCoverage.ElementAt(i).Key</option>
 													}
 												</select>
-												<button class="btn btn-success" type="submit">Add Insurance</button>
+									<button class="btn btn-success" style="background-color: rgb(92, 155, 217);" type="submit">Add Insurance</button>
 											</div>
 										</form>
 										
@@ -324,7 +324,7 @@
 									<label>CVV</label>
 									<input type="number" class="form-control" required asp-for="@Model.TransactionForm.CVV">
 								</div>
-								<button class="btn btn-primary" style="width: 100%;" type="submit">Pay $ @Model.BillData.Total</button>
+								<button class="btn btn-primary" style="width: 100%; background-color: rgb(92, 155, 217);" type="submit">Pay $ @Model.BillData.Total</button>
 
 							</form>
 						</div>

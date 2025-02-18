@@ -212,10 +212,10 @@
 											<td>
 												@if (appointment.AttachedBill != null){
 
-													<a class="btn btn-danger" style="background:green" href="@Url.Action("BillPayment", "Patient", new {appointmentId = @appointment.ID})">View Bill</a>
+													<a class="btn btn-danger" style="background-color: rgb(92, 155, 217);" href="@Url.Action("BillPayment", "Patient", new {appointmentId = @appointment.ID})">View Bill</a>
 												}
 												else{
-													<a style="color:white; " class="btn ">Pending</a>
+													<a style="color:white; background-color: rgb(92, 155, 217);" class="btn ">Pending</a>
 												}
 											</td>
 

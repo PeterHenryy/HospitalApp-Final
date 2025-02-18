@@ -223,10 +223,10 @@
 												if (appointment.AttachedBill == null)
 												{
 													<td>
-														<a class="btn btn-info" style="color:white;"> No bill</a>
+														<a class="btn btn-info" style="color:white; background-color: rgb(92, 155, 217);"> No bill</a>
 													</td>
 													<td>
-														<a class="btn btn-info" style="color:white;"> No bill</a>
+														<a class="btn btn-info" style="color:white; background-color: rgb(92, 155, 217);"> No bill</a>
 													</td>
 												}
 
@@ -235,10 +235,10 @@
 													if (appointment.IsPaid)
 													{
 														<td>
-															<a class="btn btn-info" style="color:white;"> Paid</a>
+															<a class="btn btn-info" style="color:white; background-color: rgb(92, 155, 217);"> Paid</a>
 														</td>
 														<td>
-															<a class="btn btn-info" style="color:white;"> Finished</a>
+															<a class="btn btn-info" style="color:white; background-color: rgb(92, 155, 217);"> Finished</a>
 														</td>
 													}
 													else
@@ -255,7 +255,7 @@
 												else
 												{
 													<td>
-														<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+														<a class="btn btn-success" style="color:white; background-color: rgb(92, 155, 217);" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
 													</td>
 
 													if (appointment.IsRejected)
@@ -267,7 +267,7 @@
 													else
 													{
 														<td>
-															<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Canceled</a>
+															<a class="btn btn-danger" style="color:white; background-color: red;" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Canceled</a>
 														</td>
 													}
 												}
@@ -289,14 +289,14 @@
 												else
 												{
 													<td>
-														<a class="btn btn-danger" style="color:white" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
+														<a class="btn btn-danger" style="color:white; background-color: rgb(92, 155, 217);" href="@Url.Action("RejectAppointment", "Doctor", new {appointmentId = @appointment.ID})">Cancel</a>
 													</td>
 												}
 											}
 											@if (appointment.AttachedBill != null)
 											{
 												<td>
-													<a class="btn btn-danger" style="color:white;background:green" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentId = @appointment.ID})">Details</a>
+													<a class="btn btn-danger" style="color:white;background-color: rgb(92, 155, 217);" href="@Url.Action("AppointmentDetails", "Admin", new {appointmentId = @appointment.ID})">Details</a>
 
 												</td>
 											}
@@ -311,7 +311,7 @@
 												else
 												{
 													<td>
-														<a class="btn btn-danger" style="color:white;">Pending</a>
+														<a class="btn btn-danger" style="color:white; background-color: rgb(92, 155, 217);">Pending</a>
 													</td>
 												}
 

@@ -235,10 +235,10 @@
 														else
 														{
 															<td>
-																<a class="btn btn-success" style="color:white; background:green"> Sent</a>
+																<a class="btn btn-success" style="color:white; background-color: rgb(92, 155, 217);"> Sent</a>
 															</td>
 															<td>
-																<a class="btn btn-success" style="color:white; background:green"> Waiting</a>
+																<a class="btn btn-success" style="color:white; background-color: rgb(92, 155, 217);"> Waiting</a>
 															</td>
 														}
 
@@ -247,7 +247,7 @@
 												else
 												{
 													<td>
-														<a class="btn btn-success" style="color:white" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
+														<a class="btn btn-success" style="color:white; background-color: rgb(92, 155, 217);" href="@Url.Action("BillingForAppointment", "Doctor", new {appointmentId = appointment.ID})">Invoice</a>
 													</td>
 
 													if (appointment.IsRejected)
@@ -259,7 +259,7 @@
 													else
 													{
 														<td>
-															<a class="btn btn-danger" style="color:white; background:green">On-Going</a>
+															<a class="btn btn-danger" style="color:white; background-color: rgb(92, 155, 217);">On-Going</a>
 														</td>
 													}
 												}
@@ -279,7 +279,7 @@
 												else
 												{
 													<td>
-														<a class="btn btn-danger" style="color:white; background:green">On-Going</a>
+														<a class="btn btn-danger" style="color:white; background-color: rgb(92, 155, 217);">On-Going</a>
 													</td>
 												}
 											}

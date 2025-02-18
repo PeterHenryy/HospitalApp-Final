@@ -222,11 +222,11 @@
 										<td>@doctor.DoctorRole</td>
 										<td>@doctor.User.Email</td>
 										<td>$@ViewBag.DoctorRevenues[i]</td>
-										<td><a class="btn btn-danger btn-sm" href="@Url.Action("Remove", "Admin", new { doctorID = doctor.ID, userID = doctor.UserID })">Remove</a></td> 
-										<td><a class="btn btn-primary btn-sm" href="@Url.Action("DoctorAppointments", "Admin", new { doctorID = doctor.ID })">Schedule</a></td> 
-										<td><a class="btn btn-primary btn-sm" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new { doctorID = doctor.ID })">Details</a></td> 
-										<td><a class="btn btn-primary btn-sm" href="@Url.Action("CreateAppointment", "Admin", new { doctorID = doctor.ID })">Create</a></td> 
-									</tr>
+										<td><a class="btn btn-danger btn-sm" style="background-color: rgb(92, 155, 217);" href="@Url.Action("Remove", "Admin", new { doctorID = doctor.ID, userID = doctor.UserID })">Remove</a></td>
+										<td><a class="btn btn-primary btn-sm" style="background-color: rgb(92, 155, 217);" href="@Url.Action("DoctorAppointments", "Admin", new { doctorID = doctor.ID })">Schedule</a></td>
+										<td><a class="btn btn-primary btn-sm" style="background-color: rgb(92, 155, 217);" href="@Url.Action("DoctorAndAppointmentsDetails", "Patient", new { doctorID = doctor.ID })">Details</a></td>
+										<td><a class="btn btn-primary btn-sm" style="background-color: rgb(92, 155, 217);" href="@Url.Action("CreateAppointment", "Admin", new { doctorID = doctor.ID })">Create</a></td>
+										</tr>
 								}
 							</tbody>
 						</table>

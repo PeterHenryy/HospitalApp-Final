@@ -48,8 +48,8 @@ namespace HospitalApp.Controllers
         {
             // Creating AppUser and registering to database with "Doctor" role
             AppUser appUser = doctor.UserDataForm;
-            appUser.ProfilePicture = "deafult.jpg";
-
+            appUser.ProfilePicture = "user-doctor-solid.svg";
+            
 			// Creating role 
 			var role = UserRolesEnum.Doctor.ToString();
 
@@ -62,6 +62,8 @@ namespace HospitalApp.Controllers
             // Creating doctor instance and registering it to database
             Doctor newDoctor = doctor.DoctorDataForm;
             newDoctor.User = appUser;
+            newDoctor.Bio = "Specialist at Ineza Physiotherapy Clinic";
+            newDoctor.ProfilePictureURI = "/profilepics/user-doctor-solid.svg";
 
             bool addedDoctor = _doctorService.Create(newDoctor);
             return RedirectToAction("DoctorsIndex", "Admin");
@@ -101,7 +103,7 @@ namespace HospitalApp.Controllers
 
         public IActionResult DoctorAppointments(int doctorID)
         {
-            List<Appointment> doctorAppointments = _doctorService.GetAppointmentsByDoctor(doctorID);
+            List<Appointment> doctorAppointments = _doctorService.GetAppointmentsByDoctor(doctorID).Where(x => x.AppointmentDate.Date >= DateTime.Today).ToList();
             return View(doctorAppointments);
         }
 

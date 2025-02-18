@@ -190,15 +190,13 @@
 								<div class="news-head">
 									@*<img src="~/profilepics/@Model.Appointment.Doctor.User.ProfilePicture" alt="#">*@
 								</div>
-								<!-- News Title -->
-								@*<h1 class="news-title"><a>@Model.Appointment.Doctor.DoctorRole, Dr.@Model.Appointment.Doctor.User.UserName</a></h1>*@
-								<!-- Meta -->
+
 								<div class="meta promis-form-container">
 									<div class="meta-left promis-questions-container">
 
 										<p class="question-announcement">The following questions are meant to be answered considering the past 7 days</p>
 										<div class="questions-explanation">
-											<p style="color: white; font-size: 18px;">(1 = Very Often, 5 = Not at All)</p>
+											<p style="color: black; font-size: 18px;">(1 = Very Often, 5 = Not at All)</p>
 										</div>
 										<form asp-controller="Patient" asp-action="BookAppointment">
 											<input type="text" class="form-control" hidden asp-for="@Model.Appointment.ID" value="@Model.Appointment.ID">
@@ -246,7 +244,7 @@
 						<div class="single-widget category">
 							<h3 class="title">Doctor Bio</h3>
 							<p>
-								 @Model.Appointment.Doctor.Bio
+								@(Model.Appointment.Doctor.Bio != null ? Model.Appointment.Doctor.Bio : "Specialist at Ineza Physiotherapy Clinic")
 							</p>
 						</div>
 						<!--/ End Single Widget -->
