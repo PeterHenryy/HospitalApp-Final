@@ -1,0 +1,107 @@
+﻿@using HospitalApp.Helpers.Enums;
+@using HospitalApp.Models.Identity;
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@{
+    bool doctorRole = User.IsInRole(UserRolesEnum.Doctor.ToString());
+    bool adminRole = User.IsInRole(UserRolesEnum.Admin.ToString());
+}
+
+<footer class="text-center text-lg-start text-white" style="margin-top: 50px; background-color: rgb(92, 155, 217); color: white;">
+    <div class="container p-4 pb-0">
+        <section class="">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white;">
+                        Ineza Phisiotheraphy
+                    </h6>
+                    <p style="color: white;">
+                        Discover a world of caring doctors and physiotheraphy specialists with years of experience ready and willing to help you get better!
+                    </p>
+                    
+                </div>
+
+
+                <hr class="w-100 clearfix d-md-none" />
+
+
+   
+                <hr class="w-100 clearfix d-md-none" />
+
+                <hr class="w-100 clearfix d-md-none" />
+
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3" >
+                   
+                    <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white;">
+                        Contact
+                    </h6>
+                    <div style=" display: flex;flex-direction: column;row-gap: 10px;">
+
+                        <a href="https://www.linkedin.com/in/pedro-henrique-de-matos-veronese/" style="text-decoration: none; color: white;">
+                            <p > <i class="fab fa-linkedin-in"></i> LinkedIn</p>
+                        </a>
+                        <p ><i class="fas fa-envelope mr-3"></i> peterhryk@gmail.com</p>
+                        <p ><i class="fas fa-phone mr-3"></i> +55 55 997142547</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3" style="display: flex;flex-direction: column;row-gap: 10px;">
+                    <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white;">Useful Links</h6>
+                    @if(adminRole){
+
+                        <p>
+                            <a class="text-white"  href="@Url.Action("DoctorsIndex", "Admin")">Doctors</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("PatientsIndex", "Admin")">Patients</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("RegisterDoctor", "Admin")">Register Doctor</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("Update", "AppUser")">Edit Profile</a>
+                        </p>
+                    }
+                    else if(@doctorRole){
+                        <p>
+                            <a class="text-white" href="@Url.Action("MyAppointments", "Doctor")">Appointments</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("EditDoctorProfile", "Doctor")">Edit Profile</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("Logout", "AppUser")">Logout</a>
+                        </p>
+
+                    }
+                    else{
+                        <p>
+                            <a class="text-white" href="@Url.Action("DoctorIndex", "Patient")">Doctors</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("Update", "AppUser")">Edit Profile</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("MyAppointments", "Patient")">Appointments</a>
+                        </p>
+                        <p>
+                            <a class="text-white" href="@Url.Action("BillPayment", "Patient")">Bills</a>
+                        </p>
+                    }
+
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <div class="text-center p-3"
+         style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2024 Copyright:
+        <a class="text-white">Ineza Phisiotheraphy</a>
+    </div>
+
+</footer>

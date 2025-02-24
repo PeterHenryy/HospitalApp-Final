@@ -1,6 +1,25 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+html, body {
+    height: 100%; /* Full height */
+    margin: 0; /* Remove default margin */
+}
 
+body {
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack elements vertically */
+}
+
+.container {
+    flex: 1; /* Allow the container to take up available space */
+}
+
+footer {
+    background-color: rgb(0,0,0); /* Footer background */
+    color: white; /* Footer text color */
+    text-align: center; /* Footer text alignment */
+    padding: 20px; /* Padding for the footer */
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;

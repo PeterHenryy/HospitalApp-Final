@@ -193,7 +193,8 @@
 										<th>Start Time</th>
 										<th>End Time</th>
 										<th>Cost</th>
-										<th>Doctor Name</th>
+										<th>Doctor</th>
+										<th>Specialty</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -201,14 +202,14 @@
 
 									@foreach (var appointment in Model.ActiveAppointments)
 									{
-										var billTotal = appointment.AttachedBill != null ? $"${@appointment.AttachedBill.Total}" : "N/A";
+										var billTotal = appointment.AttachedBill != null ? @appointment.AttachedBill.Total : appointment.InitialTotal;
 										<tr>
 											<td>@appointment.AppointmentDate.ToString("MM/dd/yyyy")</td>
 											<td>@appointment.AppointmentStartTime</td>
 											<td>@appointment.AppointmentEndTime</td>
-											<td> <a style="color:black; font-weight: 400; font-size:13px"></a> @billTotal</td>
-											<td>@appointment.Doctor.User.FirstName, @appointment.Doctor.User.LastName</td>
-
+											<td> <a style="color:black; font-weight: 400; font-size:13px"></a> $@billTotal</td>
+											<td>@appointment.Doctor.User.FirstName @appointment.Doctor.User.LastName</td>
+											<td>@appointment.Doctor.DoctorRole</td>
 											<td>
 												@if (appointment.AttachedBill != null){
 

@@ -103,7 +103,7 @@ namespace HospitalApp.Controllers
 
         public IActionResult DoctorAppointments(int doctorID)
         {
-            List<Appointment> doctorAppointments = _doctorService.GetAppointmentsByDoctor(doctorID).Where(x => x.AppointmentDate.Date >= DateTime.Today).ToList();
+            List<Appointment> doctorAppointments = _doctorService.GetAppointmentsByDoctor(doctorID).ToList();
             return View(doctorAppointments);
         }
 

@@ -181,7 +181,7 @@
 	<section class="news-single section">
 		<div class="container-sm" style="display: flex; flex-direction: column; row-gap: 60px;">
 
-				<div class="row justify-content-center">
+				<div class="row justify-content-center" style="width: 100%;">
 
 					<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
 						<h2 style="text-align: center; margin-bottom:25px">Appointment Details</h2>
@@ -218,9 +218,9 @@
 				@*-------------------------------------------------------------------------------------------
 				Medication Section
 				-------------------------------------------------------------------------------------------*@
-				
-				
-					<div class="row justify-content-center">
+
+
+			<div class="row justify-content-center" style="width: 100%;">
 
 						<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
 						<h2 style="text-align: center; margin-bottom:25px">Doctor Billing Details</h2>
@@ -271,7 +271,7 @@
 
 			@if (Model.BillItemsAdded.Count() != 0){
 
-					<div class="row justify-content-center">
+				<div class="row justify-content-center" style="width: 100%;">
 
 						<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
 							<h2 style="text-align: center; margin-bottom:25px">Items & Medication</h2>
@@ -304,7 +304,7 @@
 			}
 
 						<div class="container-sm">
-							<div class="row justify-content-center">
+				<div class="row justify-content-center" style="width: 100%;">
 
 								<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
 									<h2 style="text-align: center;margin-bottom: 25px; color: black;">Patient's PROMIS10 form</h2>
@@ -353,6 +353,7 @@
 
 		</div>
 	</section>
+	<partial name="_FooterPartial" />
 	<!--/ End Single News -->
 	<!--/ End Footer Area -->
 	<script src="~/ProjectTheme2/js/jquery.min.js"></script>
