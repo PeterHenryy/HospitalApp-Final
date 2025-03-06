@@ -54,6 +54,15 @@ body{
 	font-size:14px;
 	color:#888;
 }
+.content-wrapper {
+	flex: 1; /* This makes sure content takes up available space */
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
 .pro-features {
 	position: fixed;
 	right: -300px;

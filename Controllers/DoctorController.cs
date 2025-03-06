@@ -109,7 +109,7 @@ namespace HospitalApp.Controllers
         public IActionResult MyAppointments()
         {
             var doctorId = _doctorService.GetDoctorByUserID(_currentUser.Id).ID;
-            var appointments = _doctorService.GetAppointmentsByDoctor(doctorId).Where(x => x.AppointmentDate.Date >= DateTime.Today).ToList();
+            var appointments = _doctorService.GetAppointmentsByDoctor(doctorId).ToList();
             return View(appointments);
         }
         public async Task<IActionResult> BillingForAppointment(int appointmentId)

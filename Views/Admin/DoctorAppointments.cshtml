@@ -172,7 +172,9 @@
 	</div>
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
-	<section class="news-single section">
+	<div class="content-wrapper">
+
+		<section class="news-single section">
 		<div class="container-sm">
 			<div class="row justify-content-center">
 
@@ -215,7 +217,7 @@
 										<tr>
 											<td>@appointment.AppointmentStartTime</td>
 											<td>@appointment.AppointmentEndTime</td>
-											<td>@appointment.AppointmentDate</td>
+											<td>@appointment.AppointmentDate.ToShortDateString()</td>
 											<td>@appointment.InitialTotal</td>
 											<td>@booked</td>
 											<td>@paid</td>
@@ -329,7 +331,10 @@
 			
 		</div>
 	</section>
+	</div>
 	<!--/ End Single News -->
+	<partial name="_FooterPartial" />
+
 	<!-- Footer Area -->
 	 
 	<!--/ End Footer Area -->

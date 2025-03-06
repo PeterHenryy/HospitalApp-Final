@@ -129,6 +129,11 @@ namespace HospitalApp.Controllers
                         {
                             return RedirectToAction("MyAppointments", "Doctor"); 
                         }
+                        if (roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("DoctorsIndex", "Admin");
+
+                        }
                         return RedirectToAction("DoctorIndex", "Patient");
                     }
 

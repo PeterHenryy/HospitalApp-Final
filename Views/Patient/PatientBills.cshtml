@@ -174,7 +174,9 @@
 	</div>
 	<!-- End Breadcrumbs -->
 	<!-- Single News -->
-	<section class="news-single section">
+	<div class="content-wrapper">
+
+		<section class="news-single section">
 		<div class="container-sm">
 			<div class="row justify-content-center">
 				<div class="col-8" style="box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10); display: flex; flex-direction:column; align-items:center; padding: 15px;">
@@ -192,7 +194,7 @@
 									<tr>
 										<th>Doctor</th>
 										<th>Paid Total</th>
-										<th>Bill Total</th>
+										<th>Appointment Cost</th>
 										<th>Insurance</th>
 										<th>Action</th>
 									</tr>
@@ -207,9 +209,9 @@
 										string insurance = insuranceExists ? insuranceName : "N/A";
 										
 										<tr>
-											<td>@bill.Appointment.Doctor.User.FirstName, @bill.Appointment.Doctor.User.LastName</td>
-											<td>@bill.Total </td>
-											<td>@bill.OriginalTotal </td>
+											<td>@bill.Appointment.Doctor.User.FirstName @bill.Appointment.Doctor.User.LastName</td>
+											<td>$@bill.Total </td>
+											<td>$@bill.OriginalTotal </td>
 											<td>@insurance </td>
 											<td> <a class="btn btn-primary" style="background-color: rgb(92, 155, 217);" href="@Url.Action("AppointmentDetails", "Patient", new {appointmentID = bill.AppointmentId})">Details</a></td>
 										</tr>
@@ -224,9 +226,11 @@
 			</div>				
 		</div>
 	</section>
+	</div>
 	<!--/ End Single News -->
 	<!-- Footer Area -->
-	
+	<partial name="_FooterPartial" />
+
 	<!--/ End Footer Area -->
 	<script src="~/ProjectTheme2/js/jquery.min.js"></script>
 	<script src="~/ProjectTheme2/js/jquery-migrate-3.0.0.js"></script>

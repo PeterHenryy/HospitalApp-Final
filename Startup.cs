@@ -35,7 +35,15 @@ namespace HospitalApp
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddIdentity<AppUser, AppRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<AppUser, AppRole>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = false;         
+                options.Password.RequireLowercase = false;      
+                options.Password.RequireUppercase = false;     
+                options.Password.RequireNonAlphanumeric = false; 
+                options.Password.RequiredLength = 3;            
+                options.Password.RequiredUniqueChars = 1;
+            })
                         .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
