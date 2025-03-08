@@ -4,14 +4,16 @@ using HospitalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121215935_newseed")]
+    partial class newseed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,21 +187,21 @@ namespace HospitalApp.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "239620ba-bcbb-4e79-b42a-efbeb93bde6e",
+                            ConcurrencyStamp = "35b1c241-f872-4737-99bd-e3f32c2f94a8",
                             Name = "Patient",
                             NormalizedName = "PATIENT"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "62dd5e69-311e-4fc2-aa34-cf5c0edfbd79",
+                            ConcurrencyStamp = "4ca82ebf-5aa0-451e-b8c9-8482fa907019",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "c5599eec-67d5-43b2-acd0-5528b06bae49",
+                            ConcurrencyStamp = "8ebc612a-04b3-428e-af6c-32d4c3259069",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

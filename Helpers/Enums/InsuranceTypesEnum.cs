@@ -42,7 +42,7 @@ namespace HospitalApp.Helpers.Enums
         {
             if (Insuranceid == 0)
             {
-                return "";
+                return null;
             }
             var name = InsuranceCoverage.ElementAt(Insuranceid - 1).Key.ToString();
             return name;

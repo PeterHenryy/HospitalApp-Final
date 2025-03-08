@@ -4,14 +4,16 @@ using HospitalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111212524_newStatus")]
+    partial class newStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,8 +116,8 @@ namespace HospitalApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -130,9 +132,6 @@ namespace HospitalApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Bio")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DoctorRole")
                         .HasColumnType("nvarchar(max)");
@@ -180,29 +179,6 @@ namespace HospitalApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "239620ba-bcbb-4e79-b42a-efbeb93bde6e",
-                            Name = "Patient",
-                            NormalizedName = "PATIENT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "62dd5e69-311e-4fc2-aa34-cf5c0edfbd79",
-                            Name = "Doctor",
-                            NormalizedName = "DOCTOR"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "c5599eec-67d5-43b2-acd0-5528b06bae49",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("HospitalApp.Models.Identity.AppUser", b =>
@@ -323,29 +299,6 @@ namespace HospitalApp.Migrations
                     b.HasIndex("AppointmentId");
 
                     b.ToTable("PROMIS10s");
-                });
-
-            modelBuilder.Entity("HospitalApp.Models.Patients.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("HospitalApp.Models.Transaction", b =>
@@ -538,17 +491,6 @@ namespace HospitalApp.Migrations
                 });
 
             modelBuilder.Entity("HospitalApp.Models.Patients.PROMIS10", b =>
-                {
-                    b.HasOne("HospitalApp.Models.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
-                });
-
-            modelBuilder.Entity("HospitalApp.Models.Patients.Review", b =>
                 {
                     b.HasOne("HospitalApp.Models.Appointment", "Appointment")
                         .WithMany()
