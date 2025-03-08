@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231121033435_newstuff")]
-    partial class newstuff
+    [Migration("20250213174303_active")]
+    partial class active
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,6 +133,9 @@ namespace HospitalApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
@@ -141,6 +144,9 @@ namespace HospitalApp.Migrations
 
                     b.Property<int>("HierarchyStatus")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProfilePictureURI")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
@@ -182,6 +188,29 @@ namespace HospitalApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "9bbec022-7983-407e-ae3a-d25ddc14cae2",
+                            Name = "Patient",
+                            NormalizedName = "PATIENT"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "b259316d-9937-4f1d-b684-75883e447a03",
+                            Name = "Doctor",
+                            NormalizedName = "DOCTOR"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "6a0b1c42-c712-47d6-b065-9e880fa1e78b",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("HospitalApp.Models.Identity.AppUser", b =>

@@ -131,6 +131,9 @@ namespace HospitalApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
@@ -139,6 +142,9 @@ namespace HospitalApp.Migrations
 
                     b.Property<int>("HierarchyStatus")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProfilePictureURI")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
@@ -185,21 +191,21 @@ namespace HospitalApp.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "239620ba-bcbb-4e79-b42a-efbeb93bde6e",
+                            ConcurrencyStamp = "9bbec022-7983-407e-ae3a-d25ddc14cae2",
                             Name = "Patient",
                             NormalizedName = "PATIENT"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "62dd5e69-311e-4fc2-aa34-cf5c0edfbd79",
+                            ConcurrencyStamp = "b259316d-9937-4f1d-b684-75883e447a03",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "c5599eec-67d5-43b2-acd0-5528b06bae49",
+                            ConcurrencyStamp = "6a0b1c42-c712-47d6-b065-9e880fa1e78b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
