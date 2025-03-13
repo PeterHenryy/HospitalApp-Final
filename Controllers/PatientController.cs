@@ -36,6 +36,7 @@ namespace HospitalApp.Controllers
             var discountedTotal = InsuranceTypesEnum.CalculatePercentage(bill.Total, percentageOff);
             bill.OriginalTotal = bill.Total;
             bill.Total = discountedTotal;
+            bill.InsuranceId = billDetailsAndForm.BillData.InsuranceId;
             var updatedBill = _patientService.UpdateBill(bill);
             return RedirectToAction("BillPayment", "Patient", new {appointmentId = bill.AppointmentId});
         }
@@ -57,7 +58,7 @@ namespace HospitalApp.Controllers
             {
                 return RedirectToAction("BillDetails", new { appointmentId = transactionFormInfo.AppointmentId });
             }
-			return RedirectToAction("MyAppointments");
+			return RedirectToAction("PatientBills");
 
 		}
 

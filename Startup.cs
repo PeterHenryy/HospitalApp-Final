@@ -55,10 +55,10 @@ namespace HospitalApp
             services.AddTransient<PatientService>();
             services.AddTransient<AdminService>();
             services.AddTransient<AdminRepository>();
-            services.AddSingleton(u => new BlobServiceClient(
-        Configuration.GetValue<string>("BlobConnection")
-            ));
-            services.AddSingleton<IBlobService, BlobService>();
+        //    services.AddSingleton(u => new BlobServiceClient(
+        //Configuration.GetValue<string>("BlobConnection")
+        //    ));
+        //    services.AddSingleton<IBlobService, BlobService>();
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.AllowedUserNameCharacters = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+!*";

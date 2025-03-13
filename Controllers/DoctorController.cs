@@ -20,15 +20,15 @@ namespace HospitalApp.Controllers
         private readonly UserService _userService;
         private readonly AppUser _currentUser;
         private readonly UserManager<AppUser> _userManager;
-        private readonly IBlobService _blobService;
+       // private readonly IBlobService _blobService;
 
-        public DoctorController(DoctorService doctorService, UserService userService, UserManager<AppUser> userManager, IBlobService blobService)
+        public DoctorController(DoctorService doctorService, UserService userService, UserManager<AppUser> userManager)
         {
             _doctorService = doctorService;
             _userService = userService;
             _currentUser = userService.GetCurrentUser();
             _userManager = userManager;
-            _blobService = blobService;
+           // _blobService = blobService;
         }
 
         [HttpGet]
@@ -84,8 +84,8 @@ namespace HospitalApp.Controllers
             {
                 updatedUser.ProfilePicture = files[0].FileName;
                 _userService.HandleUserProfilePicture(files);
-                bool uploadedBlob = await _blobService.UploadBlob(updatedUser.ProfilePicture, files[0], new Blob());
-                doctorObject.ProfilePictureURI = _blobService.GetBlob(updatedUser.ProfilePicture);
+            //    bool uploadedBlob = await _blobService.UploadBlob(updatedUser.ProfilePicture, files[0], new Blob());
+            //    doctorObject.ProfilePictureURI = _blobService.GetBlob(updatedUser.ProfilePicture);
             }
             updatedUser.SecurityStamp = Guid.NewGuid().ToString();
             AppUser mappedUser = await _userService.MapUserUpdates(updatedUser, _currentUser);
